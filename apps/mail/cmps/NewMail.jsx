@@ -1,5 +1,5 @@
 
-const { useState } = React
+const { useState } = React 
 
 export function NewMail({ onClose, onSendMail }) {
 
