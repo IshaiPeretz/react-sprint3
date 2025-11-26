@@ -4,20 +4,12 @@ import { MailPreview } from "./MailPreview.jsx"
 
 export function MailList({ mails, onRemove }) {
 
-
-
-
-
-
-
-
     return (
-        <section>
+        <section className = "mail-list">
 
             {mails.map(mail =>
                 <article key={mail.id}>
-                    <MailPreview mail={mail} />
-                    <button onClick={() => onRemove(mail.id)}>x</button>
+                    <MailPreview mail={mail} onRemove={onRemove} />
                 </article>
             )}
         </section>

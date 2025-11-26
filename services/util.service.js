@@ -8,6 +8,7 @@ export const utilService = {
     getMonthName,
     loadFromStorage,
     saveToStorage,
+     getMonthNameAndDay
 }
 
 function saveToStorage(key, val) {
@@ -70,4 +71,11 @@ function getMonthName(date) {
         "July", "August", "September", "October", "November", "December"
     ]
     return monthNames[date.getMonth()]
+}
+
+function getMonthNameAndDay(timestamp) {
+  const date = new Date(timestamp);
+  const monthName = date.toLocaleString('default', { month: 'short' }); 
+  const day = date.getDate(); 
+  return { monthName, day };
 }
