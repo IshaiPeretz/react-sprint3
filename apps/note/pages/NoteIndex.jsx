@@ -2,6 +2,7 @@ const { useState, useEffect } = React;
 
 import { notesService } from "../services/note.service.js";
 import { NoteList } from "../cmps/NoteList.jsx";
+import { NoteAdd } from "../cmps/NoteAdd.jsx";
 
 export function NoteIndex() {
   const [notes, setNotes] = useState(null);
@@ -30,10 +31,25 @@ export function NoteIndex() {
     });
   }
 
+function onAddNote({ txt, noteType }) {
+  const newNote = notesService.getEmptyNote(noteType)
+  if (noteType === 'NoteTxt') newNote.info.txt = txt
+  if (noteType === 'NoteImg' || noteType === 'NoteVideo') newNote.info.url = txt
+  if (noteType === 'NoteTodos') newNote.info.todos = txt.split(',').map(item => ({
+    txt: item.trim(),
+    isDone: false
+  }))
+  notesService.save(newNote).then((savedNote) => {
+    setNotes((prev) => [savedNote, ...prev])
+  })
+}
+
+
   if (!notes) return <div>Loading...</div>;
 
   return (
     <section className="note-index">
+      <NoteAdd onAddNote={onAddNote} />
       <NoteList
         notes={notes}
         onRemoveNote={onRemoveNote}
