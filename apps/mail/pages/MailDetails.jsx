@@ -26,10 +26,10 @@ export function MailDetails() {
                 setMail(mail)
                 mailService.save(mail)
             })
-        .catch(() => {
-            showErrorMsg('Couldn\'t get mail...')
-            navigate(`/mail`)
-        })
+            .catch(() => {
+                showErrorMsg('Couldn\'t get mail...')
+                navigate(`/mail`)
+            })
     }
 
 
@@ -47,6 +47,16 @@ export function MailDetails() {
             <button className='close'>
                 <Link to='/mail'> Back </Link>
             </button>
+            <button className='delete' >Delete</button>
+            
+            <nav className='mail-details-nav'>
+                <Link to={`/mail/${mail.prevMailId}`}>
+                    <button><i className="fa-solid fa-arrow-left"></i></button>
+                </Link>
+                <Link to={`/mail/${mail.nextMailId}`}>
+                    <button><i className="fa-solid fa-arrow-right"></i></button>
+                </Link>
+            </nav>
 
         </div>
     )

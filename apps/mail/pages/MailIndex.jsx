@@ -16,10 +16,10 @@ export function MailIndex() {
     console.log(mails)
 
     useEffect(() => {
-        loadBooks()
+        loadMails()
     }, [])
 
-    function loadBooks() {
+    function loadMails() {
         mailService.query()
             .then(mails => setMails(mails))
     }
@@ -43,13 +43,24 @@ export function MailIndex() {
         setIsNewMailOpen(false)
     }
 
+    function markAsRead(ev, mailId) {
+        ev.preventDefault()
+        mailService.get(mailId)
+            .then(mail => {
+                mail.isRead = !mail.isRead
+                mailService.save(mail)
+                    .then(() => loadMails())
+            })
+
+    }
+
     return (
         <Fragment>
             <section className="main-container">
                 <button className="compose-btn" onClick={openNewMail}><i className="fa-solid fa-pen"></i></button>
                 {isNewMailOpen && <NewMail onClose={closeNewMail} onSendMail={sendMail} />}
                 <CountUnread mails={mails} />
-                <MailList mails={mails} onRemove={removeMail} />
+                <MailList mails={mails} onRemove={removeMail} onMarkRead={markAsRead} />
 
             </section>
         </Fragment>

@@ -5,6 +5,8 @@
     align-items: center;
     border: 1px #eceff1 solid;
     padding: 0.5em;
+    height: 3em;
+
 
 
     &:hover {
