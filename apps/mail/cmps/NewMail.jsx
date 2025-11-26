@@ -5,8 +5,6 @@ export function NewMail({ onClose, onSendMail }) {
 
     const [mailInput, setMailInput] = useState()
 
-
-
     function handleChange({ target }) {
         const { type, name: field } = target
         let { value } = target
