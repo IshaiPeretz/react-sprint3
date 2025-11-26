@@ -8,7 +8,7 @@ export const utilService = {
     getMonthName,
     loadFromStorage,
     saveToStorage,
-     getMonthNameAndDay
+    formatCustomDate
 }
 
 function saveToStorage(key, val) {
@@ -73,9 +73,13 @@ function getMonthName(date) {
     return monthNames[date.getMonth()]
 }
 
-function getMonthNameAndDay(timestamp) {
-  const date = new Date(timestamp);
-  const monthName = date.toLocaleString('default', { month: 'short' }); 
-  const day = date.getDate(); 
-  return { monthName, day };
+function formatCustomDate(timestamp) {
+    const dateObj = new Date(timestamp)
+
+    const dayOfMonth = dateObj.getDate()
+    const monthShortName = dateObj.toLocaleString('default', { month: 'short' })
+    const year = dateObj.getFullYear()
+    const time = dateObj.toLocaleTimeString()
+
+    return `${dayOfMonth} ${monthShortName}, ${year}, ${time}`
 }

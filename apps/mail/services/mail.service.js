@@ -36,7 +36,7 @@ function query(filterBy = {}) {
 
 function get(mailId) {
     return storageService.get(MAIL_KEY, mailId)
-    // .then(mail => _setNextPrevBookId(mail))
+        .then(mail => _setNextPrevMailId(mail))
 }
 
 
@@ -63,7 +63,7 @@ function save(mail) {
 
 function _createMails() {
     const mails = utilService.loadFromStorage(MAIL_KEY) || []
-    
+
 
     if (mails && mails.length) return
 
@@ -81,19 +81,19 @@ function _createMails() {
         }
         mails.push(mail)
     }
-    console.log(mails);
-    
+    console.log(mails)
+
     utilService.saveToStorage(MAIL_KEY, mails)
 }
 
-// function _setNextPrevBookId(book) {
-//     return storageService.query(BOOK_KEY)
-//         .then((books) => {
-//             const bookIdx = books.findIndex((currBook) => currBook.id === book.id)
-//             const nextBook = books[bookIdx + 1] ? books[bookIdx + 1] : books[0]
-//             const prevBook = books[bookIdx - 1] ? books[bookIdx - 1] : books[books.length - 1]
-//             book.nextBookId = nextBook.id
-//             book.prevBookId = prevBook.id
-//             return book
-//         })
-// }
+function _setNextPrevMailId(mail) {
+    return storageService.query(MAIL_KEY)
+        .then((mails) => {
+            const mailIdx = mails.findIndex((currMail) => currMail.id === mail.id)
+            const nextMail = mails[mailIdx + 1] ? mails[mailIdx + 1] : mails[0]
+            const prevMail = mails[mailIdx - 1] ? mails[mailIdx - 1] : mails[mails.length - 1]
+            mail.nextMailId = nextMail.id
+            mail.prevMailId = prevMail.id
+            return mail
+        })
+}

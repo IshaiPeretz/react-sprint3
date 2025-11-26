@@ -1,23 +1,35 @@
 .new-mail-modal {
     display: grid;
+    grid-template-rows: auto 1fr auto;
     position: fixed;
     bottom: 0;
     right: 0;
     width: 40vw;
     height: 40vh;
     border: 1px solid var(--mail-color-1);
-
-
+    box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    border-radius: 8px;
+    z-index: 10;
+    background-color: white;
 
 
     form {
-        display: grid;
-
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        height: 100%;
     }
 
     .to,
     .subject {
         height: 2em;
+        border: 1px solid var(--mail-color-1);
+    }
+
+    .body {
+        resize: none;
+        flex-grow: 1;
         border: 1px solid var(--mail-color-1);
     }
 
@@ -27,13 +39,23 @@
 .modal-header {
     background-color: var(--mail-color-1);
     height: fit-content;
-
-
-
+    padding: 10px;
+    max-height: 2em;
 }
 
 .header-btn {
     position: absolute;
     top: 0;
     right: 0;
+    background: transparent;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 5px;
 }
