@@ -1,7 +1,7 @@
 
 const { useState } = React
 
-export function NewMail({ onClose, onSendMail}) {
+export function NewMail({ onClose, onSendMail }) {
 
     const [mailInput, setMailInput] = useState()
 
@@ -23,8 +23,8 @@ export function NewMail({ onClose, onSendMail}) {
         }
 
         setMailInput(prevInput => ({ ...prevInput, [field]: value }))
-       
-        
+
+
     }
 
     function onSend(ev) {
@@ -42,14 +42,15 @@ export function NewMail({ onClose, onSendMail}) {
     return (
         <div className="new-mail-modal">
 
-            <h2>New mail</h2>
+            <h2 className="modal-header">New mail</h2>
 
             <form onSubmit={onSend}>
-                <input type="email" name="to" placeholder="To" required onChange={handleChange} />
-                <input type="text" name="subject" placeholder="Subject" onChange={handleChange} />
-                <input type="body" name="body" placeholder="body" onChange={handleChange} />
+                <input type="email" className="to" name="to" placeholder="To" required onChange={handleChange} />
+                <input type="text" className="subject" name="subject" placeholder="Subject" onChange={handleChange} />
+                <textarea type="body" className="body" name="body" placeholder="" onChange={handleChange} />
 
                 <section className="modal-buttons">
+                    <button  className ="header-btn" type="button" onClick={onClose}>x</button>
                     <button type="button" onClick={onClose}>Cancel</button>
                     <button type="submit">Send</button>
                 </section>

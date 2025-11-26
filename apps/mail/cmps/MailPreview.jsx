@@ -9,9 +9,9 @@ export function MailPreview({ mail, onRemove }) {
     
     return (
         <article className='mail-prev'>
-            <h1>{from}</h1>
-            <h1>{subject}</h1>
-            <h1>{date.monthName}-{date.day}</h1>
+            <h3>{from}</h3>
+            <h3>{subject}</h3>
+            <h3>{date.monthName}-{date.day}</h3>
             <button onClick={() => onRemove(mail.id)}>x</button>
         </article>
     )

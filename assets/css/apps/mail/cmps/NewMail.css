@@ -1,0 +1,39 @@
+.new-mail-modal {
+    display: grid;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 40vw;
+    height: 40vh;
+    border: 1px solid var(--mail-color-1);
+
+
+
+
+    form {
+        display: grid;
+
+    }
+
+    .to,
+    .subject {
+        height: 2em;
+        border: 1px solid var(--mail-color-1);
+    }
+
+
+}
+
+.modal-header {
+    background-color: var(--mail-color-1);
+    height: fit-content;
+
+
+
+}
+
+.header-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+}

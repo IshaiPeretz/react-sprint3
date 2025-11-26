@@ -49,8 +49,8 @@ export function MailIndex() {
     }
 
     return (
-        <section>
-            <button onClick={openNewMail}>Compose Mail</button>
+        <section className = "main-container">
+            <button className ="compose-btn" onClick={openNewMail}><i class="fa-solid fa-pen"></i></button>
             {isNewMailOpen && <NewMail onClose={closeNewMail} onSendMail={sendMail} />}
             <MailList mails={mails} onRemove={removeMail} />
         </section>

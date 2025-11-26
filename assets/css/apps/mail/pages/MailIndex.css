@@ -1,1 +1,21 @@
  /* mail index  */
+
+
+ .main-container {
+     display: grid;
+     grid-template-columns: 50px auto;
+
+ }
+
+ .compose-btn {
+     align-self: start;
+     background-color: #c2e7ff;
+     border-radius: 5px;
+     border: 0;
+     justify-self: center;
+     padding: 20px;
+
+     &:hover {
+         cursor: pointer;
+     }
+ }

@@ -2,4 +2,7 @@
 .mail-prev{
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    border: 1px #eceff1 solid;
+    padding: 0.5em;
 }
