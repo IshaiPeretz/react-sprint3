@@ -2,14 +2,31 @@
 
 .note-list {
   list-style: none;
-  padding: 20px;
+  padding: 0;
   margin: 0;
-
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 16px;
+  columns: 4 240px;
+  column-gap: 20px;
 }
 
 .note-list li {
-  margin: 0;
+  break-inside: avoid;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 1200px) {
+  .note-list {
+    columns: 3 240px;
+  }
+}
+
+@media (max-width: 900px) {
+  .note-list {
+    columns: 2 240px;
+  }
+}
+
+@media (max-width: 600px) {
+  .note-list {
+    columns: 1 240px;
+  }
 }

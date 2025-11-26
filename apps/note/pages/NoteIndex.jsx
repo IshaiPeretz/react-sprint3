@@ -1,5 +1,5 @@
 const { useState, useEffect } = React;
-
+import "../../../assets/css/apps/note/cmps/NoteAdd.css";
 import { notesService } from "../services/note.service.js";
 import { NoteList } from "../cmps/NoteList.jsx";
 import { NoteAdd } from "../cmps/NoteAdd.jsx";
@@ -31,19 +31,20 @@ export function NoteIndex() {
     });
   }
 
-function onAddNote({ txt, noteType }) {
-  const newNote = notesService.getEmptyNote(noteType)
-  if (noteType === 'NoteTxt') newNote.info.txt = txt
-  if (noteType === 'NoteImg' || noteType === 'NoteVideo') newNote.info.url = txt
-  if (noteType === 'NoteTodos') newNote.info.todos = txt.split(',').map(item => ({
-    txt: item.trim(),
-    isDone: false
-  }))
-  notesService.save(newNote).then((savedNote) => {
-    setNotes((prev) => [savedNote, ...prev])
-  })
-}
-
+  function onAddNote({ txt, noteType }) {
+    const newNote = notesService.getEmptyNote(noteType);
+    if (noteType === "NoteTxt") newNote.info.txt = txt;
+    if (noteType === "NoteImg" || noteType === "NoteVideo")
+      newNote.info.url = txt;
+    if (noteType === "NoteTodos")
+      newNote.info.todos = txt.split(",").map((item) => ({
+        txt: item.trim(),
+        isDone: false,
+      }));
+    notesService.save(newNote).then((savedNote) => {
+      setNotes((prev) => [savedNote, ...prev]);
+    });
+  }
 
   if (!notes) return <div>Loading...</div>;
 
