@@ -1,8 +1,22 @@
-
-.mail-prev{
+.mail-prev {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border: 1px #eceff1 solid;
     padding: 0.5em;
+
+
+    &:hover {
+        cursor: pointer;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3)
+    }
+}
+
+.read {
+    background-color: var(--mail-color-1);
+
+    h3 {
+        font-weight: normal
+    }
 }

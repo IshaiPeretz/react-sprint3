@@ -31,6 +31,7 @@ export function NewMail({ onClose, onSendMail }) {
         ev.preventDefault()
         mailInput.sentAt = Date.now()
         mailInput.from = 'user@appsus.com'
+        mailInput.isRead = true
 
 
         onSendMail(mailInput)
@@ -51,7 +52,6 @@ export function NewMail({ onClose, onSendMail }) {
 
                 <section className="modal-buttons">
                     <button  className ="header-btn" type="button" onClick={onClose}>x</button>
-                    <button type="button" onClick={onClose}>Cancel</button>
                     <button type="submit">Send</button>
                 </section>
             </form>

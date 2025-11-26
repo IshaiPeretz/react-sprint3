@@ -1,10 +1,12 @@
+import { CountUnread } from "../cmps/CountUnread.jsx"
 import { MailHeader } from "../cmps/MailHeader.jsx"
 import { MailList } from "../cmps/MailList.jsx"
 import { NewMail } from "../cmps/NewMail.jsx"
 import { mailService } from "../services/mail.service.js"
+import { MailDetails } from "./MailDetails.jsx"
 
 
-const { useState, useEffect } = React
+const { useState, useEffect, Fragment } = React
 
 
 export function MailIndex() {
@@ -22,25 +24,18 @@ export function MailIndex() {
             .then(mails => setMails(mails))
     }
 
-
-    function removeMail(mailId) {
+    function removeMail(ev, mailId) {
+        ev.preventDefault()
         mailService.remove(mailId)
             .then(() => setMails(mails => mails.filter(mail => mailId !== mail.id)))
     }
-    function sendMail() {
-
-    }
-
 
     function sendMail(mail) {
         mailService.save(mail)
             .then(mail => {
                 setMails(mails => [...mails, mail])
             })
-
-
     }
-
     function openNewMail() {
         setIsNewMailOpen(true)
     }
@@ -49,11 +44,15 @@ export function MailIndex() {
     }
 
     return (
-        <section className = "main-container">
-            <button className ="compose-btn" onClick={openNewMail}><i class="fa-solid fa-pen"></i></button>
-            {isNewMailOpen && <NewMail onClose={closeNewMail} onSendMail={sendMail} />}
-            <MailList mails={mails} onRemove={removeMail} />
-        </section>
+        <Fragment>
+            <section className="main-container">
+                <button className="compose-btn" onClick={openNewMail}><i className="fa-solid fa-pen"></i></button>
+                {isNewMailOpen && <NewMail onClose={closeNewMail} onSendMail={sendMail} />}
+                <CountUnread mails={mails} />
+                <MailList mails={mails} onRemove={removeMail} />
+
+            </section>
+        </Fragment>
     )
 }
 
