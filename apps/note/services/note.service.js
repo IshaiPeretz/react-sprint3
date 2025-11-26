@@ -53,7 +53,6 @@ function save(note) {
 
 function getEmptyNote(type = 'NoteTxt') {
     return {
-        id: utilService.makeId(),
         createdAt: Date.now(),
         type,
         isPinned: false,
@@ -61,6 +60,7 @@ function getEmptyNote(type = 'NoteTxt') {
         info: _getEmptyInfo(type),
     }
 }
+
 
 function getDefaultFilter() {
     return {
