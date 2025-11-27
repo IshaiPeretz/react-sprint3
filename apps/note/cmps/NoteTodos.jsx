@@ -1,32 +1,37 @@
 export function NoteTodos({ info, isEditMode, onChangeInfo }) {
   function toggleDone(idx) {
-    const newTodos = info.todos.map((todo, i) =>
+    const updated = info.todos.map((todo, i) =>
       i === idx ? { ...todo, isDone: !todo.isDone } : todo
     );
-    onChangeInfo({ ...info, todos: newTodos });
+    onChangeInfo({ ...info, todos: updated });
+  }
+
+  function updateTxt(idx, value) {
+    const updated = info.todos.map((todo, i) =>
+      i === idx ? { ...todo, txt: value } : todo
+    );
+    onChangeInfo({ ...info, todos: updated });
   }
 
   if (isEditMode) {
     return (
       <article className="note-todos">
-        <h4>{info.title}</h4>
+        {info.title && <h4>{info.title}</h4>}
+
         <ul>
           {info.todos.map((todo, idx) => (
-            <li key={idx}>
+            <li key={idx} className="todo-item">
               <input
                 type="checkbox"
                 checked={todo.isDone}
                 onChange={() => toggleDone(idx)}
               />
+
               <input
                 type="text"
                 value={todo.txt}
-                onChange={(ev) => {
-                  const updated = info.todos.map((t, i) =>
-                    i === idx ? { ...t, txt: ev.target.value } : t
-                  );
-                  onChangeInfo({ ...info, todos: updated });
-                }}
+                onChange={(ev) => updateTxt(idx, ev.target.value)}
+                className="todo-text-input"
               />
             </li>
           ))}
@@ -37,15 +42,17 @@ export function NoteTodos({ info, isEditMode, onChangeInfo }) {
 
   return (
     <article className="note-todos">
-      <h4>{info.title}</h4>
+      {info.title && <h4>{info.title}</h4>}
+
       <ul>
         {info.todos.map((todo, idx) => (
-          <li key={idx}>
+          <li key={idx} className="todo-item">
             <input
               type="checkbox"
               checked={todo.isDone}
               onChange={() => toggleDone(idx)}
             />
+
             <span
               style={{
                 textDecoration: todo.isDone ? "line-through" : "none",
