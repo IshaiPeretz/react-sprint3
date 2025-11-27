@@ -1,5 +1,5 @@
 import { utilService } from "../../../services/util.service.js"
-import { LongTxt } from "./LongTxt.jsx"
+
 
 
 export function MailPreview({ mail, onRemove, onMarkRead }) {

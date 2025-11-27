@@ -1,24 +1,31 @@
-header {
-    background: lightcyan;
-    border-bottom: 2px solid white;
-}
-
 .app-header {
     display: flex;
     justify-content: space-between;
-    padding: 20px 0;
+    padding: 20px;
+    background: var(--main-bg-color);
+    border-bottom: 2px solid white;
+
+    min-height: 80px;
+    align-items: center;
+    border-radius: 5px;
+    font-family: lato;
+    font-size: 1.2em;
+
 }
 
 nav a {
     margin: .5em;
 }
 
-nav a:active {
-    color: purple;
-}
+
 
 nav a.active {
-    color: darkblue;
+    color: aliceblue;
     font-weight: bold;
-    text-decoration: overline;
+    text-decoration: underline;
+}
+
+.main-logo {
+    color: aliceblue;
+    font-size: 3em;
 }

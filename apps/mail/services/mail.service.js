@@ -21,8 +21,6 @@ export const mailService = {
 function query(filterBy = {}) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
-            console.log(filterBy);
-            
             if (filterBy.status === 'inbox') {
                 mails = mails.filter(mail => mail.to === loggedInUser.email)
             }

@@ -1,1 +1,40 @@
  /* home */
+
+ .home {
+     margin: 20px;
+     font-size: 1.5em;
+     padding: 20px;
+
+     li {
+         margin: 10px;
+     }
+
+     span {
+         color: var(--main-bg-color);
+         font-family: lato;
+     }
+ }
+
+ .mail-logo {
+     justify-self: center;
+     font-family: poppins, sans-serif;
+     font-size: 2.5rem;
+     font-weight: 700;
+     color: #425a7f;
+     display: flex;
+     align-items: center;
+     gap: 0.5rem;
+     padding: 15px;
+ }
+
+ .note-logo {
+     justify-self: center;
+     font-family: poppins, sans-serif;
+     font-size: 2.5rem;
+     font-weight: 700;
+     color: #425a7f;
+     display: flex;
+     align-items: center;
+     gap: 0.5rem;
+     padding: 15px;
+ }

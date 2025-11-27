@@ -4,10 +4,8 @@
 const { useState, useEffect } = React
 
 export function MailFilter({ defaultFilter, onSetFilter }) {
-    console.log(defaultFilter)
 
     const [filterByToEdit, setFilterToEdit] = useState({})
-
 
     useEffect(() => {
         onSetFilter(filterByToEdit)
@@ -38,13 +36,11 @@ export function MailFilter({ defaultFilter, onSetFilter }) {
         }
 
         setFilterToEdit(prevFilter => ({ ...prevFilter, [field]: value }))
-
     }
 
 
     const { text, isRead } = filterByToEdit
     return (
-
         <section className="filter-container">
             <form>
                 <label htmlFor="text"></label>
@@ -61,9 +57,7 @@ export function MailFilter({ defaultFilter, onSetFilter }) {
                     </label>
                 </section>
             </form>
-
         </section >
-
     )
 }
 
