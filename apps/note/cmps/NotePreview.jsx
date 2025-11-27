@@ -26,7 +26,13 @@ export function NotePreview({ note, onRemoveNote, onSaveNote }) {
         return <NoteImg info={note.info} />;
 
       case "NoteTodos":
-        return <NoteTodos info={note.info} />;
+        return (
+          <NoteTodos
+            info={note.info}
+            isEditMode={isEditMode}
+            onChangeInfo={onChangeInfo}
+          />
+        );
 
       default:
         return <div>Unknown note type</div>;

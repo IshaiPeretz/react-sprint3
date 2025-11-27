@@ -6,13 +6,34 @@ export function NoteAdd({ onAddNote }) {
   const [title, setTitle] = useState("");
   const [txt, setTxt] = useState("");
   const [noteType, setNoteType] = useState("NoteTxt");
+  const [todos, setTodos] = useState([{ txt: "", isDone: false }]);
   const formRef = useRef(null);
 
+  function autoGrow(ev) {
+    const el = ev.target;
+    el.style.height = "auto";
+    el.style.height = el.scrollHeight + "px";
+  }
+
   function save() {
-    if (!txt && !title) return;
-    onAddNote({ title, txt, noteType });
+    if (!isExpanded) return;
+
+    if (noteType === "NoteTodos") {
+      const cleanTodos = todos
+        .filter((t) => t.txt.trim() !== "")
+        .map((t) => ({ txt: t.txt.trim(), isDone: false }));
+
+      if (!title && cleanTodos.length === 0) return;
+
+      onAddNote({ title, txt: cleanTodos, noteType });
+    } else {
+      if (!txt && !title) return;
+      onAddNote({ title, txt, noteType });
+    }
+
     setTitle("");
     setTxt("");
+    setTodos([{ txt: "", isDone: false }]);
   }
 
   function onSubmit(ev) {
@@ -31,7 +52,54 @@ export function NoteAdd({ onAddNote }) {
     }
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
-  }, [isExpanded, title, txt, noteType]);
+  }, [isExpanded, title, txt, noteType, todos]);
+
+  useEffect(() => {
+    setTxt("");
+    setTitle("");
+    setTodos([{ txt: "", isDone: false }]);
+  }, [noteType]);
+
+  function updateTodo(idx, value) {
+    const list = [...todos];
+    list[idx].txt = value;
+    setTodos(list);
+  }
+
+  function onTodoKey(ev, idx) {
+    if (ev.key === "Enter") {
+      ev.preventDefault();
+
+      const list = [...todos];
+      list.splice(idx + 1, 0, { txt: "", isDone: false });
+      setTodos(list);
+
+      setTimeout(() => {
+        const nextInput =
+          formRef.current &&
+          formRef.current.querySelector(
+            `.todo-row:nth-child(${idx + 2}) .todo-input`
+          );
+
+        if (nextInput) nextInput.focus();
+      }, 0);
+    }
+
+    if (ev.key === "Backspace" && todos[idx].txt === "" && todos.length > 1) {
+      const list = todos.filter((_, i) => i !== idx);
+      setTodos(list);
+
+      setTimeout(() => {
+        const prevInput =
+          formRef.current &&
+          formRef.current.querySelector(
+            `.todo-row:nth-child(${idx}) .todo-input`
+          );
+
+        if (prevInput) prevInput.focus();
+      }, 0);
+    }
+  }
 
   return (
     <section className="note-add">
@@ -47,12 +115,61 @@ export function NoteAdd({ onAddNote }) {
         )}
 
         <div className="note-add-input" onClick={() => setIsExpanded(true)}>
-          <input
-            type="text"
-            placeholder="Take a note..."
-            value={txt}
-            onChange={(ev) => setTxt(ev.target.value)}
-          />
+          {!isExpanded && noteType !== "NoteTodos" && (
+            <input
+              type="text"
+              placeholder="Take a note..."
+              value={txt}
+              onChange={(ev) => setTxt(ev.target.value)}
+            />
+          )}
+
+          {isExpanded && noteType === "NoteTxt" && (
+            <textarea
+              rows={1}
+              placeholder="Take a note..."
+              value={txt}
+              onChange={(ev) => {
+                setTxt(ev.target.value);
+                autoGrow(ev);
+              }}
+            />
+          )}
+
+          {isExpanded && noteType === "NoteImg" && (
+            <input
+              type="text"
+              placeholder="Image URL..."
+              value={txt}
+              onChange={(ev) => setTxt(ev.target.value)}
+            />
+          )}
+
+          {isExpanded && noteType === "NoteVideo" && (
+            <input
+              type="text"
+              placeholder="YouTube URL..."
+              value={txt}
+              onChange={(ev) => setTxt(ev.target.value)}
+            />
+          )}
+
+          {isExpanded && noteType === "NoteTodos" && (
+            <div className="todo-editor">
+              {todos.map((todo, idx) => (
+                <div className="todo-row" key={idx}>
+                  <input type="checkbox" disabled />
+                  <input
+                    className="todo-input"
+                    value={todo.txt}
+                    placeholder={idx === todos.length - 1 ? "List item" : ""}
+                    onChange={(ev) => updateTodo(idx, ev.target.value)}
+                    onKeyDown={(ev) => onTodoKey(ev, idx)}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
 
           <div className="note-type-actions">
             <button type="button" onClick={() => setNoteType("NoteTxt")}>
