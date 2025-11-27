@@ -1,10 +1,14 @@
 import { mailService } from "../services/mail.service.js"
 
-const { useState } = React 
+const { useState, useEffect } = React
 
-export function NewMail({ onClose, onSendMail }) {
+export function NewMail({ onClose, onSendMail, editingMail }) {
 
-    const [mailInput, setMailInput] = useState()
+    const [mailInput, setMailInput] = useState(editingMail || {})
+
+    useEffect(() => {
+        setMailInput(editingMail || {})
+    }, [editingMail])
 
     function handleChange({ target }) {
         const { type, name: field } = target
@@ -28,15 +32,26 @@ export function NewMail({ onClose, onSendMail }) {
 
     function onSend(ev) {
         ev.preventDefault()
-        mailInput.sentAt = Date.now()
-        mailInput.from = mailService.loggedInUser.email
-        mailInput.isRead = true
-
-        onSendMail(mailInput)
-
+        const mail = {
+            ...mailInput,
+            sentAt: Date.now(),
+            createdAt: mailInput.createdAt || Date.now(),
+            from: mailService.loggedInUser.email,
+            isRead: true
+        }
+        onSendMail(mail)
         onClose()
     }
-
+    function saveDraft() {
+        const mail = {
+            ...mailInput,
+            from: mailService.loggedInUser.email,
+            createdAt: Date.now(),
+            isRead: true
+        }
+        onSendMail(mail)
+        onClose()
+    }
 
     return (
         <div className="new-mail-modal">
@@ -44,12 +59,32 @@ export function NewMail({ onClose, onSendMail }) {
             <h2 className="modal-header">New mail</h2>
 
             <form onSubmit={onSend}>
-                <input type="email" className="to" name="to" placeholder="To" required onChange={handleChange} />
-                <input type="text" className="subject" name="subject" placeholder="Subject" onChange={handleChange} />
-                <textarea type="body" className="body" name="body" placeholder="" onChange={handleChange} />
+                <input
+                    type="email"
+                    className="to"
+                    name="to"
+                    placeholder="To"
+                    required
+                    value={mailInput.to}
+                    onChange={handleChange} />
+
+                <input
+                    type="text"
+                    className="subject"
+                    name="subject"
+                    placeholder="Subject"
+                    value={mailInput.subject}
+                    onChange={handleChange} />
+                <textarea
+                    type="body"
+                    className="body"
+                    name="body"
+                    placeholder=""
+                    value={mailInput.body}
+                    onChange={handleChange} />
 
                 <section className="modal-buttons">
-                    <button  className ="header-btn" type="button" onClick={onClose}>x</button>
+                    <button className="header-btn" type="button" onClick={saveDraft}>x</button>
                     <button type="submit">Send</button>
                 </section>
             </form>

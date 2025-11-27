@@ -10,6 +10,7 @@
 
     .date {
         white-space: nowrap;
+        width: 80px;
     }
 
     .body {
@@ -40,6 +41,7 @@
 
         .prev-btns {
             display: flex;
+            width: 80px;
         }
 
         .date {
