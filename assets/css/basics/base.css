@@ -1,11 +1,12 @@
 * {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
+
 
 
 body {
     margin: 0;
-    
+    font-family: roboto;
 }
 
 h1,
@@ -29,6 +30,6 @@ img {
 }
 
 
-button:hover{
+button:hover {
     cursor: pointer;
 }

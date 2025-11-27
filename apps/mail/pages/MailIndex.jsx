@@ -14,6 +14,7 @@ const { useState, useEffect, Fragment } = React
 export function MailIndex() {
     const [filterBy, setFilterBy] = useState(mailService.getDefaultFilter())
     const [isNewMailOpen, setIsNewMailOpen] = useState(false)
+    const [editingMail, setEditingMail] = useState(null)
     const [mails, setMails] = useState([])
     console.log(mails)
 
@@ -26,23 +27,30 @@ export function MailIndex() {
             .then(mails => setMails(mails))
     }
 
-    function removeMail(ev, mailId) {
+    function removeMail(ev, mail) {
         ev.preventDefault()
-        mailService.remove(mailId)
-            .then(() => setMails(mails => mails.filter(mail => mailId !== mail.id)))
+
+        const updatedMail = { ...mail, removedAt: Date.now() }
+
+        mailService.save(updatedMail)
+            .then(() => {
+                loadMails()
+            })
     }
 
     function sendMail(mail) {
         mailService.save(mail)
-            .then(mail => {
-                setMails(mails => [...mails, mail])
+            .then(() => {
+                loadMails()
             })
     }
-    function openNewMail() {
+    function openNewMail(mail) {
+        setEditingMail(mail)
         setIsNewMailOpen(true)
     }
     function closeNewMail() {
         setIsNewMailOpen(false)
+        setEditingMail(null)
     }
     function onInbox() {
         setFilterBy(filterBy => ({ ...filterBy, status: 'inbox' }))
@@ -51,12 +59,18 @@ export function MailIndex() {
         setFilterBy(filterBy => ({ ...filterBy, status: 'sent' }))
     }
 
+    function onTrash() {
+        setFilterBy(filterBy => ({ ...filterBy, status: 'trash' }))
+    }
+    function onDraft() {
+        setFilterBy(filterBy => ({ ...filterBy, status: 'draft' }))
+    }
+
     function markAsRead(ev, mail) {
         ev.preventDefault()
         mail.isRead = !mail.isRead
         mailService.save(mail)
             .then((updatedMail) => {
-                console.log(updatedMail)
                 const updatedMails = mails.map(mail => mail.id === updatedMail.id ? updatedMail : mail)
                 setMails(updatedMails)
             })
@@ -64,6 +78,9 @@ export function MailIndex() {
     function onSetFilter(newFilterBy) {
         setFilterBy(filterBy => ({ ...filterBy, ...newFilterBy }))
     }
+
+
+    const visibleMails = mails
     return (
         <Fragment>
 
@@ -72,13 +89,24 @@ export function MailIndex() {
                     <MailFilter defaultFilter={filterBy}
                         onSetFilter={onSetFilter} />
                 </MailHeader>
-                {isNewMailOpen && <NewMail onClose={closeNewMail} onSendMail={sendMail} />}
+                {isNewMailOpen && <NewMail
+                    onClose={closeNewMail}
+                    onSendMail={sendMail}
+                    editingMail={editingMail}
+                />}
                 <SideBar
                     openNewMail={openNewMail}
                     mails={mails}
                     onInbox={onInbox}
-                    onSent={onSent} />
-                <MailList mails={mails} onRemove={removeMail} onMarkRead={markAsRead} />
+                    onSent={onSent}
+                    onTrash={onTrash}
+                    onDraft={onDraft} />
+                <MailList
+                    mails={visibleMails}
+                    onRemove={removeMail}
+                    onMarkRead={markAsRead}
+                    openNewMail={openNewMail}
+                />
             </section>
         </Fragment>
     )

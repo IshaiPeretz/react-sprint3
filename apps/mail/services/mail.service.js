@@ -21,13 +21,21 @@ export const mailService = {
 function query(filterBy = {}) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
+            console.log(mails)
+            if (filterBy.status === 'trash') {
+                mails = mails.filter(mail => mail.removedAt)
+            } else mails = mails.filter(mail => !mail.removedAt)
+
+            if (filterBy.status === 'draft') {
+                mails = mails.filter(mail => mail.createdAt && !mail.sentAt)
+            }
+
             if (filterBy.status === 'inbox') {
                 mails = mails.filter(mail => mail.to === loggedInUser.email)
             }
             else if (filterBy.status === 'sent') {
-                mails = mails.filter(mail => mail.from === loggedInUser.email)
+                mails = mails.filter(mail => mail.from === loggedInUser.email && mail.sentAt)
             }
-
             if (filterBy.text) {
                 const regExp = new RegExp(filterBy.text, 'i')
                 mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body))
@@ -66,7 +74,7 @@ function save(mail) {
 // }
 
 function getDefaultFilter() {
-    return { text: '', isRead: null, status: 'inbox' }
+    return { text: '', isRead: null, status: 'inbox', removedAt: null }
 }
 
 

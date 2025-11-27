@@ -8,3 +8,8 @@
     font-family: poppins;
     src: url('/assets/fonts/Poppins-LightItalic.ttf');
 }
+
+@font-face {
+    font-family: roboto;
+    src: url('/assets/fonts/Poppins-LightItalic.ttf');
+}
