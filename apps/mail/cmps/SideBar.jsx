@@ -1,7 +1,7 @@
 import { CountUnread } from "./CountUnread.jsx"
 
 
-export function SideBar({ openNewMail, mails, onSent, onInbox, onTrash, onDraft }) {
+export function SideBar({ openNewMail, mails, onSent, onInbox, onTrash, onDraft, onStarred }) {
 
 
 
@@ -20,7 +20,8 @@ export function SideBar({ openNewMail, mails, onSent, onInbox, onTrash, onDraft 
                     Inbox
                     <CountUnread mails={mails}
                     /></button>
-                <button className="btn starred">
+                <button className="btn starred"
+                    onClick={onStarred}>
                     <i className="fa-regular fa-star"></i> Starred
                 </button>
                 <button className="btn sent"

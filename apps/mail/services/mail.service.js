@@ -22,6 +22,19 @@ function query(filterBy = {}) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
             console.log(mails)
+
+            if (filterBy.isStarred === true) {
+                mails = mails.filter(mail => mail.isStarred)
+            }
+            if (filterBy.text) {
+                const regExp = new RegExp(filterBy.text, 'i')
+                mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body))
+            }
+            if (filterBy.isRead === true) {
+                mails = mails.filter(mail => mail.isRead)
+            } else if (filterBy.isRead === false) {
+                mails = mails.filter(mail => !mail.isRead)
+            }
             if (filterBy.status === 'trash') {
                 mails = mails.filter(mail => mail.removedAt)
             } else mails = mails.filter(mail => !mail.removedAt)
@@ -36,15 +49,7 @@ function query(filterBy = {}) {
             else if (filterBy.status === 'sent') {
                 mails = mails.filter(mail => mail.from === loggedInUser.email && mail.sentAt)
             }
-            if (filterBy.text) {
-                const regExp = new RegExp(filterBy.text, 'i')
-                mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body))
-            }
-            if (filterBy.isRead === true) {
-                mails = mails.filter(mail => mail.isRead)
-            } else if (filterBy.isRead === false) {
-                mails = mails.filter(mail => !mail.isRead)
-            }
+
             return mails
         })
 }
@@ -92,6 +97,7 @@ function _createMails() {
             subject: 'Miss you!',
             body: 'Would love to catch up sometimes',
             isRead: Math.random() < 0.4,
+            isStarred: Math.random() < 0.3,
             sentAt: 1551133930594,
             removedAt: null,
             from: 'momo@momo.com',

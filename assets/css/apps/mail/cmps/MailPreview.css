@@ -65,15 +65,23 @@
         border: 0;
         background-color: transparent;
     }
-}
 
-.read {
-    background-color: var(--mail-color-1);
+    &.read {
+        background-color: var(--mail-color-1);
 
+        .subject,
+        .from,
+        .date {
+            font-weight: normal
+        }
+    }
 
-    .subject,
-    .from,
-    .date {
-        font-weight: normal
+    .fa-regular.fa-star,
+    .fa-solid.fa-star {
+        font-size: 1.3em;
+    }
+
+    .starred {
+        color: #fbbd04;
     }
 }

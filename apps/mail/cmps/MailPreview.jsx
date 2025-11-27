@@ -2,9 +2,9 @@ import { utilService } from "../../../services/util.service.js"
 
 
 
-export function MailPreview({ mail, onRemove, onMarkRead, openNewMail }) {
+export function MailPreview({ mail, onRemove, onMarkRead, openNewMail, onMarkStar }) {
 
-    const { from, subject, isRead, body } = mail
+    const { from, subject, isRead, body, isStarred } = mail
     let displayDate
     const date = new Date(mail.sentAt)
     if (Number.isNaN(date.getTime())) {
@@ -22,9 +22,17 @@ export function MailPreview({ mail, onRemove, onMarkRead, openNewMail }) {
     }
 
     const classRead = isRead ? 'read' : ''
+    const classStarred = isStarred ? 'starred' : ''
     const iconRead = isRead ? <i className="fa-regular fa-envelope"></i> : <i className="fa-regular fa-envelope-open"></i>
+    const iconStarred = isStarred ? <i className="fa-solid fa-star"></i> : <i className="fa-regular fa-star"></i>
     return (
         <article className={`mail-prev ${classRead}`} onClick={openNewMail}>
+            <button className={`${classStarred}`}
+                onClick={(ev) => {
+                    ev.stopPropagation()
+                    ev.preventDefault()
+                    { onMarkStar(ev, mail) }
+                }}>{iconStarred}</button>
             <h3 className="from">{from} </h3>
             <h3 className="subject">{subject} </h3>
             <h3 className="body"> {body} </h3>

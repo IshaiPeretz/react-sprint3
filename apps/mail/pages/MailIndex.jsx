@@ -16,7 +16,7 @@ export function MailIndex() {
     const [isNewMailOpen, setIsNewMailOpen] = useState(false)
     const [editingMail, setEditingMail] = useState(null)
     const [mails, setMails] = useState([])
-   
+
 
     console.log(mails)
 
@@ -56,17 +56,19 @@ export function MailIndex() {
         setEditingMail(null)
     }
     function onInbox() {
-        setFilterBy(filterBy => ({ ...filterBy, status: 'inbox' }))
+        setFilterBy({ status: 'inbox' })
     }
     function onSent() {
-        setFilterBy(filterBy => ({ ...filterBy, status: 'sent' }))
+        setFilterBy({ status: 'sent' })
     }
-
     function onTrash() {
-        setFilterBy(filterBy => ({ ...filterBy, status: 'trash' }))
+        setFilterBy({ status: 'trash' })
     }
     function onDraft() {
-        setFilterBy(filterBy => ({ ...filterBy, status: 'draft' }))
+        setFilterBy({ status: 'draft' })
+    }
+    function onStarred() {
+        setFilterBy(filterBy => ({ ...filterBy, isStarred: true }))
     }
 
     function markAsRead(ev, mail) {
@@ -77,6 +79,17 @@ export function MailIndex() {
                 const updatedMails = mails.map(mail => mail.id === updatedMail.id ? updatedMail : mail)
                 setMails(updatedMails)
             })
+    }
+
+    function markStar(ev, mail) {
+        ev.preventDefault()
+        mail.isStarred = !mail.isStarred
+        mailService.save(mail)
+            .then((updatedMail) => {
+                const updatedMails = mails.map(mail => mail.id === updatedMail.id ? updatedMail : mail)
+                setMails(updatedMails)
+            })
+
     }
     function onSetFilter(newFilterBy) {
         setFilterBy(filterBy => ({ ...filterBy, ...newFilterBy }))
@@ -103,12 +116,14 @@ export function MailIndex() {
                     onInbox={onInbox}
                     onSent={onSent}
                     onTrash={onTrash}
-                    onDraft={onDraft} />
+                    onDraft={onDraft}
+                    onStarred={onStarred} />
                 <MailList
                     mails={visibleMails}
                     onRemove={removeMail}
                     onMarkRead={markAsRead}
                     openNewMail={openNewMail}
+                    onMarkStar={markStar}
                 />
             </section>
         </Fragment>
