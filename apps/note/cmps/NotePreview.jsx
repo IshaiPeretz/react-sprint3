@@ -7,23 +7,43 @@ const { useState, useEffect } = React;
 export function NotePreview({ note, onRemoveNote, onSaveNote }) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [showColors, setShowColors] = useState(false);
-
-  const [localStyle, setLocalStyle] = useState(note.style);
+  const [draftNote, setDraftNote] = useState(note);
 
   useEffect(() => {
-    setLocalStyle(note.style);
-  }, [note.style]);
+    setDraftNote(note);
+  }, [note.id, note.info, note.style]);
 
   function onChangeInfo(newInfo) {
-    onSaveNote({ ...note, info: newInfo, style: localStyle });
+    setDraftNote((prev) => ({ ...prev, info: newInfo }));
   }
 
-  function onSelectColor(color) {
-    setLocalStyle({ backgroundColor: color });
+  function onToggleTodo(idx) {
+    setDraftNote((prev) => {
+      const todos = prev.info.todos.map((todo, i) =>
+        i === idx ? { ...todo, isDone: !todo.isDone } : todo
+      );
+      const updated = { ...prev, info: { ...prev.info, todos } };
+      onSaveNote(updated);
+      return updated;
+    });
   }
 
-  function commitColor() {
-    onSaveNote({ ...note, style: localStyle });
+  function onChangeColor(color) {
+    setDraftNote((prev) => {
+      const style = prev.style || {};
+      const updated = {
+        ...prev,
+        style: { ...style, backgroundColor: color },
+      };
+      onSaveNote(updated);
+      return updated;
+    });
+  }
+
+  function onToggleEdit() {
+    if (isEditMode) onSaveNote(draftNote);
+    setIsEditMode((prev) => !prev);
+    setShowColors(false);
   }
 
   function renderNote() {
@@ -31,21 +51,22 @@ export function NotePreview({ note, onRemoveNote, onSaveNote }) {
       case "NoteTxt":
         return (
           <NoteTxt
-            info={note.info}
+            info={draftNote.info}
             isEditMode={isEditMode}
             onChangeInfo={onChangeInfo}
           />
         );
 
       case "NoteImg":
-        return <NoteImg info={note.info} />;
+        return <NoteImg info={draftNote.info} />;
 
       case "NoteTodos":
         return (
           <NoteTodos
-            info={note.info}
+            info={draftNote.info}
             isEditMode={isEditMode}
             onChangeInfo={onChangeInfo}
+            onToggleTodo={onToggleTodo}
           />
         );
 
@@ -54,38 +75,38 @@ export function NotePreview({ note, onRemoveNote, onSaveNote }) {
     }
   }
 
+  const bgStyle = draftNote.style || {};
+
   return (
-    <article className="note-preview" style={localStyle}>
+    <article className="note-preview" style={bgStyle}>
       {renderNote()}
 
       <div className="note-actions">
-        <button
-          onClick={() => {
-            if (isEditMode) {
-              commitColor();
-              onSaveNote(note);
-            }
-            setIsEditMode((prev) => !prev);
-          }}
-        >
+        <button type="button" onClick={onToggleEdit}>
           {isEditMode ? "Save" : "Edit"}
         </button>
 
-        <button onClick={() => setShowColors((prev) => !prev)}>🎨</button>
+        <button type="button" onClick={() => setShowColors((prev) => !prev)}>
+          🎨
+        </button>
 
-        <button onClick={() => onRemoveNote(note.id)}>X</button>
+        <button type="button" onClick={() => onRemoveNote(note.id)}>
+          X
+        </button>
       </div>
 
       {showColors && (
         <div className="color-picker">
-          {["#fff", "#fde047", "#fca5a5", "#bbf7d0", "#bfdbfe"].map((color) => (
-            <div
-              key={color}
-              className="color-swatch"
-              style={{ backgroundColor: color }}
-              onClick={() => onSelectColor(color)}
-            ></div>
-          ))}
+          {["#fff", "#f28b82", "#fbbc04", "#fff475", "#ccff90", "#a7ffeb"].map(
+            (color) => (
+              <div
+                key={color}
+                className="color-swatch"
+                style={{ backgroundColor: color }}
+                onClick={() => onChangeColor(color)}
+              ></div>
+            )
+          )}
         </div>
       )}
     </article>

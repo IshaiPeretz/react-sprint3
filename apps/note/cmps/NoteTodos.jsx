@@ -1,37 +1,32 @@
-export function NoteTodos({ info, isEditMode, onChangeInfo }) {
-  function toggleDone(idx) {
-    const updated = info.todos.map((todo, i) =>
+export function NoteTodos({ info, isEditMode, onChangeInfo, onToggleTodo }) {
+  function toggleDoneLocal(idx) {
+    const newTodos = info.todos.map((todo, i) =>
       i === idx ? { ...todo, isDone: !todo.isDone } : todo
     );
-    onChangeInfo({ ...info, todos: updated });
-  }
-
-  function updateTxt(idx, value) {
-    const updated = info.todos.map((todo, i) =>
-      i === idx ? { ...todo, txt: value } : todo
-    );
-    onChangeInfo({ ...info, todos: updated });
+    onChangeInfo({ ...info, todos: newTodos });
   }
 
   if (isEditMode) {
     return (
       <article className="note-todos">
-        {info.title && <h4>{info.title}</h4>}
-
+        <h4>{info.title}</h4>
         <ul>
           {info.todos.map((todo, idx) => (
             <li key={idx} className="todo-item">
               <input
                 type="checkbox"
                 checked={todo.isDone}
-                onChange={() => toggleDone(idx)}
+                onChange={() => toggleDoneLocal(idx)}
               />
-
               <input
                 type="text"
                 value={todo.txt}
-                onChange={(ev) => updateTxt(idx, ev.target.value)}
-                className="todo-text-input"
+                onChange={(ev) => {
+                  const updated = info.todos.map((t, i) =>
+                    i === idx ? { ...t, txt: ev.target.value } : t
+                  );
+                  onChangeInfo({ ...info, todos: updated });
+                }}
               />
             </li>
           ))}
@@ -42,17 +37,15 @@ export function NoteTodos({ info, isEditMode, onChangeInfo }) {
 
   return (
     <article className="note-todos">
-      {info.title && <h4>{info.title}</h4>}
-
+      <h4>{info.title}</h4>
       <ul>
         {info.todos.map((todo, idx) => (
           <li key={idx} className="todo-item">
             <input
               type="checkbox"
               checked={todo.isDone}
-              onChange={() => toggleDone(idx)}
+              onChange={() => onToggleTodo(idx)}
             />
-
             <span
               style={{
                 textDecoration: todo.isDone ? "line-through" : "none",
