@@ -24,6 +24,9 @@
   margin: 0;
   font-size: 0.95rem;
   color: #333;
+
+  /* THIS is the important part */
+  white-space: pre-wrap;
 }
 
 .note-preview ul {
@@ -34,4 +37,16 @@
 .note-preview button {
   margin-top: 6px;
   align-self: center;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.todo-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
 }

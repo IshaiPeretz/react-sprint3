@@ -31,39 +31,38 @@ export function NoteIndex() {
     });
   }
 
-  function onAddNote({ title, txt, noteType }) {
-    const newNote = notesService.getEmptyNote(noteType);
+function onAddNote({ title, txt, noteType }) {
+  const newNote = notesService.getEmptyNote(noteType);
 
-    switch (noteType) {
-      case "NoteTxt":
-        newNote.info.title = title;
-        newNote.info.txt = txt;
-        break;
+  switch (noteType) {
+    case "NoteTxt":
+      newNote.info.title = title;
+      newNote.info.txt = txt;
+      break;
 
-      case "NoteImg":
-      case "NoteVideo":
-        newNote.info.title = title;
-        newNote.info.url = txt;
-        break;
+    case "NoteImg":
+    case "NoteVideo":
+      newNote.info.title = title;
+      newNote.info.url = txt;
+      break;
 
-      case "NoteTodos":
-        newNote.info.title = title;
-        newNote.info.todos = txt
-          .split(",")
-          .map((str) => ({ txt: str.trim(), isDone: false }))
-          .filter((todo) => todo.txt);
-        break;
+    case "NoteTodos":
+      newNote.info.title = title;
+      newNote.info.todos = txt;  
+      break;
 
-      default:
-        newNote.info.title = title;
-        newNote.info.txt = txt;
-        break;
-    }
-
-    notesService.save(newNote).then((savedNote) => {
-      setNotes((prevNotes) => [savedNote, ...prevNotes]);
-    });
+    default:
+      newNote.info.title = title;
+      newNote.info.txt = txt;
+      break;
   }
+
+  notesService.save(newNote).then((savedNote) => {
+    setNotes((prevNotes) => [savedNote, ...prevNotes]);
+  });
+}
+
+
 
   if (!notes) return <div>Loading...</div>;
 
