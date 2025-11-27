@@ -33,9 +33,11 @@ export function NewMail({ onClose, onSendMail, editingMail }) {
     function onSend(ev) {
         ev.preventDefault()
         const mail = {
-            ...mailInput,
+            to: mailInput.to || '',
+            subject: mailInput.subject || '',
+            body: mailInput.body || '',
             sentAt: Date.now(),
-            createdAt: mailInput.createdAt || Date.now(),
+            createdAt: Date.now(),
             from: mailService.loggedInUser.email,
             isRead: true
         }
@@ -44,9 +46,11 @@ export function NewMail({ onClose, onSendMail, editingMail }) {
     }
     function saveDraft() {
         const mail = {
-            ...mailInput,
-            from: mailService.loggedInUser.email,
+            to: mailInput.to || '',
+            subject: mailInput.subject || '',
+            body: mailInput.body || '',
             createdAt: Date.now(),
+            from: mailService.loggedInUser.email,
             isRead: true
         }
         onSendMail(mail)
@@ -65,7 +69,7 @@ export function NewMail({ onClose, onSendMail, editingMail }) {
                     name="to"
                     placeholder="To"
                     required
-                    value={mailInput.to}
+                    value={mailInput.to || ''}
                     onChange={handleChange} />
 
                 <input
@@ -73,14 +77,14 @@ export function NewMail({ onClose, onSendMail, editingMail }) {
                     className="subject"
                     name="subject"
                     placeholder="Subject"
-                    value={mailInput.subject}
+                    value={mailInput.subject || ''}
                     onChange={handleChange} />
                 <textarea
                     type="body"
                     className="body"
                     name="body"
                     placeholder=""
-                    value={mailInput.body}
+                    value={mailInput.body || ''}
                     onChange={handleChange} />
 
                 <section className="modal-buttons">

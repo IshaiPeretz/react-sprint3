@@ -14,9 +14,7 @@ export function CountUnread({ mails }) {
 
     return (
         <section className="unread-counter">
-            <i className="fa-solid fa-inbox"> {unread}</i>
+           {unread} 
         </section >
-
-
     )
 }

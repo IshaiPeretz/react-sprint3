@@ -11,6 +11,8 @@
     .date {
         white-space: nowrap;
         width: 80px;
+        font-size: 0.8em;
+
     }
 
     .body {
@@ -18,6 +20,11 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+
+    }
+
+    h3.body {
+        font-weight: normal !important;
     }
 
     .from {
@@ -39,18 +46,20 @@
         box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.3);
         border-bottom: 1px rgb(164, 163, 163) solid;
 
-        .prev-btns {
+        .preview-btns {
             display: flex;
             width: 80px;
+            justify-content: center;
+
+            :hover {
+                font-size: 1.2em;
+            }
         }
 
         .date {
             display: none;
         }
     }
-
-
-
 
     button {
         border: 0;
@@ -61,7 +70,10 @@
 .read {
     background-color: var(--mail-color-1);
 
-    h3 {
+
+    .subject,
+    .from,
+    .date {
         font-weight: normal
     }
 }

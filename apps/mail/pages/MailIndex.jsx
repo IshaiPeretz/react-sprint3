@@ -16,7 +16,10 @@ export function MailIndex() {
     const [isNewMailOpen, setIsNewMailOpen] = useState(false)
     const [editingMail, setEditingMail] = useState(null)
     const [mails, setMails] = useState([])
+   
+
     console.log(mails)
+
 
     useEffect(() => {
         loadMails()

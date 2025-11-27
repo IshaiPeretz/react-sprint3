@@ -25,13 +25,21 @@ export function MailPreview({ mail, onRemove, onMarkRead, openNewMail }) {
     const iconRead = isRead ? <i className="fa-regular fa-envelope"></i> : <i className="fa-regular fa-envelope-open"></i>
     return (
         <article className={`mail-prev ${classRead}`} onClick={openNewMail}>
-            <h3 className="from">{from}</h3>
+            <h3 className="from">{from} </h3>
             <h3 className="subject">{subject} </h3>
             <h3 className="body"> {body} </h3>
             <h3 className="date">{displayDate}</h3>
-            <section className="prev-btns" hidden>
-                <button onClick={(ev) => { onRemove(ev, mail) }}><i className="fa-regular fa-trash-can"></i></button>
-                <button onClick={(ev) => { onMarkRead(ev, mail) }}>{iconRead}</button>
+            <section className="preview-btns" hidden>
+                <button onClick={(ev) => {
+                    ev.stopPropagation()
+                    ev.preventDefault()
+                    onRemove(ev, mail)
+                }}><i className="fa-regular fa-trash-can"></i></button>
+                <button onClick={(ev) => {
+                    ev.stopPropagation()
+                    ev.preventDefault()
+                    { onMarkRead(ev, mail) }
+                }}>{iconRead}</button>
             </section>
         </article >
     )

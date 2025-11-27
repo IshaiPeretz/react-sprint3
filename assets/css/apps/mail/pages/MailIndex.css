@@ -3,9 +3,9 @@
 
  .main-container {
      display: grid;
-     grid-template-columns: 70px auto;
-     padding: 20px;
-     gap: 10px;
+     grid-template-columns: 170px auto;
+ 
+     
 
  }
 

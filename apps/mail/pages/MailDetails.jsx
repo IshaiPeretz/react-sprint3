@@ -15,11 +15,11 @@ export function MailDetails() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        loadBook()
+        loadMail()
     }, [params.mailId])
 
 
-    function loadBook() {
+    function loadMail() {
         mailService.get(params.mailId)
             .then(mail => {
                 mail.isRead = true
@@ -28,7 +28,7 @@ export function MailDetails() {
             })
             .catch(() => {
                 showErrorMsg('Couldn\'t get mail...')
-                navigate(`/mail`)
+                navigate(-1)
             })
     }
     function onDelete(mailId) {
@@ -42,11 +42,11 @@ export function MailDetails() {
 
     return (
         <div className="mail-display">
-            <h1 className ="subject">{subject}</h1>
-            <h2 className ="from" >{from}</h2>
-            <h4 className ="to">to:{to}</h4>
-            <p className ="body">{body}</p>
-            <h4 className ="date">{date}</h4>
+            <h1 className="subject">{subject}</h1>
+            <h2 className="from" >{from}</h2>
+            <h4 className="to">to:{to}</h4>
+            <p className="body">{body}</p>
+            <h4 className="date">{date}</h4>
             <section className="btns">
                 <button className='close'>
                     <Link to='/mail'> Back </Link>

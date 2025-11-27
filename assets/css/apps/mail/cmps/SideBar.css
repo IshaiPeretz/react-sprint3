@@ -4,24 +4,60 @@
     align-content: start;
     background-color: var(--mail-color-2);
     height: 100vh;
-
-}
-
-
-.btn {
-    align-self: start;
-    background-color: #c2e7ff;
-    border-radius: 5px;
-    border: 0;
-    justify-self: center;
-    padding: 20px;
-    margin-bottom: 5px;
     width: 100%;
 
-    &:hover {
-        cursor: pointer;
+    .btn {
+        display: flex;
+        align-self: start;
+        background-color: transparent;
+        border-top-right-radius: 37px;
+        border-bottom-right-radius: 37px;
+        border: 0;
+        justify-self: center;
+        padding: 20px;
+        margin-bottom: 5px;
+        width: 100%;
+        justify-content: start;
+        padding: 10px 20px;
+        transition: background-color 0.15s ease-in-out;
+        gap: 30px;
+        font-size: 1em;
+
+        &:hover {
+            cursor: pointer;
+            background-color: #e6e6e6;
+        }
+
+        &.active {
+            background-color: #d3e3fd;
+            font-weight: bold;
+        }
     }
+
+    .compose-btn {
+        justify-self: start;
+        display: flex;
+        justify-content: space-evenly;
+        background-color: #c1e7ff;
+        padding: 20px 10px;
+        width: 150px;
+        border: 0;
+        border-radius: 15px;
+
+        margin: 5px;
+        margin-bottom: 20px;
+        font-size: 1em;
+
+        .fa-pen {
+            font-size: 1.3em;
+
+        }
+    }
+
 }
+
+
+
 
 .compose-btn {
     grid-row: 1;

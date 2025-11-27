@@ -16,6 +16,7 @@
          padding: 20px;
          border: 0;
          background-color: #e9eef6;
+         width: 60%;
      }
 
      input[type="radio"] {
@@ -29,8 +30,7 @@
      }
 
      .radio-container {
-         display: grid;
-         gap: 5px;
+         gap: 10px;
      }
 
      label:has(input[type="radio"]:checked) {
