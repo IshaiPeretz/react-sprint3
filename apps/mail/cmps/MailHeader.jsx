@@ -1,8 +1,13 @@
 
 
-export function MailHeader(){
+export function MailHeader({ children }) {
 
-return(
-    <h1>SomeHeader</h1>
-)
+    return (
+        <header className="mail-header">
+            <div className="mail-logo"><i class="fa-solid fa-envelope"></i>EMAIL</div>
+
+            {children}
+
+        </header>
+    )
 }

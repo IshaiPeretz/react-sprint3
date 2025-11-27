@@ -1,11 +1,12 @@
 
 
+
 const { useState, useEffect } = React
 
 export function MailFilter({ defaultFilter, onSetFilter }) {
     console.log(defaultFilter)
 
-    const [filterByToEdit, setFilterToEdit] = useState({ })
+    const [filterByToEdit, setFilterToEdit] = useState({})
 
 
     useEffect(() => {
@@ -36,29 +37,32 @@ export function MailFilter({ defaultFilter, onSetFilter }) {
                 break
         }
 
-        setFilterToEdit(prevFilter => ({ ...prevFilter, [field]: value }) )
+        setFilterToEdit(prevFilter => ({ ...prevFilter, [field]: value }))
 
     }
 
 
     const { text, isRead } = filterByToEdit
     return (
-        <section className="filter-container">
-            <form>
-                <label htmlFor="text">Search</label>
-                <input onChange={handleChange} value={text} name="text" id="text" type="text" />
+       
+            <section className="filter-container">
+                <form>
+                    <label htmlFor="text"></label>
+                    <input onChange={handleChange} value={text} name="text" id="text" type="text" placeholder="Search mail" />
 
-                <input onChange={handleChange} checked={isRead === true} value={'true'} name="isRead" id="isRead" type="radio" />
-                <label htmlFor="isRead">Read</label>
+                    <input onChange={handleChange} checked={isRead === true} value={'true'} name="isRead" id="isRead" type="radio" />
+                    <label htmlFor="isRead">Read</label>
 
-                <input onChange={handleChange} checked={isRead === false} value={'false'} name="isRead" id="unRead" type="radio" />
-                <label htmlFor="unRead">Unread</label>
+                    <input onChange={handleChange} checked={isRead === false} value={'false'} name="isRead" id="unRead" type="radio" />
+                    <label htmlFor="unRead">Unread</label>
 
-                <input onChange={handleChange} checked={isRead === null} value={''} name="isRead" id="all" type="radio" />
-                <label htmlFor="all">All</label>
+                    <input onChange={handleChange} checked={isRead === null} value={''} name="isRead" id="all" type="radio" />
+                    <label htmlFor="all">All</label>
 
-            </form>
-        </section>
+                </form>
+
+            </section >
+        
     )
 }
 

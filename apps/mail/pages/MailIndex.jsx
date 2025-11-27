@@ -1,5 +1,6 @@
 import { CountUnread } from "../cmps/CountUnread.jsx"
 import { MailFilter } from "../cmps/MailFilter.jsx"
+import { MailHeader } from "../cmps/MailHeader.jsx"
 import { MailList } from "../cmps/MailList.jsx"
 import { NewMail } from "../cmps/NewMail.jsx"
 import { SideBar } from "../cmps/SideBar.jsx"
@@ -65,9 +66,12 @@ export function MailIndex() {
     }
     return (
         <Fragment>
+
             <section className="main-container">
-                <MailFilter defaultFilter={filterBy}
-                    onSetFilter={onSetFilter} />
+                <MailHeader>
+                    <MailFilter defaultFilter={filterBy}
+                        onSetFilter={onSetFilter} />
+                </MailHeader>
                 {isNewMailOpen && <NewMail onClose={closeNewMail} onSendMail={sendMail} />}
                 <SideBar
                     openNewMail={openNewMail}
