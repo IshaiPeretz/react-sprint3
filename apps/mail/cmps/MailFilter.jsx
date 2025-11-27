@@ -3,8 +3,9 @@
 const { useState, useEffect } = React
 
 export function MailFilter({ defaultFilter, onSetFilter }) {
+    console.log(defaultFilter)
 
-    const [filterByToEdit, setFilterToEdit] = useState({ ...defaultFilter })
+    const [filterByToEdit, setFilterToEdit] = useState({ })
 
 
     useEffect(() => {
@@ -16,12 +17,15 @@ export function MailFilter({ defaultFilter, onSetFilter }) {
         const field = target.name
         let value = target.value
 
-        if (field === 'isRead') {
-            if (value === 'true') value = true
-            else if (value === 'false') value = false
-            else value = null
-        }
+
         switch (target.type) {
+            case 'radio':
+                if (field === 'isRead') {
+                    if (value === 'true') value = true
+                    else if (value === 'false') value = false
+                    else value = null
+                }
+                break
             case 'number':
             case 'range':
                 value = +value
@@ -32,11 +36,10 @@ export function MailFilter({ defaultFilter, onSetFilter }) {
                 break
         }
 
-        setFilterToEdit(prevFilter => ({ ...prevFilter, [field]: value }))
+        setFilterToEdit(prevFilter => ({ ...prevFilter, [field]: value }) )
 
     }
 
-    console.log(filterByToEdit)
 
     const { text, isRead } = filterByToEdit
     return (
@@ -45,10 +48,10 @@ export function MailFilter({ defaultFilter, onSetFilter }) {
                 <label htmlFor="text">Search</label>
                 <input onChange={handleChange} value={text} name="text" id="text" type="text" />
 
-                <input onChange={handleChange} checked={isRead === true} value={true} name="isRead" id="isRead" type="radio" />
+                <input onChange={handleChange} checked={isRead === true} value={'true'} name="isRead" id="isRead" type="radio" />
                 <label htmlFor="isRead">Read</label>
 
-                <input onChange={handleChange} checked={isRead === false} value={false} name="isRead" id="unRead" type="radio" />
+                <input onChange={handleChange} checked={isRead === false} value={'false'} name="isRead" id="unRead" type="radio" />
                 <label htmlFor="unRead">Unread</label>
 
                 <input onChange={handleChange} checked={isRead === null} value={''} name="isRead" id="all" type="radio" />

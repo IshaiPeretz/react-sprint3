@@ -21,6 +21,15 @@ export const mailService = {
 function query(filterBy = {}) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
+            console.log(filterBy);
+            
+            if (filterBy.status === 'inbox') {
+                mails = mails.filter(mail => mail.to === loggedInUser.email)
+            }
+            else if (filterBy.status === 'sent') {
+                mails = mails.filter(mail => mail.from === loggedInUser.email)
+            }
+
             if (filterBy.text) {
                 const regExp = new RegExp(filterBy.text, 'i')
                 mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body))
@@ -59,7 +68,7 @@ function save(mail) {
 // }
 
 function getDefaultFilter() {
-    return { text: '', isRead: null }
+    return { text: '', isRead: null, status: 'inbox' }
 }
 
 
@@ -80,7 +89,7 @@ function _createMails() {
             sentAt: 1551133930594,
             removedAt: null,
             from: 'momo@momo.com',
-            to: 'user@appsus.com'
+            to: loggedInUser.email
         }
         mails.push(mail)
     }

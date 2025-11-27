@@ -13,7 +13,7 @@ export function CountUnread({ mails }) {
 
     return (
         <section className="unread-counter">
-            <button className="fa-solid fa-inbox"> {unread}</button>
+            <i className="fa-solid fa-inbox"> {unread}</i>
         </section >
 
 
