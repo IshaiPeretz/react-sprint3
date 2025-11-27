@@ -70,7 +70,7 @@ function getDefaultFilter() {
 }
 
 function _getEmptyInfo(type) {
-    if (type === 'NoteTxt') return { txt: '' }
+    if (type === 'NoteTxt') return { title: '', txt: '' }
     if (type === 'NoteImg') return { url: '', title: '' }
     if (type === 'NoteVideo') return { url: '', title: '' }
     if (type === 'NoteTodos') return { title: '', todos: [] }
@@ -88,7 +88,10 @@ function _createNotes() {
             type: 'NoteTxt',
             isPinned: true,
             style: { backgroundColor: '#00d' },
-            info: { txt: 'Fullstack Me Baby!' },
+            info: {
+                title: 'yes to the title',
+                txt: 'Fullstack Me Baby!'
+            },
         },
         {
             id: 'n102',

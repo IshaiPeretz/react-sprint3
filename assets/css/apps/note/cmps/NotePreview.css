@@ -1,8 +1,37 @@
 .note-preview {
   background-color: #fff;
-  border-radius: 8px;
-  padding: 16px;
-  box-shadow: 0 1px 3px rgb(0 0 0 / 0.2);
-  display: block;
-  min-height: 60px;
+  border-radius: 12px;
+  padding: 16px 18px;
+  box-shadow: 0 1px 3px rgba(60, 64, 67, 0.2), 0 1px 2px rgba(60, 64, 67, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 80px;
+  transition: box-shadow 0.2s ease;
+}
+
+.note-preview:hover {
+  box-shadow: 0 4px 8px rgba(60, 64, 67, 0.3), 0 2px 3px rgba(60, 64, 67, 0.15);
+}
+
+.note-preview h4 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+
+.note-preview p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.note-preview ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.note-preview button {
+  margin-top: 6px;
+  align-self: center;
 }

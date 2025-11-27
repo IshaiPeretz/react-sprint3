@@ -1,13 +1,26 @@
 export function NoteTxt({ info, isEditMode, onChangeInfo }) {
   function handleChange(ev) {
-    onChangeInfo({ txt: ev.target.value });
+    onChangeInfo({ ...info, txt: ev.target.value });
   }
 
   if (isEditMode) {
     return (
-      <input type="text" value={info.txt} onChange={handleChange} autoFocus />
+      <div>
+        <input
+          type="text"
+          value={info.title}
+          onChange={(ev) => onChangeInfo({ ...info, title: ev.target.value })}
+          autoFocus
+        />
+        <input type="text" value={info.txt} onChange={handleChange} />
+      </div>
     );
   }
 
-  return <p>{info.txt}</p>;
+  return (
+    <article>
+      {info.title && <h4>{info.title}</h4>}
+      <p>{info.txt}</p>
+    </article>
+  );
 }
