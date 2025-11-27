@@ -84,21 +84,21 @@ function _createNotes() {
     notes = [
         {
             id: 'n101',
-            createdAt: 1112222,
+            createdAt: Date.now(),
             type: 'NoteTxt',
             isPinned: true,
-            style: { backgroundColor: '#00d' },
+            style: { backgroundColor: '#F28B82' },
             info: {
-                title: 'yes to the title',
+                title: 'Yes to the title',
                 txt: 'Fullstack Me Baby!'
             },
         },
         {
             id: 'n102',
-            createdAt: 1112223,
+            createdAt: Date.now(),
             type: 'NoteImg',
             isPinned: false,
-            style: { backgroundColor: '#0d0' },
+            style: { backgroundColor: '#CCFF90' },
             info: {
                 url: 'https://picsum.photos/300/200',
                 title: 'Bobi and Me',
@@ -106,10 +106,10 @@ function _createNotes() {
         },
         {
             id: 'n103',
-            createdAt: 1112224,
+            createdAt: Date.now(),
             type: 'NoteTodos',
             isPinned: false,
-            style: { backgroundColor: '#d00' },
+            style: { backgroundColor: '#A7FFEB' },
             info: {
                 title: 'Get my stuff together',
                 todos: [
@@ -118,6 +118,93 @@ function _createNotes() {
                 ],
             },
         },
+
+        {
+            id: utilService.makeId(),
+            createdAt: Date.now(),
+            type: 'NoteTxt',
+            isPinned: false,
+            style: { backgroundColor: '#FFF475' },
+            info: {
+                title: 'Groceries',
+                txt: 'Milk\nEggs\nBread\nBananas'
+            },
+        },
+        {
+            id: utilService.makeId(),
+            createdAt: Date.now(),
+            type: 'NoteTxt',
+            isPinned: false,
+            style: { backgroundColor: '#FBCB04' },
+            info: {
+                title: 'Kids',
+                txt: 'Vaccination\nAfterschool class\nPlaydate'
+            },
+        },
+        {
+            id: utilService.makeId(),
+            createdAt: Date.now(),
+            type: 'NoteTxt',
+            isPinned: true,
+            style: { backgroundColor: '#CBF0F8' },
+            info: {
+                title: "Dinner reminder",
+                txt: "Don't forget to defrost the chicken!"
+            },
+        },
+        {
+            id: utilService.makeId(),
+            createdAt: Date.now(),
+            type: 'NoteTxt',
+            isPinned: false,
+            style: { backgroundColor: '#E6C9A8' },
+            info: {
+                title: "",
+                txt: "Meditation quote:\n“Slow down, you’re doing fine.”"
+            },
+        },
+        {
+            id: utilService.makeId(),
+            createdAt: Date.now(),
+            type: 'NoteTxt',
+            isPinned: false,
+            style: { backgroundColor: '#D7AEFB' },
+            info: {
+                title: "Workout plan",
+                txt: "Mon - Chest\nTue - Back\nWed - Legs\nThu - Core\nFri - Cardio"
+            },
+        },
+
+        {
+            id: utilService.makeId(),
+            createdAt: Date.now(),
+            type: 'NoteTodos',
+            isPinned: false,
+            style: { backgroundColor: '#FFADAD' },
+            info: {
+                title: "Packing for trip",
+                todos: [
+                    { txt: "Passport", isDone: false },
+                    { txt: "Charger", isDone: false },
+                    { txt: "Toothbrush", isDone: true },
+                ]
+            },
+        },
+        {
+            id: utilService.makeId(),
+            createdAt: Date.now(),
+            type: 'NoteTodos',
+            isPinned: false,
+            style: { backgroundColor: '#FFD6A5' },
+            info: {
+                title: "Career",
+                todos: [
+                    { txt: "CV", isDone: true },
+                    { txt: "Home task", isDone: false },
+                    { txt: "Research", isDone: false },
+                ]
+            },
+        }
     ]
 
     utilService.saveToStorage(NOTE_KEY, notes)

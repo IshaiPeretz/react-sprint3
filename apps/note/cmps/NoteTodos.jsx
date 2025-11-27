@@ -1,5 +1,5 @@
-export function NoteTodos({ info, isEditMode, onChangeInfo }) {
-  function toggleDone(idx) {
+export function NoteTodos({ info, isEditMode, onChangeInfo, onToggleTodo }) {
+  function toggleDoneLocal(idx) {
     const newTodos = info.todos.map((todo, i) =>
       i === idx ? { ...todo, isDone: !todo.isDone } : todo
     );
@@ -12,11 +12,11 @@ export function NoteTodos({ info, isEditMode, onChangeInfo }) {
         <h4>{info.title}</h4>
         <ul>
           {info.todos.map((todo, idx) => (
-            <li key={idx}>
+            <li key={idx} className="todo-item">
               <input
                 type="checkbox"
                 checked={todo.isDone}
-                onChange={() => toggleDone(idx)}
+                onChange={() => toggleDoneLocal(idx)}
               />
               <input
                 type="text"
@@ -40,11 +40,11 @@ export function NoteTodos({ info, isEditMode, onChangeInfo }) {
       <h4>{info.title}</h4>
       <ul>
         {info.todos.map((todo, idx) => (
-          <li key={idx}>
+          <li key={idx} className="todo-item">
             <input
               type="checkbox"
               checked={todo.isDone}
-              onChange={() => toggleDone(idx)}
+              onChange={() => onToggleTodo(idx)}
             />
             <span
               style={{
