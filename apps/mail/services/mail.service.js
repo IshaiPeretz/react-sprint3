@@ -14,23 +14,26 @@ export const mailService = {
     get,
     remove,
     save,
+    getDefaultFilter,
 }
 
 
 function query(filterBy = {}) {
     return storageService.query(MAIL_KEY)
-    // .then(mails => {
-    //     if (filterBy.title) {
-    //         const regExp = new RegExp(filterBy.title, 'i')
-    //         Books = Books.filter(book => regExp.test(book.title))
-    //     }
+        .then(mails => {
+            if (filterBy.text) {
+                const regExp = new RegExp(filterBy.text, 'i')
+                mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body))
+            }
 
-    //     if (filterBy.minPrice) {
-    //         Books = Books.filter(book => book.listPrice.amount >= filterBy.minPrice)
-    //     }
+            if (filterBy.isRead === true) {
+                mails = mails.filter(mail => mail.isRead)
+            } else if (filterBy.isRead === false) {
+                mails = mails.filter(mail => !mail.isRead)
+            }
+            return mails
+        })
 
-    //     return Books
-    // })
 }
 
 
@@ -58,6 +61,9 @@ function save(mail) {
 //     return { title: filterBy.title, minPrice: filterBy.minPrice }
 // }
 
+function getDefaultFilter() {
+    return { text: '', isRead: '' }
+}
 
 
 

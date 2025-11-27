@@ -1,26 +1,26 @@
 import { CountUnread } from "../cmps/CountUnread.jsx"
-import { MailHeader } from "../cmps/MailHeader.jsx"
+import { MailFilter } from "../cmps/MailFilter.jsx"
 import { MailList } from "../cmps/MailList.jsx"
 import { NewMail } from "../cmps/NewMail.jsx"
 import { mailService } from "../services/mail.service.js"
-import { MailDetails } from "./MailDetails.jsx"
+
 
 
 const { useState, useEffect, Fragment } = React
 
 
 export function MailIndex() {
-
+    const [filterBy, setFilterBy] = useState(mailService.getDefaultFilter())
     const [isNewMailOpen, setIsNewMailOpen] = useState(false)
     const [mails, setMails] = useState([])
     console.log(mails)
 
     useEffect(() => {
         loadMails()
-    }, [])
+    }, [filterBy])
 
     function loadMails() {
-        mailService.query()
+        mailService.query(filterBy)
             .then(mails => setMails(mails))
     }
 
@@ -53,13 +53,19 @@ export function MailIndex() {
             })
 
     }
-
+    function onSetFilter(newFilterBy) {
+        setFilterBy(filterBy => ({ ...filterBy, ...newFilterBy }))
+    }
     return (
         <Fragment>
             <section className="main-container">
-                <button className="compose-btn" onClick={openNewMail}><i className="fa-solid fa-pen"></i></button>
+                <MailFilter defaultFilter={filterBy}
+                    onSetFilter={onSetFilter} />
                 {isNewMailOpen && <NewMail onClose={closeNewMail} onSendMail={sendMail} />}
-                <CountUnread mails={mails} />
+                <section className="nav-container">
+                    <button className="compose-btn" onClick={openNewMail}><i className="fa-solid fa-pen"></i></button>
+                    <CountUnread mails={mails} />
+                </section>
                 <MailList mails={mails} onRemove={removeMail} onMarkRead={markAsRead} />
 
             </section>

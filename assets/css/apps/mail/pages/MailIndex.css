@@ -19,3 +19,7 @@
          cursor: pointer;
      }
  }
+
+ .filter-container {
+     grid-column: 2;
+ }
