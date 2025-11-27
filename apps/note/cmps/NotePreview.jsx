@@ -2,21 +2,28 @@ import { NoteTxt } from "./NoteTxt.jsx";
 import { NoteImg } from "./NoteImg.jsx";
 import { NoteTodos } from "./NoteTodos.jsx";
 
-const { useState } = React;
+const { useState, useEffect } = React;
 
 export function NotePreview({ note, onRemoveNote, onSaveNote }) {
   const [isEditMode, setIsEditMode] = useState(false);
-  const [localInfo, setLocalInfo] = useState(note.info);
+  const [showColors, setShowColors] = useState(false);
+
+  const [localStyle, setLocalStyle] = useState(note.style);
+
+  useEffect(() => {
+    setLocalStyle(note.style);
+  }, [note.style]);
 
   function onChangeInfo(newInfo) {
-    setLocalInfo(newInfo); 
+    onSaveNote({ ...note, info: newInfo, style: localStyle });
   }
 
-  function onToggleEdit() {
-    if (isEditMode) {
-      onSaveNote({ ...note, info: localInfo }); 
-    }
-    setIsEditMode(!isEditMode);
+  function onSelectColor(color) {
+    setLocalStyle({ backgroundColor: color });
+  }
+
+  function commitColor() {
+    onSaveNote({ ...note, style: localStyle });
   }
 
   function renderNote() {
@@ -24,19 +31,19 @@ export function NotePreview({ note, onRemoveNote, onSaveNote }) {
       case "NoteTxt":
         return (
           <NoteTxt
-            info={localInfo}
+            info={note.info}
             isEditMode={isEditMode}
             onChangeInfo={onChangeInfo}
           />
         );
 
       case "NoteImg":
-        return <NoteImg info={localInfo} />;
+        return <NoteImg info={note.info} />;
 
       case "NoteTodos":
         return (
           <NoteTodos
-            info={localInfo}
+            info={note.info}
             isEditMode={isEditMode}
             onChangeInfo={onChangeInfo}
           />
@@ -48,14 +55,39 @@ export function NotePreview({ note, onRemoveNote, onSaveNote }) {
   }
 
   return (
-    <article className="note-preview" style={note.style}>
+    <article className="note-preview" style={localStyle}>
       {renderNote()}
 
-      <div className="note-preview-actions">
-        <button onClick={onToggleEdit}>{isEditMode ? "Save" : "Edit"}</button>
+      <div className="note-actions">
+        <button
+          onClick={() => {
+            if (isEditMode) {
+              commitColor();
+              onSaveNote(note);
+            }
+            setIsEditMode((prev) => !prev);
+          }}
+        >
+          {isEditMode ? "Save" : "Edit"}
+        </button>
+
+        <button onClick={() => setShowColors((prev) => !prev)}>🎨</button>
 
         <button onClick={() => onRemoveNote(note.id)}>X</button>
       </div>
+
+      {showColors && (
+        <div className="color-picker">
+          {["#fff", "#fde047", "#fca5a5", "#bbf7d0", "#bfdbfe"].map((color) => (
+            <div
+              key={color}
+              className="color-swatch"
+              style={{ backgroundColor: color }}
+              onClick={() => onSelectColor(color)}
+            ></div>
+          ))}
+        </div>
+      )}
     </article>
   );
 }
