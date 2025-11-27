@@ -5,6 +5,9 @@
  form {
      padding: 5px;
      background-color: var(--mail-color-1);
+     display: flex;
+     gap: 20px;
+     align-items: center;
  }
 
  input[type="text"] {
@@ -13,4 +16,21 @@
      padding: 20px;
      border: 0;
      background-color: #e9eef6;
+ }
+
+ input[type="radio"] {
+     width: 0;
+     height: 0;
+ }
+
+ label:hover {
+     cursor: pointer;
+ }
+
+ .radio-container {
+     display: grid;
+ }
+
+ label:has(input[type="radio"]:checked) {
+     font-weight: bold;
  }

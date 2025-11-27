@@ -44,25 +44,26 @@ export function MailFilter({ defaultFilter, onSetFilter }) {
 
     const { text, isRead } = filterByToEdit
     return (
-       
-            <section className="filter-container">
-                <form>
-                    <label htmlFor="text"></label>
-                    <input onChange={handleChange} value={text} name="text" id="text" type="text" placeholder="Search mail" />
 
-                    <input onChange={handleChange} checked={isRead === true} value={'true'} name="isRead" id="isRead" type="radio" />
-                    <label htmlFor="isRead">Read</label>
+        <section className="filter-container">
+            <form>
+                <label htmlFor="text"></label>
+                <input onChange={handleChange} value={text} name="text" id="text" type="text" placeholder="Search mail" />
+                <section className="radio-container">
+                    <label htmlFor="isRead">Read
+                        <input onChange={handleChange} checked={isRead === true} value={'true'} name="isRead" id="isRead" type="radio" />
+                    </label>
+                    <label htmlFor="unRead">Unread
+                        <input onChange={handleChange} checked={isRead === false} value={'false'} name="isRead" id="unRead" type="radio" />
+                    </label>
+                    <label htmlFor="all">All
+                        <input onChange={handleChange} checked={isRead === null} value={''} name="isRead" id="all" type="radio" />
+                    </label>
+                </section>
+            </form>
 
-                    <input onChange={handleChange} checked={isRead === false} value={'false'} name="isRead" id="unRead" type="radio" />
-                    <label htmlFor="unRead">Unread</label>
+        </section >
 
-                    <input onChange={handleChange} checked={isRead === null} value={''} name="isRead" id="all" type="radio" />
-                    <label htmlFor="all">All</label>
-
-                </form>
-
-            </section >
-        
     )
 }
 

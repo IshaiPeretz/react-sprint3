@@ -31,24 +31,28 @@ export function MailDetails() {
                 navigate(`/mail`)
             })
     }
-
+    function onDelete(mailId) {
+        mailService.remove(mailId).then(() => navigate(-1)) //used -1 to return to either sent or inbox
+    }
 
 
     if (!mail) return <div>Loading...</div>
     const date = utilService.formatCustomDate(mail.sentAt)
+    const { subject, from, to, body, id } = mail
 
     return (
-        <div>
-            <h1>{mail.subject}</h1>
-            <h2>{mail.from}</h2>
-            <h4>{mail.to}</h4>
-            <p>{mail.body}</p>
-            <h4>{date}</h4>
-            <button className='close'>
-                <Link to='/mail'> Back </Link>
-            </button>
-            <button className='delete' >Delete</button>
-            
+        <div className="mail-display">
+            <h1 className ="subject">{subject}</h1>
+            <h2 className ="from" >{from}</h2>
+            <h4 className ="to">to:{to}</h4>
+            <p className ="body">{body}</p>
+            <h4 className ="date">{date}</h4>
+            <section className="btns">
+                <button className='close'>
+                    <Link to='/mail'> Back </Link>
+                </button>
+                <button className='delete' onClick={() => onDelete(id)}>Delete</button>
+            </section>
             <nav className='mail-details-nav'>
                 <Link to={`/mail/${mail.prevMailId}`}>
                     <button><i className="fa-solid fa-arrow-left"></i></button>
