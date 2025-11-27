@@ -50,3 +50,13 @@
     transform: translateX(0);
   }
 }
+
+@media (min-width: 700px) {
+  .close-sidebar-btn {
+    display: none !important;
+  }
+
+  .sidebar-overlay {
+    display: none !important;
+  }
+}
