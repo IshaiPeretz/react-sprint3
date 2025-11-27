@@ -31,18 +31,37 @@ export function NoteIndex() {
     });
   }
 
-  function onAddNote({ txt, noteType }) {
+  function onAddNote({ title, txt, noteType }) {
     const newNote = notesService.getEmptyNote(noteType);
-    if (noteType === "NoteTxt") newNote.info.txt = txt;
-    if (noteType === "NoteImg" || noteType === "NoteVideo")
-      newNote.info.url = txt;
-    if (noteType === "NoteTodos")
-      newNote.info.todos = txt.split(",").map((item) => ({
-        txt: item.trim(),
-        isDone: false,
-      }));
+
+    switch (noteType) {
+      case "NoteTxt":
+        newNote.info.title = title;
+        newNote.info.txt = txt;
+        break;
+
+      case "NoteImg":
+      case "NoteVideo":
+        newNote.info.title = title;
+        newNote.info.url = txt;
+        break;
+
+      case "NoteTodos":
+        newNote.info.title = title;
+        newNote.info.todos = txt
+          .split(",")
+          .map((str) => ({ txt: str.trim(), isDone: false }))
+          .filter((todo) => todo.txt);
+        break;
+
+      default:
+        newNote.info.title = title;
+        newNote.info.txt = txt;
+        break;
+    }
+
     notesService.save(newNote).then((savedNote) => {
-      setNotes((prev) => [savedNote, ...prev]);
+      setNotes((prevNotes) => [savedNote, ...prevNotes]);
     });
   }
 
