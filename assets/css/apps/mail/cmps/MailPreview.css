@@ -6,8 +6,32 @@
     border: 1px #eceff1 solid;
     padding: 0.5em;
     height: 3em;
+    gap: 10px;
 
+    .date {
+        white-space: nowrap;
+    }
 
+    .body {
+        width: 30vw;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .from {
+        width: 20vw;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .subject {
+        width: 10vw;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 
     &:hover {
         cursor: pointer;
@@ -18,10 +42,7 @@
     button {
         border: 0;
         background-color: transparent;
-
-
     }
-
 }
 
 .read {

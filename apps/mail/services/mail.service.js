@@ -5,7 +5,7 @@ import { utilService } from '../../../services/util.service.js'
 import { storageService } from '../../../services/async-storage.service.js'
 
 const MAIL_KEY = 'MailDB'
-const loggedinUser = { email: 'user@appsus.com', fullname: 'Mahatma Appsus' }
+const loggedInUser = { email: 'Ishai@appsus.com', fullname: 'Ishai Peretz' }
 
 _createMails()
 
@@ -15,8 +15,8 @@ export const mailService = {
     remove,
     save,
     getDefaultFilter,
+    loggedInUser
 }
-
 
 function query(filterBy = {}) {
     return storageService.query(MAIL_KEY)
@@ -25,7 +25,6 @@ function query(filterBy = {}) {
                 const regExp = new RegExp(filterBy.text, 'i')
                 mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body))
             }
-
             if (filterBy.isRead === true) {
                 mails = mails.filter(mail => mail.isRead)
             } else if (filterBy.isRead === false) {
@@ -33,9 +32,7 @@ function query(filterBy = {}) {
             }
             return mails
         })
-
 }
-
 
 function get(mailId) {
     return storageService.get(MAIL_KEY, mailId)
@@ -62,7 +59,7 @@ function save(mail) {
 // }
 
 function getDefaultFilter() {
-    return { text: '', isRead: '' }
+    return { text: '', isRead: null }
 }
 
 

@@ -30,7 +30,6 @@ export function MailFilter({ defaultFilter, onSetFilter }) {
             case 'checkbox':
                 value = target.checked
                 break
-
         }
 
         setFilterToEdit(prevFilter => ({ ...prevFilter, [field]: value }))
@@ -46,14 +45,14 @@ export function MailFilter({ defaultFilter, onSetFilter }) {
                 <label htmlFor="text">Search</label>
                 <input onChange={handleChange} value={text} name="text" id="text" type="text" />
 
-                <label htmlFor="isRead">Read</label>
                 <input onChange={handleChange} checked={isRead === true} value={true} name="isRead" id="isRead" type="radio" />
+                <label htmlFor="isRead">Read</label>
 
-                <label htmlFor="unRead">Unread</label>
                 <input onChange={handleChange} checked={isRead === false} value={false} name="isRead" id="unRead" type="radio" />
+                <label htmlFor="unRead">Unread</label>
 
-                <label htmlFor="all">All</label>
                 <input onChange={handleChange} checked={isRead === null} value={''} name="isRead" id="all" type="radio" />
+                <label htmlFor="all">All</label>
 
             </form>
         </section>

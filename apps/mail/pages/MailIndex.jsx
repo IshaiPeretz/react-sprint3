@@ -43,15 +43,15 @@ export function MailIndex() {
         setIsNewMailOpen(false)
     }
 
-    function markAsRead(ev, mailId) {
+    function markAsRead(ev, mail) {
         ev.preventDefault()
-        mailService.get(mailId)
-            .then(mail => {
-                mail.isRead = !mail.isRead
-                mailService.save(mail)
-                    .then(() => loadMails())
+        mail.isRead = !mail.isRead
+        mailService.save(mail)
+            .then((updatedMail) => {
+                console.log(updatedMail)
+                const updatedMails = mails.map(mail => mail.id === updatedMail.id ? updatedMail : mail)
+                setMails(updatedMails)
             })
-
     }
     function onSetFilter(newFilterBy) {
         setFilterBy(filterBy => ({ ...filterBy, ...newFilterBy }))

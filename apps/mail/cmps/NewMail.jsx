@@ -1,3 +1,4 @@
+import { mailService } from "../services/mail.service.js"
 
 const { useState } = React 
 
@@ -28,9 +29,8 @@ export function NewMail({ onClose, onSendMail }) {
     function onSend(ev) {
         ev.preventDefault()
         mailInput.sentAt = Date.now()
-        mailInput.from = 'user@appsus.com'
+        mailInput.from = mailService.loggedInUser.email
         mailInput.isRead = true
-
 
         onSendMail(mailInput)
 
