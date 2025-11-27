@@ -1,0 +1,16 @@
+ .filter-container {
+     grid-column: 2;
+ }
+
+ form {
+     padding: 5px;
+     background-color: var(--mail-color-1);
+ }
+
+ input[type="text"] {
+     height: 4em;
+     border-radius: 37px;
+     padding: 20px;
+     border: 0;
+     background-color: #e9eef6;
+ }
