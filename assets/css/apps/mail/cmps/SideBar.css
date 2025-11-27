@@ -1,0 +1,28 @@
+.side-bar {
+    display: grid;
+    grid-row: 1 /span 5;
+    align-content: start;
+    background-color: var(--mail-color-2);
+    height: 100vh;
+
+}
+
+
+.btn {
+    align-self: start;
+    background-color: #c2e7ff;
+    border-radius: 5px;
+    border: 0;
+    justify-self: center;
+    padding: 20px;
+    margin-bottom: 5px;
+    width: 100%;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.compose-btn {
+    grid-row: 1;
+}

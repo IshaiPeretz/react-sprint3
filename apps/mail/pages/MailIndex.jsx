@@ -2,6 +2,7 @@ import { CountUnread } from "../cmps/CountUnread.jsx"
 import { MailFilter } from "../cmps/MailFilter.jsx"
 import { MailList } from "../cmps/MailList.jsx"
 import { NewMail } from "../cmps/NewMail.jsx"
+import { SideBar } from "../cmps/SideBar.jsx"
 import { mailService } from "../services/mail.service.js"
 
 
@@ -42,6 +43,12 @@ export function MailIndex() {
     function closeNewMail() {
         setIsNewMailOpen(false)
     }
+    function onInbox() {
+        setFilterBy(filterBy => ({ ...filterBy, status: 'inbox' }))
+    }
+    function onSent() {
+        setFilterBy(filterBy => ({ ...filterBy, status: 'sent' }))
+    }
 
     function markAsRead(ev, mail) {
         ev.preventDefault()
@@ -62,12 +69,12 @@ export function MailIndex() {
                 <MailFilter defaultFilter={filterBy}
                     onSetFilter={onSetFilter} />
                 {isNewMailOpen && <NewMail onClose={closeNewMail} onSendMail={sendMail} />}
-                <section className="nav-container">
-                    <button className="compose-btn" onClick={openNewMail}><i className="fa-solid fa-pen"></i></button>
-                    <CountUnread mails={mails} />
-                </section>
+                <SideBar
+                    openNewMail={openNewMail}
+                    mails={mails}
+                    onInbox={onInbox}
+                    onSent={onSent} />
                 <MailList mails={mails} onRemove={removeMail} onMarkRead={markAsRead} />
-
             </section>
         </Fragment>
     )

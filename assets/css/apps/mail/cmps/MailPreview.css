@@ -37,7 +37,18 @@
         cursor: pointer;
         box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.3);
         border-bottom: 1px rgb(164, 163, 163) solid;
+
+        .prev-btns {
+            display: flex;
+        }
+
+        .date {
+            display: none;
+        }
     }
+
+
+
 
     button {
         border: 0;
