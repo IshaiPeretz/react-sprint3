@@ -23,9 +23,16 @@ function query(filterBy = getDefaultFilter()) {
             const regex = new RegExp(filterBy.txt, 'i')
             notes = notes.filter(note => {
                 const info = note.info || {}
+
+                let todosText = ''
+                if (info.todos && Array.isArray(info.todos)) {
+                    todosText = info.todos.map(todo => todo.txt || '').join(' ')
+                }
+
                 return (
                     regex.test(info.txt || '') ||
-                    regex.test(info.title || '')
+                    regex.test(info.title || '') ||
+                    regex.test(todosText)
                 )
             })
         }
@@ -37,6 +44,7 @@ function query(filterBy = getDefaultFilter()) {
         return notes
     })
 }
+
 
 function get(noteId) {
     return storageService.get(NOTE_KEY, noteId)

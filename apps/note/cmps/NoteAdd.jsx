@@ -1,5 +1,4 @@
 const { useState, useEffect, useRef } = React;
-import "../../../assets/css/apps/note/cmps/NoteAdd.css";
 
 export function NoteAdd({ onAddNote }) {
   const [isExpanded, setIsExpanded] = useState(false);

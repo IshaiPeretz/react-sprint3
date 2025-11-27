@@ -1,7 +1,31 @@
-/* note index */
+/* note index layout */
 
 .note-index {
+  padding: 16px 24px 40px;
+}
+
+.note-body {
+  display: flex;
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.note-main {
+  flex: 1;
   max-width: 1100px;
   margin: 0 auto;
-  padding: 40px 0;
+}
+
+@media (max-width: 900px) {
+  .note-index {
+    padding: 8px 8px 24px;
+  }
+
+  .note-body {
+    gap: 0;
+  }
+
+  .note-main {
+    max-width: 100%;
+  }
 }
