@@ -1,26 +1,53 @@
 .note-add {
-  max-width: 600px;
-  margin: 0 auto 20px;
+  display: flex;
+  justify-content: center;
+  margin: 16px auto 24px;
   width: 100%;
+}
+
+.note-add form {
+  width: 100%;
+  max-width: 600px;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid #dadce0;
+  box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px rgba(60, 64, 67, 0.15);
+  padding: 8px 12px 4px;
+}
+
+.note-title {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  margin-bottom: 4px;
+  font-weight: 500;
 }
 
 .note-add-input {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 6px 10px;
-  box-shadow: 0 1px 3px rgb(0 0 0 / 0.15);
   gap: 8px;
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
 }
 
-.note-add-input input {
+.note-add-input input,
+.note-add-input textarea {
   flex: 1;
   border: none;
   outline: none;
-  font-size: 1rem;
+  font-size: 0.95rem;
   min-width: 0;
+  background: transparent;
+}
+
+.note-add-input textarea {
+  resize: none;
+  overflow: hidden;
+  line-height: 1.4rem;
 }
 
 .note-type-actions {
@@ -35,45 +62,30 @@
   cursor: pointer;
   font-size: 1.1rem;
   padding: 4px;
-  color: #555;
+  color: #5f6368;
 }
 
 .note-type-actions button:hover {
-  color: #111;
-  background-color: #f1f1f1;
+  color: #202124;
+  background-color: #f1f3f4;
   border-radius: 4px;
 }
 
-.note-title {
-  width: 100%;
-  border: none;
-  outline: none;
-  font-size: 1.1rem;
-  margin-bottom: 8px;
-}
-
 .close-btn {
-  margin-top: 8px;
+  margin-top: 4px;
   background: none;
   border: none;
   font-size: 0.9rem;
   cursor: pointer;
-  color: #555;
+  color: #5f6368;
+  padding: 4px 8px;
+  float: right;
 }
 
 .close-btn:hover {
-  color: #000;
-}
-
-.note-add-input textarea {
-  flex: 1;
-  border: none;
-  outline: none;
-  font-size: 1rem;
-  min-width: 0;
-  resize: none;
-  overflow: hidden;
-  line-height: 1.4rem;
+  color: #202124;
+  background-color: #f1f3f4;
+  border-radius: 4px;
 }
 
 .todo-editor {
@@ -93,5 +105,11 @@
   flex: 1;
   border: none;
   outline: none;
-  font-size: 1rem;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 600px) {
+  .note-add form {
+    max-width: 100%;
+  }
 }

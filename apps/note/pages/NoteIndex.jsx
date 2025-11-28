@@ -3,16 +3,20 @@ import "../../../assets/css/apps/note/cmps/NoteAdd.css";
 import { notesService } from "../services/note.service.js";
 import { NoteList } from "../cmps/NoteList.jsx";
 import { NoteAdd } from "../cmps/NoteAdd.jsx";
+import { NoteHeader } from "../cmps/NoteHeader.jsx";
+import { NoteSidebar } from "../cmps/NoteSidebar.jsx";
 
 export function NoteIndex() {
   const [notes, setNotes] = useState(null);
+  const [filterBy, setFilterBy] = useState(notesService.getDefaultFilter());
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     loadNotes();
-  }, []);
+  }, [filterBy]);
 
   function loadNotes() {
-    notesService.query().then((notes) => setNotes(notes));
+    notesService.query(filterBy).then((notes) => setNotes(notes));
   }
 
   function onRemoveNote(noteId) {
@@ -31,49 +35,67 @@ export function NoteIndex() {
     });
   }
 
-function onAddNote({ title, txt, noteType }) {
-  const newNote = notesService.getEmptyNote(noteType);
+  function onAddNote({ title, txt, noteType }) {
+    const newNote = notesService.getEmptyNote(noteType);
 
-  switch (noteType) {
-    case "NoteTxt":
-      newNote.info.title = title;
-      newNote.info.txt = txt;
-      break;
+    switch (noteType) {
+      case "NoteTxt":
+        newNote.info.title = title;
+        newNote.info.txt = txt;
+        break;
 
-    case "NoteImg":
-    case "NoteVideo":
-      newNote.info.title = title;
-      newNote.info.url = txt;
-      break;
+      case "NoteImg":
+      case "NoteVideo":
+        newNote.info.title = title;
+        newNote.info.url = txt;
+        break;
 
-    case "NoteTodos":
-      newNote.info.title = title;
-      newNote.info.todos = txt;  
-      break;
+      case "NoteTodos":
+        newNote.info.title = title;
+        newNote.info.todos = txt;
+        break;
 
-    default:
-      newNote.info.title = title;
-      newNote.info.txt = txt;
-      break;
+      default:
+        newNote.info.title = title;
+        newNote.info.txt = txt;
+        break;
+    }
+
+    notesService.save(newNote).then((savedNote) => {
+      setNotes((prevNotes) => [savedNote, ...(prevNotes || [])]);
+    });
   }
 
-  notesService.save(newNote).then((savedNote) => {
-    setNotes((prevNotes) => [savedNote, ...prevNotes]);
-  });
-}
+  function onChangeSearch(txt) {
+    setFilterBy((prev) => ({ ...prev, txt }));
+  }
 
-
+  function onToggleSidebar() {
+    setIsSidebarOpen((prev) => !prev);
+  }
 
   if (!notes) return <div>Loading...</div>;
 
   return (
     <section className="note-index">
-      <NoteAdd onAddNote={onAddNote} />
-      <NoteList
-        notes={notes}
-        onRemoveNote={onRemoveNote}
-        onSaveNote={onSaveNote}
+      <NoteHeader
+        searchTxt={filterBy.txt}
+        onChangeSearch={onChangeSearch}
+        onToggleSidebar={onToggleSidebar}
       />
+
+      <section className="note-body">
+        <NoteSidebar isOpen={isSidebarOpen} />
+
+        <main className="note-main">
+          <NoteAdd onAddNote={onAddNote} />
+          <NoteList
+            notes={notes}
+            onRemoveNote={onRemoveNote}
+            onSaveNote={onSaveNote}
+          />
+        </main>
+      </section>
     </section>
   );
 }
