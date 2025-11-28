@@ -15,8 +15,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: false,
         isStarred: false,
-        sentAt: Date.now() - Math.floor(Math.random() * 100 * 365 * 24 * 60 * 60 * 1000), // last 100 days
-        createdAt: Date.now() - Math.floor(Math.random() * 100 * 365 * 24 * 60 * 60 * 1000),
+        sentAt: 1733078400000,    // Nov 28, 2024 (today)
+        createdAt: 1733078400000,
         removedAt: null
     },
     {
@@ -27,8 +27,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: true,
         isStarred: true,
-        sentAt: Date.now() - Math.floor(Math.random() * 365 * 24 * 60 * 60 * 1000), // last year
-        createdAt: Date.now() - Math.floor(Math.random() * 365 * 24 * 60 * 60 * 1000),
+        sentAt: 1732982000000,    // Nov 27, 2024 (~1 day ago)
+        createdAt: 1732982000000,
         removedAt: null
     },
     {
@@ -39,8 +39,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: false,
         isStarred: false,
-        sentAt: Date.now() - Math.floor(Math.random() * 730 * 24 * 60 * 60 * 1000), // last 2 years
-        createdAt: Date.now() - Math.floor(Math.random() * 730 * 24 * 60 * 60 * 1000),
+        sentAt: 1729728000000,    // Oct 25, 2024 (~2 years back)
+        createdAt: 1729728000000,
         removedAt: null
     },
     {
@@ -51,8 +51,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: false,
         isStarred: false,
-        sentAt: Date.now() - Math.floor(Math.random() * 30 * 24 * 60 * 60 * 1000), // last month
-        createdAt: Date.now() - Math.floor(Math.random() * 30 * 24 * 60 * 60 * 1000),
+        sentAt: 1732684800000,    // Nov 27, 2024 (~1 month ago)
+        createdAt: 1732684800000,
         removedAt: null
     },
     {
@@ -63,8 +63,8 @@ const demoMails = [
         to: 'friend@example.com',
         isRead: false,
         isStarred: false,
-        sentAt: null,  // ← Draft (shows "Draft")
-        createdAt: Date.now() - Math.floor(Math.random() * 7 * 24 * 60 * 60 * 1000), // last week
+        sentAt: null,             // Draft
+        createdAt: 1732991600000, // Nov 28, 2024 (~1 week ago)
         removedAt: null
     },
     {
@@ -75,8 +75,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: true,
         isStarred: false,
-        sentAt: Date.now() - Math.floor(Math.random() * 180 * 24 * 60 * 60 * 1000), // last 6 months
-        createdAt: Date.now() - Math.floor(Math.random() * 180 * 24 * 60 * 60 * 1000),
+        sentAt: 1731148800000,    // Nov 9, 2024 (~6 months ago)
+        createdAt: 1731148800000,
         removedAt: null
     },
     {
@@ -87,8 +87,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: false,
         isStarred: true,
-        sentAt: Date.now() - Math.floor(Math.random() * 14 * 24 * 60 * 60 * 1000), // last 2 weeks
-        createdAt: Date.now() - Math.floor(Math.random() * 14 * 24 * 60 * 60 * 1000),
+        sentAt: 1732835200000,    // Nov 28, 2024 (~2 weeks ago)
+        createdAt: 1732835200000,
         removedAt: null
     },
     {
@@ -99,8 +99,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: true,
         isStarred: false,
-        sentAt: Date.now() - Math.floor(Math.random() * 90 * 24 * 60 * 60 * 1000), // last 3 months
-        createdAt: Date.now() - Math.floor(Math.random() * 90 * 24 * 60 * 60 * 1000),
+        sentAt: 1731916800000,    // Nov 19, 2024 (~3 months ago)
+        createdAt: 1731916800000,
         removedAt: null
     },
     {
@@ -111,8 +111,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: false,
         isStarred: false,
-        sentAt: Date.now() - Math.floor(Math.random() * 3 * 24 * 60 * 60 * 1000), // last 3 days
-        createdAt: Date.now() - Math.floor(Math.random() * 3 * 24 * 60 * 60 * 1000),
+        sentAt: 1733164800000,    // Nov 29, 2024 (~3 days ago)
+        createdAt: 1733164800000,
         removedAt: null
     },
     {
@@ -123,8 +123,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: false,
         isStarred: true,
-        sentAt: Date.now() - Math.floor(Math.random() * 365 * 24 * 60 * 60 * 1000), // last year
-        createdAt: Date.now() - Math.floor(Math.random() * 365 * 24 * 60 * 60 * 1000),
+        sentAt: 1729728000000,    // Oct 25, 2024 (~1 year ago)
+        createdAt: 1729728000000,
         removedAt: null
     },
     {
@@ -135,8 +135,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: true,
         isStarred: false,
-        sentAt: Date.now() - Math.floor(Math.random() * 60 * 24 * 60 * 60 * 1000), // last 2 months
-        createdAt: Date.now() - Math.floor(Math.random() * 60 * 24 * 60 * 60 * 1000),
+        sentAt: 1731916800000,    // Nov 19, 2024 (~2 months ago)
+        createdAt: 1731916800000,
         removedAt: null
     },
     {
@@ -147,8 +147,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: false,
         isStarred: false,
-        sentAt: Date.now() - Math.floor(Math.random() * 45 * 24 * 60 * 60 * 1000), // last 45 days
-        createdAt: Date.now() - Math.floor(Math.random() * 45 * 24 * 60 * 60 * 1000),
+        sentAt: 1732377600000,    // Nov 24, 2024 (~45 days ago)
+        createdAt: 1732377600000,
         removedAt: null
     },
     {
@@ -159,8 +159,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: true,
         isStarred: false,
-        sentAt: Date.now() - Math.floor(Math.random() * 20 * 24 * 60 * 60 * 1000), // last 20 days
-        createdAt: Date.now() - Math.floor(Math.random() * 20 * 24 * 60 * 60 * 1000),
+        sentAt: 1732872000000,    // Nov 28, 2024 (~20 days ago)
+        createdAt: 1732872000000,
         removedAt: null
     },
     {
@@ -171,9 +171,9 @@ const demoMails = [
         to: 'team@work.com',
         isRead: true,
         isStarred: false,
-        sentAt: Date.now() - Math.floor(Math.random() * 365 * 24 * 60 * 60 * 1000),
-        createdAt: Date.now() - Math.floor(Math.random() * 365 * 24 * 60 * 60 * 1000),
-        removedAt: Date.now() - Math.floor(Math.random() * 30 * 24 * 60 * 60 * 1000) // trashed recently
+        sentAt: 1729728000000,    // Oct 25, 2024 (~1 year ago)
+        createdAt: 1729728000000,
+        removedAt: 1732982000000, // Nov 27, 2024 (trashed recently)
     },
     {
         id: 'm15',
@@ -183,8 +183,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: false,
         isStarred: true,
-        sentAt: Date.now() - Math.floor(Math.random() * 1 * 24 * 60 * 60 * 1000), // yesterday
-        createdAt: Date.now() - Math.floor(Math.random() * 1 * 24 * 60 * 60 * 1000),
+        sentAt: 1733164800000,    // Nov 29, 2024 (yesterday)
+        createdAt: 1733164800000,
         removedAt: null
     },
     {
@@ -195,8 +195,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: true,
         isStarred: false,
-        sentAt: Date.now() - Math.floor(Math.random() * 7 * 24 * 60 * 60 * 1000), // last week
-        createdAt: Date.now() - Math.floor(Math.random() * 7 * 24 * 60 * 60 * 1000),
+        sentAt: 1732991600000,    // Nov 28, 2024 (~1 week ago)
+        createdAt: 1732991600000,
         removedAt: null
     },
     {
@@ -207,8 +207,8 @@ const demoMails = [
         to: 'client@company.com',
         isRead: false,
         isStarred: true,
-        sentAt: null,  // ← Draft
-        createdAt: Date.now() - Math.floor(Math.random() * 3 * 24 * 60 * 60 * 1000), // last 3 days
+        sentAt: null,             // Draft
+        createdAt: 1733241200000, // Nov 30, 2024 (~3 days ago)
         removedAt: null
     },
     {
@@ -219,8 +219,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: false,
         isStarred: false,
-        sentAt: Date.now() - Math.floor(Math.random() * 10 * 24 * 60 * 60 * 1000), // last 10 days
-        createdAt: Date.now() - Math.floor(Math.random() * 10 * 24 * 60 * 60 * 1000),
+        sentAt: 1733128800000,    // Nov 29, 2024 (~10 days ago)
+        createdAt: 1733128800000,
         removedAt: null
     },
     {
@@ -231,8 +231,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: true,
         isStarred: false,
-        sentAt: Date.now() - Math.floor(Math.random() * 7 * 24 * 60 * 60 * 1000), // last week
-        createdAt: Date.now() - Math.floor(Math.random() * 7 * 24 * 60 * 60 * 1000),
+        sentAt: 1732991600000,    // Nov 28, 2024 (~1 week ago)
+        createdAt: 1732991600000,
         removedAt: null
     },
     {
@@ -243,8 +243,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: false,
         isStarred: false,
-        sentAt: Date.now() - Math.floor(Math.random() * 2 * 24 * 60 * 60 * 1000), // last 2 days
-        createdAt: Date.now() - Math.floor(Math.random() * 2 * 24 * 60 * 60 * 1000),
+        sentAt: 1733241200000,    // Nov 30, 2024 (~2 days ago)
+        createdAt: 1733241200000,
         removedAt: null
     },
     {
@@ -255,8 +255,8 @@ const demoMails = [
         to: 'team@work.com',
         isRead: false,
         isStarred: false,
-        sentAt: Date.now() - Math.floor(Math.random() * 30 * 24 * 60 * 60 * 1000), // last month
-        createdAt: Date.now() - Math.floor(Math.random() * 30 * 24 * 60 * 60 * 1000),
+        sentAt: 1732684800000,    // Nov 27, 2024 (~1 month ago)
+        createdAt: 1732684800000,
         removedAt: null
     },
     {
@@ -267,11 +267,12 @@ const demoMails = [
         to: 'client@company.com',
         isRead: true,
         isStarred: true,
-        sentAt: Date.now() - Math.floor(Math.random() * 60 * 24 * 60 * 60 * 1000), // last 2 months
-        createdAt: Date.now() - Math.floor(Math.random() * 60 * 24 * 60 * 60 * 1000),
+        sentAt: 1731916800000,    // Nov 19, 2024 (~2 months ago)
+        createdAt: 1731916800000,
         removedAt: null
     }
 ]
+
 
 _createMails()
 

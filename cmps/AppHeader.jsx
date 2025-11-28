@@ -12,10 +12,10 @@ export function AppHeader() {
         </Link>
         {isMenuOpen &&
             <nav className="nav-list">
-                <NavLink to="/">Home</NavLink>
-                <NavLink to="/about">About</NavLink>
-                <NavLink to="/mail">Mail</NavLink>
-                <NavLink to="/note">Note</NavLink>
+                <NavLink onClick={() => setIsMenuOpen(!isMenuOpen)} to="/">Home</NavLink>
+                <NavLink onClick={() => setIsMenuOpen(!isMenuOpen)} to="/about">About</NavLink>
+                <NavLink onClick={() => setIsMenuOpen(!isMenuOpen)} to="/mail">Mail</NavLink>
+                <NavLink onClick={() => setIsMenuOpen(!isMenuOpen)} to="/note">Note</NavLink>
             </nav>}
 
         <button className="header-hamburger"
