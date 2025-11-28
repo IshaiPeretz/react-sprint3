@@ -127,15 +127,19 @@ export function NoteAdd({ onAddNote }) {
             />
           )}
 
+          {!isExpanded && noteType === "NoteTodos" && (
+            <div className="todo-row">
+              <input type="checkbox" disabled />
+              <input className="todo-input" placeholder="List item" readOnly />
+            </div>
+          )}
+
           {isExpanded && noteType === "NoteTxt" && (
             <textarea
-              rows={1}
+              rows={3}
               placeholder="Take a note..."
               value={txt}
-              onChange={(ev) => {
-                setTxt(ev.target.value);
-                autoGrow(ev);
-              }}
+              onChange={(ev) => setTxt(ev.target.value)}
             />
           )}
 
@@ -173,6 +177,7 @@ export function NoteAdd({ onAddNote }) {
               ))}
             </div>
           )}
+
           <div className="note-type-actions">
             <button type="button" onClick={() => setNoteType("NoteTxt")}>
               <i className="fa-regular fa-pen-to-square"></i>
@@ -188,6 +193,7 @@ export function NoteAdd({ onAddNote }) {
             </button>
           </div>
         </div>
+
         {isExpanded && (
           <button
             type="button"
