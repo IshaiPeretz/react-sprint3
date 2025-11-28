@@ -44,23 +44,25 @@ export function MailDetails() {
         <div className="mail-display">
             <h1 className="subject">{subject}</h1>
             <h2 className="from" >{from}</h2>
-            <h4 className="to">to:{to}</h4>
+            <h4 className="to">to: {to}</h4>
             <p className="body">{body}</p>
             <h4 className="date">{date}</h4>
-            <section className="btns">
-                <button className='close'>
-                    <Link to='/mail'> Back </Link>
-                </button>
-                <button className='delete' onClick={() => onDelete(id)}>Delete</button>
+            <section className="mail-buttons-container ">
+                <section className="function-btns ">
+                    <button className='close display-btn'>
+                        <Link to='/mail'> Back </Link>
+                    </button>
+                    <button className='delete display-btn' onClick={() => onDelete(id)}>Delete</button>
+                </section>
+                <nav className='mail-details-nav'>
+                    <Link to={`/mail/${mail.prevMailId}`}>
+                        <button className="display-btn"><i className="fa-solid fa-arrow-left "></i></button>
+                    </Link>
+                    <Link to={`/mail/${mail.nextMailId}`}>
+                        <button className="display-btn"><i className="fa-solid fa-arrow-right"></i></button>
+                    </Link>
+                </nav>
             </section>
-            <nav className='mail-details-nav'>
-                <Link to={`/mail/${mail.prevMailId}`}>
-                    <button><i className="fa-solid fa-arrow-left"></i></button>
-                </Link>
-                <Link to={`/mail/${mail.nextMailId}`}>
-                    <button><i className="fa-solid fa-arrow-right"></i></button>
-                </Link>
-            </nav>
 
         </div>
     )
