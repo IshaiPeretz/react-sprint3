@@ -70,6 +70,10 @@ export function NoteIndex() {
     setFilterBy((prev) => ({ ...prev, txt }));
   }
 
+  function onSetTypeFilter(type) {
+    setFilterBy((prev) => ({ ...prev, type }));
+  }
+
   function onToggleSidebar() {
     setIsSidebarOpen((prev) => !prev);
   }
@@ -85,7 +89,12 @@ export function NoteIndex() {
       />
 
       <section className="note-body">
-        <NoteSidebar isOpen={isSidebarOpen} />
+        <NoteSidebar
+          isOpen={isSidebarOpen}
+          onClose={onToggleSidebar}
+          onSetTypeFilter={onSetTypeFilter}
+          currentType={filterBy.type}
+        />
 
         <main className="note-main">
           <NoteAdd onAddNote={onAddNote} />
