@@ -102,7 +102,11 @@ export function NoteAdd({ onAddNote }) {
 
   return (
     <section className="note-add">
-      <form ref={formRef} onSubmit={onSubmit}>
+      <form
+        ref={formRef}
+        onSubmit={onSubmit}
+        className={isExpanded ? "expanded" : ""}
+      >
         {isExpanded && (
           <input
             className="note-title"
@@ -169,23 +173,21 @@ export function NoteAdd({ onAddNote }) {
               ))}
             </div>
           )}
-
           <div className="note-type-actions">
             <button type="button" onClick={() => setNoteType("NoteTxt")}>
-              <i className="fa-solid fa-font"></i>
+              <i className="fa-regular fa-pen-to-square"></i>
             </button>
             <button type="button" onClick={() => setNoteType("NoteImg")}>
               <i className="fa-regular fa-image"></i>
             </button>
             <button type="button" onClick={() => setNoteType("NoteVideo")}>
-              <i className="fa-brands fa-youtube"></i>
+              <i className="fa-solid fa-video"></i>
             </button>
             <button type="button" onClick={() => setNoteType("NoteTodos")}>
-              <i className="fa-solid fa-list"></i>
+              <i className="fa-regular fa-square-check"></i>
             </button>
           </div>
         </div>
-
         {isExpanded && (
           <button
             type="button"
