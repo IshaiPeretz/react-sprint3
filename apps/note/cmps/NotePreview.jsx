@@ -2,16 +2,42 @@ import { NoteTxt } from "./NoteTxt.jsx";
 import { NoteImg } from "./NoteImg.jsx";
 import { NoteTodos } from "./NoteTodos.jsx";
 
-const { useState, useEffect } = React;
+const { useState, useEffect, useRef } = React;
 
 export function NotePreview({ note, onRemoveNote, onSaveNote }) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [showColors, setShowColors] = useState(false);
   const [draftNote, setDraftNote] = useState(note);
 
+  const noteRef = useRef();
+  const paletteRef = useRef();
+
   useEffect(() => {
     setDraftNote(note);
   }, [note.id, note.info, note.style]);
+
+  useEffect(() => {
+    function handleClick(ev) {
+      const outsideNote =
+        noteRef.current && !noteRef.current.contains(ev.target);
+      const outsidePalette =
+        paletteRef.current && !paletteRef.current.contains(ev.target);
+
+      if (outsideNote && isEditMode) {
+        onSaveNote(draftNote);
+        setIsEditMode(false);
+        setShowColors(false);
+      }
+
+      if (showColors && outsidePalette) {
+        setShowColors(false);
+        onSaveNote(draftNote);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [isEditMode, showColors, draftNote]);
 
   function onChangeInfo(newInfo) {
     setDraftNote((prev) => ({ ...prev, info: newInfo }));
@@ -30,10 +56,9 @@ export function NotePreview({ note, onRemoveNote, onSaveNote }) {
 
   function onChangeColor(color) {
     setDraftNote((prev) => {
-      const style = prev.style || {};
       const updated = {
         ...prev,
-        style: { ...style, backgroundColor: color },
+        style: { ...prev.style, backgroundColor: color },
       };
       onSaveNote(updated);
       return updated;
@@ -56,10 +81,8 @@ export function NotePreview({ note, onRemoveNote, onSaveNote }) {
             onChangeInfo={onChangeInfo}
           />
         );
-
       case "NoteImg":
         return <NoteImg info={draftNote.info} />;
-
       case "NoteTodos":
         return (
           <NoteTodos
@@ -69,44 +92,54 @@ export function NotePreview({ note, onRemoveNote, onSaveNote }) {
             onToggleTodo={onToggleTodo}
           />
         );
-
       default:
         return <div>Unknown note type</div>;
     }
   }
 
-  const bgStyle = draftNote.style || {};
-
   return (
-    <article className="note-preview" style={bgStyle}>
+    <article ref={noteRef} className="note-preview" style={draftNote.style}>
       {renderNote()}
 
       <div className="note-actions">
-        <button type="button" onClick={onToggleEdit}>
-          {isEditMode ? "Save" : "Edit"}
+        <button className="note-action-btn" onClick={onToggleEdit}>
+          <i className="fa-solid fa-pen"></i>
         </button>
 
-        <button type="button" onClick={() => setShowColors((prev) => !prev)}>
-          🎨
+        <button
+          className="note-action-btn"
+          onClick={() => setShowColors((prev) => !prev)}
+        >
+          <i className="fa-solid fa-palette"></i>
         </button>
 
-        <button type="button" onClick={() => onRemoveNote(note.id)}>
-          X
+        <button
+          className="note-action-btn"
+          onClick={() => onRemoveNote(note.id)}
+        >
+          <i className="fa-solid fa-trash"></i>
         </button>
       </div>
 
       {showColors && (
-        <div className="color-picker">
-          {["#fff", "#f28b82", "#fbbc04", "#fff475", "#ccff90", "#a7ffeb"].map(
-            (color) => (
-              <div
-                key={color}
-                className="color-swatch"
-                style={{ backgroundColor: color }}
-                onClick={() => onChangeColor(color)}
-              ></div>
-            )
-          )}
+        <div ref={paletteRef} className="color-picker">
+          {[
+            "#ffffff",
+            "#f28b82",
+            "#fbbc04",
+            "#fff475",
+            "#ccff90",
+            "#a7ffeb",
+            "#aecbfa",
+            "#d7aefb",
+          ].map((color) => (
+            <div
+              key={color}
+              className="color-swatch"
+              style={{ backgroundColor: color }}
+              onClick={() => onChangeColor(color)}
+            />
+          ))}
         </div>
       )}
     </article>
