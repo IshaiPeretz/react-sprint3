@@ -50,6 +50,7 @@ export function NewMail({ onClose, onSendMail, editingMail }) {
             subject: mailInput.subject || '',
             body: mailInput.body || '',
             createdAt: Date.now(),
+            sentAt: null,
             from: mailService.loggedInUser.email,
             isRead: true
         }

@@ -1,15 +1,12 @@
-import { utilService } from "../../../services/util.service.js"
-
-
 
 export function MailPreview({ mail, onRemove, onMarkRead, openNewMail, onMarkStar }) {
 
     const { from, subject, isRead, body, isStarred } = mail
+
     let displayDate
-    const date = new Date(mail.sentAt)
-    if (Number.isNaN(date.getTime())) {
-        displayDate = 'Draft'
-    } else {
+    if (!mail.sentAt) displayDate = 'Draft'
+    else {
+        const date = new Date(mail.sentAt)
         const currentYear = new Date().getFullYear()
         const monthShortName = date.toLocaleString('default', { month: 'short' })
         const year = date.getFullYear()
