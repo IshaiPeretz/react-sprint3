@@ -16,6 +16,7 @@ export function MailIndex() {
     const [isNewMailOpen, setIsNewMailOpen] = useState(false)
     const [editingMail, setEditingMail] = useState(null)
     const [mails, setMails] = useState([])
+    const [activeFolder, setActiveFolder] = useState('inbox')
 
 
     console.log(mails)
@@ -57,18 +58,23 @@ export function MailIndex() {
     }
     function onInbox() {
         setFilterBy({ status: 'inbox' })
+        setActiveFolder('inbox')
     }
     function onSent() {
         setFilterBy({ status: 'sent' })
+        setActiveFolder('sent')
     }
     function onTrash() {
         setFilterBy({ status: 'trash' })
+        setActiveFolder('trash')
     }
     function onDraft() {
         setFilterBy({ status: 'draft' })
+        setActiveFolder('draft')
     }
     function onStarred() {
         setFilterBy(filterBy => ({ ...filterBy, isStarred: true }))
+        setActiveFolder('starred')
     }
 
     function markAsRead(ev, mail) {
@@ -117,7 +123,9 @@ export function MailIndex() {
                     onSent={onSent}
                     onTrash={onTrash}
                     onDraft={onDraft}
-                    onStarred={onStarred} />
+                    onStarred={onStarred}
+                    activeFolder={activeFolder}
+                />
                 <MailList
                     mails={visibleMails}
                     onRemove={removeMail}

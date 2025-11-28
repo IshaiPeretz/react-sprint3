@@ -287,14 +287,17 @@ export const mailService = {
 function query(filterBy = {}) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
-            console.log(mails)
+
+            mails.sort((m1, m2) => {
+                return m2.sentAt - m1.sentAt
+            })
 
             if (filterBy.isStarred === true) {
                 mails = mails.filter(mail => mail.isStarred)
             }
             if (filterBy.text) {
                 const regExp = new RegExp(filterBy.text, 'i')
-                mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body) ||  regExp.test(mail.from))
+                mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body) || regExp.test(mail.from))
             }
             if (filterBy.isRead === true) {
                 mails = mails.filter(mail => mail.isRead)
