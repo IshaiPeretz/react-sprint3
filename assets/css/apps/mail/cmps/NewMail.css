@@ -5,12 +5,12 @@
     bottom: 0;
     right: 0;
     width: 40vw;
-    height: 40vh;
+    height: 50vh;
     border: 1px solid var(--mail-color-1);
     box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.8);
-    padding: 10px;
-    border-radius: 8px;
-    z-index: 10;
+    border-top-right-radius:8px;
+    border-top-left-radius:8px;
+     z-index: 10;
     background-color: white;
 
 
@@ -19,42 +19,62 @@
         flex-direction: column;
         gap: 12px;
         height: 100%;
+
+        .to,
+        .subject {
+            padding: 10px 0;
+            margin: 0 10px;
+            height: fit-content;
+            border: 0;
+            border-bottom: 1px solid var(--mail-color-1);
+            outline: none;
+            font-size: 1.2em;
+
+        }
+
+        .body {
+            padding: 10px;
+            resize: none;
+            flex-grow: 1;
+            border: 0;
+            outline: none;
+            font-size: 1.1em
+        }
     }
 
-    .to,
-    .subject {
-        height: 2em;
-        border: 1px solid var(--mail-color-1);
-    }
 
-    .body {
-        resize: none;
-        flex-grow: 1;
-        border: 1px solid var(--mail-color-1);
-    }
 
 }
 
 .modal-header {
+    display: flex;
+    align-content: center;
     background-color: var(--mail-color-1);
     height: fit-content;
     padding: 10px;
-    max-height: 2em;
+    justify-content: space-between;
+
 }
 
 .header-btn {
-    position: absolute;
-    top: 5px;
-    right: 5px;
     background: transparent;
     border: none;
-    font-size: 1.2em;
+
     cursor: pointer;
 }
 
 .modal-buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
+    /* display: flex;
+    justify-content: start; */
+    padding: 10px;
     padding-top: 5px;
+}
+
+.send-btn {
+    padding: 10px 30px;
+    border-radius: 37px;
+    background-color: #0b57d0;
+    color: white;
+    border: 0;
+    font-weight: bold;
 }

@@ -26,8 +26,6 @@ export function NewMail({ onClose, onSendMail, editingMail }) {
         }
 
         setMailInput(prevInput => ({ ...prevInput, [field]: value }))
-
-
     }
 
     function onSend(ev) {
@@ -61,7 +59,14 @@ export function NewMail({ onClose, onSendMail, editingMail }) {
     return (
         <div className="new-mail-modal">
 
-            <h2 className="modal-header">New mail</h2>
+            <h2 className="modal-header">New Message
+
+                <button className="header-btn"
+                    type="button"
+                    onClick={saveDraft}>
+                    <i className="fa-solid fa-x"></i>
+                </button>
+            </h2>
 
             <form onSubmit={onSend}>
                 <input
@@ -89,8 +94,8 @@ export function NewMail({ onClose, onSendMail, editingMail }) {
                     onChange={handleChange} />
 
                 <section className="modal-buttons">
-                    <button className="header-btn" type="button" onClick={saveDraft}>x</button>
-                    <button type="submit">Send</button>
+
+                    <button className="send-btn" type="submit">Send</button>
                 </section>
             </form>
         </div>
