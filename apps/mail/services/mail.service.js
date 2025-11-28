@@ -15,8 +15,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: false,
         isStarred: false,
-        sentAt: 1733078400000,    // Nov 28, 2024 (today)
-        createdAt: 1733078400000,
+        sentAt: 1764288000000,    // Nov 28, 2025 (today)
+        createdAt: 1764288000000,
         removedAt: null
     },
     {
@@ -27,8 +27,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: true,
         isStarred: true,
-        sentAt: 1732982000000,    // Nov 27, 2024 (~1 day ago)
-        createdAt: 1732982000000,
+        sentAt: 1764201600000,    // Nov 27, 2025 (yesterday)
+        createdAt: 1764201600000,
         removedAt: null
     },
     {
@@ -39,8 +39,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: false,
         isStarred: false,
-        sentAt: 1729728000000,    // Oct 25, 2024 (~2 years back)
-        createdAt: 1729728000000,
+        sentAt: 1764038400000,    // Nov 25, 2025 (~3 days ago)
+        createdAt: 1764038400000,
         removedAt: null
     },
     {
@@ -51,8 +51,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: false,
         isStarred: false,
-        sentAt: 1732684800000,    // Nov 27, 2024 (~1 month ago)
-        createdAt: 1732684800000,
+        sentAt: 1761955200000,    // Nov 1, 2025 (last month)
+        createdAt: 1761955200000,
         removedAt: null
     },
     {
@@ -64,7 +64,7 @@ const demoMails = [
         isRead: false,
         isStarred: false,
         sentAt: null,             // Draft
-        createdAt: 1732991600000, // Nov 28, 2024 (~1 week ago)
+        createdAt: 1763884800000, // Nov 25, 2025 (~3 days ago)
         removedAt: null
     },
     {
@@ -75,8 +75,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: true,
         isStarred: false,
-        sentAt: 1731148800000,    // Nov 9, 2024 (~6 months ago)
-        createdAt: 1731148800000,
+        sentAt: 1729446400000,    // Oct 23, 2024 (last year)
+        createdAt: 1729446400000,
         removedAt: null
     },
     {
@@ -87,8 +87,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: false,
         isStarred: true,
-        sentAt: 1732835200000,    // Nov 28, 2024 (~2 weeks ago)
-        createdAt: 1732835200000,
+        sentAt: 1763952000000,    // Nov 26, 2025 (~2 days ago)
+        createdAt: 1763952000000,
         removedAt: null
     },
     {
@@ -99,8 +99,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: true,
         isStarred: false,
-        sentAt: 1731916800000,    // Nov 19, 2024 (~3 months ago)
-        createdAt: 1731916800000,
+        sentAt: 1761868800000,    // Oct 31, 2025 (last month)
+        createdAt: 1761868800000,
         removedAt: null
     },
     {
@@ -111,8 +111,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: false,
         isStarred: false,
-        sentAt: 1733164800000,    // Nov 29, 2024 (~3 days ago)
-        createdAt: 1733164800000,
+        sentAt: 1764374400000,    // Nov 29, 2025 (tomorrow)
+        createdAt: 1764374400000,
         removedAt: null
     },
     {
@@ -123,8 +123,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: false,
         isStarred: true,
-        sentAt: 1729728000000,    // Oct 25, 2024 (~1 year ago)
-        createdAt: 1729728000000,
+        sentAt: 1727740800000,    // Oct 1, 2024 (last year)
+        createdAt: 1727740800000,
         removedAt: null
     },
     {
@@ -135,8 +135,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: true,
         isStarred: false,
-        sentAt: 1731916800000,    // Nov 19, 2024 (~2 months ago)
-        createdAt: 1731916800000,
+        sentAt: 1761782400000,    // Oct 30, 2025 (last month)
+        createdAt: 1761782400000,
         removedAt: null
     },
     {
@@ -147,8 +147,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: false,
         isStarred: false,
-        sentAt: 1732377600000,    // Nov 24, 2024 (~45 days ago)
-        createdAt: 1732377600000,
+        sentAt: 1764460800000,    // Nov 30, 2025 (2 days from now)
+        createdAt: 1764460800000,
         removedAt: null
     },
     {
@@ -159,8 +159,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: true,
         isStarred: false,
-        sentAt: 1732872000000,    // Nov 28, 2024 (~20 days ago)
-        createdAt: 1732872000000,
+        sentAt: 1763801600000,    // Nov 23, 2025 (~5 days ago)
+        createdAt: 1763801600000,
         removedAt: null
     },
     {
@@ -171,9 +171,9 @@ const demoMails = [
         to: 'team@work.com',
         isRead: true,
         isStarred: false,
-        sentAt: 1729728000000,    // Oct 25, 2024 (~1 year ago)
-        createdAt: 1729728000000,
-        removedAt: 1732982000000, // Nov 27, 2024 (trashed recently)
+        sentAt: 1727740800000,    // Oct 1, 2024 (last year)
+        createdAt: 1727740800000,
+        removedAt: 1764201600000, // Nov 27, 2025 (trashed recently)
     },
     {
         id: 'm15',
@@ -183,8 +183,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: false,
         isStarred: true,
-        sentAt: 1733164800000,    // Nov 29, 2024 (yesterday)
-        createdAt: 1733164800000,
+        sentAt: 1764374400000,    // Nov 29, 2025 (tomorrow)
+        createdAt: 1764374400000,
         removedAt: null
     },
     {
@@ -195,8 +195,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: true,
         isStarred: false,
-        sentAt: 1732991600000,    // Nov 28, 2024 (~1 week ago)
-        createdAt: 1732991600000,
+        sentAt: 1763884800000,    // Nov 25, 2025 (~3 days ago)
+        createdAt: 1763884800000,
         removedAt: null
     },
     {
@@ -208,7 +208,7 @@ const demoMails = [
         isRead: false,
         isStarred: true,
         sentAt: null,             // Draft
-        createdAt: 1733241200000, // Nov 30, 2024 (~3 days ago)
+        createdAt: 1764460800000, // Nov 30, 2025 (~2 days ago)
         removedAt: null
     },
     {
@@ -219,8 +219,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: false,
         isStarred: false,
-        sentAt: 1733128800000,    // Nov 29, 2024 (~10 days ago)
-        createdAt: 1733128800000,
+        sentAt: 1764288000000,    // Nov 28, 2025 (today)
+        createdAt: 1764288000000,
         removedAt: null
     },
     {
@@ -231,8 +231,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: true,
         isStarred: false,
-        sentAt: 1732991600000,    // Nov 28, 2024 (~1 week ago)
-        createdAt: 1732991600000,
+        sentAt: 1763952000000,    // Nov 26, 2025 (~2 days ago)
+        createdAt: 1763952000000,
         removedAt: null
     },
     {
@@ -243,8 +243,8 @@ const demoMails = [
         to: loggedInUser.email,
         isRead: false,
         isStarred: false,
-        sentAt: 1733241200000,    // Nov 30, 2024 (~2 days ago)
-        createdAt: 1733241200000,
+        sentAt: 1764460800000,    // Nov 30, 2025 (~2 days ago)
+        createdAt: 1764460800000,
         removedAt: null
     },
     {
@@ -255,8 +255,8 @@ const demoMails = [
         to: 'team@work.com',
         isRead: false,
         isStarred: false,
-        sentAt: 1732684800000,    // Nov 27, 2024 (~1 month ago)
-        createdAt: 1732684800000,
+        sentAt: 1729446400000,    // Oct 23, 2024 (last year)
+        createdAt: 1729446400000,
         removedAt: null
     },
     {
@@ -267,12 +267,11 @@ const demoMails = [
         to: 'client@company.com',
         isRead: true,
         isStarred: true,
-        sentAt: 1731916800000,    // Nov 19, 2024 (~2 months ago)
-        createdAt: 1731916800000,
+        sentAt: 1727740800000,    // Oct 1, 2024 (last year)
+        createdAt: 1727740800000,
         removedAt: null
     }
 ]
-
 
 _createMails()
 

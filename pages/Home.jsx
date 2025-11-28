@@ -28,7 +28,7 @@ export function Home() {
         <p>One app. Two superpowers. Zero distractions.</p>
       </section>
 
-      <section>
+      <section className= "apps-menu">
         <NavLink to="/mail">
           <div className="mail-logo">
             <i className="fa-solid fa-envelope"></i>
