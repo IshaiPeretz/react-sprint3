@@ -5,7 +5,7 @@
     background-color: var(--mail-color-1);
     align-items: center;
     border-radius: 5px;
-   
+
 
     .mail-logo {
         justify-self: center;
@@ -15,10 +15,26 @@
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        padding: 15px; 
+        padding: 15px;
     }
 
-    .fa-envelope{
+    .sort-by-container {
+        grid-column: 3;
+        padding: 30px;
+
+        select {
+            border-radius: 37px;
+            background-color: transparent;
+            padding: 5px;
+            border-color: #747775;
+            color: #747775;;
+
+        }
+    }
+
+
+
+    .fa-envelope {
         font-size: 2rem;
     }
 }

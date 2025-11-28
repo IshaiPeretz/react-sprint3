@@ -281,17 +281,13 @@ export const mailService = {
     remove,
     save,
     getDefaultFilter,
-    loggedInUser
+    loggedInUser,
+    getDefaultSortBy
 }
 
-function query(filterBy = {}) {
+function query(filterBy = {}, sortBy = {}) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
-
-            mails.sort((m1, m2) => {
-                return m2.sentAt - m1.sentAt
-            })
-
             if (filterBy.isStarred === true) {
                 mails = mails.filter(mail => mail.isStarred)
             }
@@ -318,6 +314,24 @@ function query(filterBy = {}) {
             else if (filterBy.status === 'sent') {
                 mails = mails.filter(mail => mail.from === loggedInUser.email && mail.sentAt)
             }
+
+            mails.sort((m1, m2) => {
+                let direction
+                if (sortBy.by === 'sentAt') {
+                    direction = (sortBy.order === 'desc') ? 1 : -1
+                    return (m2.sentAt - m1.sentAt) * direction
+                }
+
+                if (sortBy.by === 'isRead') {
+                    direction = sortBy.order === 'desc' ? 1 : -1
+                    return ((m2.isRead ? 1 : 0) - (m1.isRead ? 1 : 0)) * direction
+                }
+
+                if (sortBy.by === 'subject') {
+                    direction = sortBy.order === 'desc' ? 1 : -1
+                    return m2.subject.localeCompare(m1.subject) * direction
+                }
+            })
 
             return mails
         })
@@ -349,6 +363,10 @@ function save(mail) {
 
 function getDefaultFilter() {
     return { text: '', isRead: null, status: 'inbox', removedAt: null }
+}
+
+function getDefaultSortBy() {
+    return { by: 'sentAt', order: 'desc' }
 }
 
 

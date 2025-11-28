@@ -4,6 +4,7 @@ import { MailHeader } from "../cmps/MailHeader.jsx"
 import { MailList } from "../cmps/MailList.jsx"
 import { NewMail } from "../cmps/NewMail.jsx"
 import { SideBar } from "../cmps/SideBar.jsx"
+import { SortMail } from "../cmps/sortMail.jsx"
 import { mailService } from "../services/mail.service.js"
 
 
@@ -12,7 +13,9 @@ const { useState, useEffect, Fragment } = React
 
 
 export function MailIndex() {
+
     const [filterBy, setFilterBy] = useState(mailService.getDefaultFilter())
+    const [sortBy, setSortBy] = useState(mailService.getDefaultSortBy())
     const [isNewMailOpen, setIsNewMailOpen] = useState(false)
     const [editingMail, setEditingMail] = useState(null)
     const [mails, setMails] = useState([])
@@ -24,10 +27,10 @@ export function MailIndex() {
 
     useEffect(() => {
         loadMails()
-    }, [filterBy])
+    }, [filterBy,sortBy])
 
     function loadMails() {
-        mailService.query(filterBy)
+        mailService.query(filterBy,sortBy)
             .then(mails => setMails(mails))
     }
 
@@ -100,6 +103,9 @@ export function MailIndex() {
     function onSetFilter(newFilterBy) {
         setFilterBy(filterBy => ({ ...filterBy, ...newFilterBy }))
     }
+    function onSortChange(newSortBy) {
+        setSortBy(newSortBy)
+    }
 
 
     const visibleMails = mails
@@ -110,6 +116,10 @@ export function MailIndex() {
                 <MailHeader>
                     <MailFilter defaultFilter={filterBy}
                         onSetFilter={onSetFilter} />
+                    <SortMail
+                        onSortChange={onSortChange}
+                        sortBy ={sortBy}
+                    />
                 </MailHeader>
                 {isNewMailOpen && <NewMail
                     onClose={closeNewMail}

@@ -1,8 +1,5 @@
  /* mail list */
 
-
-
-
  .mail-list {
      display: grid;
      grid-row: 2;
@@ -10,6 +7,3 @@
 
  }
 
- .unread-counter {
-     grid-column: 1;
- }

@@ -9,8 +9,6 @@
     align-content: start;
     row-gap: 1em;
 
-
-
     >* {
         grid-column: 1;
 
