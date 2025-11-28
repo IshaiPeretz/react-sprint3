@@ -27,9 +27,8 @@
   font-size: 1rem;
   font-weight: 500;
   margin-bottom: 6px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  line-height: 1.35rem;
+  padding: 0;
+  line-height: 1.6rem;
 }
 
 .note-add-input {
@@ -40,7 +39,6 @@
 }
 
 .note-add-input input,
-.note-add-input textarea,
 .todo-input {
   flex: 1;
   border: none;
@@ -48,21 +46,16 @@
   background: transparent;
   font-size: 1rem;
   font-weight: 400;
-  line-height: 1.35rem;
+  line-height: 1.6rem;
+  height: 1.6rem;
   padding: 0;
   margin: 0;
 }
 
-
-
-.note-add-input textarea {
-  resize: vertical;
-  padding-top: 2px;
-}
-
-.note-add-input textarea {
-  height: 1.6rem;
-  line-height: 1.6rem;
+.note-add-input input::placeholder,
+.todo-input::placeholder {
+  color: #5f6368;
+  opacity: 1;
 }
 
 .note-type-actions {
@@ -144,8 +137,7 @@
     font-size: 0.95rem;
   }
 
-  .note-add-input input,
-  .note-add-input textarea {
+  .note-add-input input {
     font-size: 0.95rem;
   }
 }

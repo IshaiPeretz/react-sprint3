@@ -18,13 +18,14 @@ export function NoteAdd({ onAddNote }) {
     if (!isExpanded) return;
 
     if (noteType === "NoteTodos") {
-      const cleanTodos = todos
+      const clean = todos
         .filter((t) => t.txt.trim() !== "")
-        .map((t) => ({ txt: t.txt.trim(), isDone: false }));
-
-      if (!title && cleanTodos.length === 0) return;
-
-      onAddNote({ title, txt: cleanTodos, noteType });
+        .map((t) => ({
+          txt: t.txt.trim(),
+          isDone: false,
+        }));
+      if (!title && clean.length === 0) return;
+      onAddNote({ title, txt: clean, noteType });
     } else {
       if (!txt && !title) return;
       onAddNote({ title, txt, noteType });
@@ -68,19 +69,17 @@ export function NoteAdd({ onAddNote }) {
   function onTodoKey(ev, idx) {
     if (ev.key === "Enter") {
       ev.preventDefault();
-
       const list = [...todos];
       list.splice(idx + 1, 0, { txt: "", isDone: false });
       setTodos(list);
 
       setTimeout(() => {
-        const nextInput =
+        const next =
           formRef.current &&
           formRef.current.querySelector(
             `.todo-row:nth-child(${idx + 2}) .todo-input`
           );
-
-        if (nextInput) nextInput.focus();
+        if (next) next.focus();
       }, 0);
     }
 
@@ -89,13 +88,12 @@ export function NoteAdd({ onAddNote }) {
       setTodos(list);
 
       setTimeout(() => {
-        const prevInput =
+        const prev =
           formRef.current &&
           formRef.current.querySelector(
             `.todo-row:nth-child(${idx}) .todo-input`
           );
-
-        if (prevInput) prevInput.focus();
+        if (prev) prev.focus();
       }, 0);
     }
   }
@@ -139,7 +137,10 @@ export function NoteAdd({ onAddNote }) {
               rows={3}
               placeholder="Take a note..."
               value={txt}
-              onChange={(ev) => setTxt(ev.target.value)}
+              onChange={(ev) => {
+                setTxt(ev.target.value);
+                autoGrow(ev);
+              }}
             />
           )}
 
