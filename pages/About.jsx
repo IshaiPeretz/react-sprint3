@@ -24,7 +24,7 @@ export function About() {
         <div className="creator-row">
           <img
             className="creator-img"
-            src="../../assets/img/ishai.jpg"
+            src="../assets/img/ishai.jpg"
             alt="Ishai Peretz"
           />
 
@@ -40,7 +40,7 @@ export function About() {
         <div className="creator-row">
           <img
             className="creator-img"
-            src="../../assets/img/roy.jpg"
+            src="../assets/img/roy.jpg"
             alt="Roy Sonnenberg"
           />
 
