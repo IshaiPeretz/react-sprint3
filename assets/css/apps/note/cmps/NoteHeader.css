@@ -17,6 +17,7 @@
 
 .menu-btn {
   display: none;
+  visibility: hidden;
 }
 
 .icon-btn {
@@ -81,19 +82,23 @@
   gap: 6px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   .menu-btn {
     display: flex;
+    visibility: visible;
   }
 
   .note-header {
     padding: 0 12px;
     gap: 12px;
-    justify-content: flex-start;
+    flex-wrap: wrap;
+    height: auto;
+    padding-bottom: 8px;
   }
 
   .note-header-search {
     order: 2;
+    flex: 1 1 100%;
     width: 100%;
     margin-top: 8px;
   }
@@ -103,8 +108,9 @@
   }
 }
 
-@media (min-width: 700px) {
+@media (min-width: 900px) {
   .menu-btn {
     display: none !important;
+    visibility: hidden !important;
   }
 }

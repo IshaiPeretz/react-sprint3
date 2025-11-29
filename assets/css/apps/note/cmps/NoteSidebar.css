@@ -31,6 +31,25 @@
   background: #fef0c3;
 }
 
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: none;
+  z-index: 20;
+}
+
+.close-sidebar-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 1.6rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #5f6368;
+}
+
 @media (max-width: 900px) {
   .note-sidebar {
     position: fixed;
@@ -49,9 +68,17 @@
   .note-sidebar.open {
     transform: translateX(0);
   }
+
+  .sidebar-overlay.open {
+    display: block;
+  }
+
+  .close-sidebar-btn {
+    display: block;
+  }
 }
 
-@media (min-width: 700px) {
+@media (min-width: 900px) {
   .close-sidebar-btn {
     display: none !important;
   }
