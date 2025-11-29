@@ -22,8 +22,8 @@
      input[type="radio"] {
          width: 0;
          height: 0;
-
      }
+
 
      label:hover {
          cursor: pointer;

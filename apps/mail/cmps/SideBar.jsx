@@ -1,12 +1,12 @@
 import { CountUnread } from "./CountUnread.jsx"
 
 
-export function SideBar({ openNewMail, mails, onSent, onInbox, onTrash, onDraft, onStarred, activeFolder }) {
+export function SideBar({ openNewMail, mails, onSent, onInbox, onTrash, onDraft, onStarred, activeFolder, sidebarOpen }) {
 
 
     return (
 
-        <section className="side-bar">
+        <section className={`side-bar ${sidebarOpen ? 'open' : ''}`}>
             <button className="compose-btn"
                 onClick={openNewMail}>
                 <i className="fa-solid fa-pen"></i>

@@ -19,6 +19,6 @@ export function AppHeader() {
             </nav>}
 
         <button className="header-hamburger"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}>☰</button>
+            onClick={() => setIsMenuOpen(!isMenuOpen)}><i className="fa-solid fa-bars"></i></button>
     </header>
 }

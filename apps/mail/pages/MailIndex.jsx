@@ -20,14 +20,17 @@ export function MailIndex() {
     const [editingMail, setEditingMail] = useState(null)
     const [mails, setMails] = useState([])
     const [activeFolder, setActiveFolder] = useState('inbox')
+    const [sidebarOpen, setSidebarOpen] = useState(false)
 
+
+    console.log('sidebarOpen:', sidebarOpen)
 
     useEffect(() => {
         loadMails()
-    }, [filterBy,sortBy])
+    }, [filterBy, sortBy])
 
     function loadMails() {
-        mailService.query(filterBy,sortBy)
+        mailService.query(filterBy, sortBy)
             .then(mails => setMails(mails))
     }
 
@@ -102,18 +105,26 @@ export function MailIndex() {
         setSortBy(newSortBy)
     }
 
+    function toggleSidebar() {
+        console.log('Before:', sidebarOpen)
+        setSidebarOpen(!sidebarOpen)
+        console.log('After:', !sidebarOpen)
+    }
 
     const visibleMails = mails
     return (
         <Fragment>
 
             <section className="main-container">
-                <MailHeader>
+                <MailHeader
+                    sidebarOpen={sidebarOpen}
+                    onToggleSidebar={toggleSidebar}
+                >
                     <MailFilter defaultFilter={filterBy}
                         onSetFilter={onSetFilter} />
                     <SortMail
                         onSortChange={onSortChange}
-                        sortBy ={sortBy}
+                        sortBy={sortBy}
                     />
                 </MailHeader>
                 {isNewMailOpen && <NewMail
@@ -130,6 +141,7 @@ export function MailIndex() {
                     onDraft={onDraft}
                     onStarred={onStarred}
                     activeFolder={activeFolder}
+                    sidebarOpen={sidebarOpen}
                 />
                 <MailList
                     mails={visibleMails}
