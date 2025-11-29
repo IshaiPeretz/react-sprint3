@@ -4,7 +4,7 @@
     position: fixed;
     bottom: 0;
     right: 0;
-    width: 80vw;
+    width: 100vw;
     height: 50vh;
     border: 1px solid var(--mail-color-1);
     box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.8);

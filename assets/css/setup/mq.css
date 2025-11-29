@@ -183,7 +183,9 @@
             grid-column: 2 !important;
             grid-row: 1 !important;
         }
+    }
 
-
+    .new-mail-modal {
+        width: 40vw !important;
     }
 }
