@@ -57,13 +57,10 @@
   background: transparent;
   padding: 0;
   margin: 0;
-
-  font-family: "Roboto", sans-serif !important;
-  font-size: 1rem !important;
-  font-weight: 400 !important;
-  line-height: 1.6rem !important;
-  letter-spacing: 0 !important;
-  font-style: normal !important;
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6rem;
 }
 
 .note-add-input-left textarea {
@@ -78,12 +75,10 @@
 .note-add-input-left input::placeholder,
 .note-add-input-left textarea::placeholder,
 .todo-input::placeholder {
-  color: #5f6368 !important;
-  font-family: "Roboto", sans-serif !important;
-  font-size: 1rem !important;
-  font-weight: 400 !important;
-  font-style: normal !important;
-  letter-spacing: 0 !important;
+  color: #5f6368;
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
 }
 
 .note-type-actions {
@@ -143,6 +138,13 @@
   height: 16px;
 }
 
+.note-img-picker {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
 @media (max-width: 600px) {
   .note-add form {
     max-width: 100%;
@@ -157,14 +159,14 @@
   .note-title,
   .note-add-input-left input,
   .todo-input {
-    font-size: 0.95rem !important;
+    font-size: 0.95rem;
   }
 }
 
 .note-add textarea {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  line-height: 1.6rem !important;
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: 1.6rem;
   display: flex;
   align-items: center;
 }
@@ -175,8 +177,8 @@
 }
 
 .note-add input {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  line-height: 1.6rem !important;
-  height: 1.6rem !important;
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: 1.6rem;
+  height: 1.6rem;
 }

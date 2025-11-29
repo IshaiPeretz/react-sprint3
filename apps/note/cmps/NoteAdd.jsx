@@ -14,20 +14,45 @@ export function NoteAdd({ onAddNote }) {
     el.style.height = el.scrollHeight + "px";
   }
 
+  function onPickImage(ev) {
+    const file = ev.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      setTxt(e.target.result);
+    };
+    reader.readAsDataURL(file);
+  }
+
   function save() {
     if (!isExpanded) return;
 
     if (noteType === "NoteTodos") {
       const clean = todos
-        .filter((t) => t.txt.trim() !== "")
-        .map((t) => ({ txt: t.txt.trim(), isDone: false }));
+        .filter(function (t) {
+          return t.txt.trim() !== "";
+        })
+        .map(function (t) {
+          return { txt: t.txt.trim(), isDone: false };
+        });
+
       if (!title.trim() && clean.length === 0) return;
-      onAddNote({ title, todos: clean, type: "NoteTodos" });
+
+      onAddNote({ title: title, todos: clean, type: "NoteTodos" });
     } else if (noteType === "NoteImg") {
       if (!txt.trim()) return;
-      onAddNote({ title, url: txt.trim(), type: "NoteImg" });
+
+      onAddNote({
+        type: "NoteImg",
+        info: {
+          title: title,
+          url: txt.trim(),
+        },
+      });
     } else if (noteType === "NoteVideo") {
       if (!txt.trim()) return;
+
       onAddNote({
         type: "NoteVideo",
         info: {
@@ -37,7 +62,8 @@ export function NoteAdd({ onAddNote }) {
       });
     } else if (noteType === "NoteTxt") {
       if (!txt.trim() && !title.trim()) return;
-      onAddNote({ title, txt, type: "NoteTxt" });
+
+      onAddNote({ title: title, txt: txt, type: "NoteTxt" });
     }
 
     setTitle("");
@@ -51,26 +77,34 @@ export function NoteAdd({ onAddNote }) {
     setIsExpanded(false);
   }
 
-  useEffect(() => {
-    function handleClick(ev) {
-      if (!isExpanded) return;
-      if (formRef.current && !formRef.current.contains(ev.target)) {
-        save();
-        setIsExpanded(false);
+  useEffect(
+    function () {
+      function handleClick(ev) {
+        if (!isExpanded) return;
+        if (formRef.current && !formRef.current.contains(ev.target)) {
+          save();
+          setIsExpanded(false);
+        }
       }
-    }
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, [isExpanded, title, txt, noteType, todos]);
+      document.addEventListener("mousedown", handleClick);
+      return function () {
+        document.removeEventListener("mousedown", handleClick);
+      };
+    },
+    [isExpanded, title, txt, noteType, todos]
+  );
 
-  useEffect(() => {
-    setTxt("");
-    setTitle("");
-    setTodos([{ txt: "", isDone: false }]);
-  }, [noteType]);
+  useEffect(
+    function () {
+      setTxt("");
+      setTitle("");
+      setTodos([{ txt: "", isDone: false }]);
+    },
+    [noteType]
+  );
 
   function updateTodo(idx, value) {
-    const list = [...todos];
+    const list = todos.slice();
     list[idx].txt = value;
     setTodos(list);
   }
@@ -78,30 +112,30 @@ export function NoteAdd({ onAddNote }) {
   function onTodoKey(ev, idx) {
     if (ev.key === "Enter") {
       ev.preventDefault();
-      const list = [...todos];
+      const list = todos.slice();
       list.splice(idx + 1, 0, { txt: "", isDone: false });
       setTodos(list);
 
-      setTimeout(() => {
-        const next =
-          formRef.current &&
-          formRef.current.querySelector(
-            `.todo-row:nth-child(${idx + 2}) .todo-input`
-          );
+      setTimeout(function () {
+        if (!formRef.current) return;
+        const next = formRef.current.querySelector(
+          ".todo-row:nth-child(" + (idx + 2) + ") .todo-input"
+        );
         if (next) next.focus();
       }, 0);
     }
 
     if (ev.key === "Backspace" && todos[idx].txt === "" && todos.length > 1) {
-      const list = todos.filter((_, i) => i !== idx);
+      const list = todos.filter(function (_, i) {
+        return i !== idx;
+      });
       setTodos(list);
 
-      setTimeout(() => {
-        const prev =
-          formRef.current &&
-          formRef.current.querySelector(
-            `.todo-row:nth-child(${idx}) .todo-input`
-          );
+      setTimeout(function () {
+        if (!formRef.current) return;
+        const prev = formRef.current.querySelector(
+          ".todo-row:nth-child(" + idx + ") .todo-input"
+        );
         if (prev) prev.focus();
       }, 0);
     }
@@ -120,18 +154,27 @@ export function NoteAdd({ onAddNote }) {
             type="text"
             placeholder="Title"
             value={title}
-            onChange={(ev) => setTitle(ev.target.value)}
+            onChange={function (ev) {
+              setTitle(ev.target.value);
+            }}
           />
         )}
 
-        <div className="note-add-input" onClick={() => setIsExpanded(true)}>
+        <div
+          className="note-add-input"
+          onClick={function () {
+            setIsExpanded(true);
+          }}
+        >
           <div className="note-add-input-left">
             {!isExpanded && noteType !== "NoteTodos" && (
               <input
                 type="text"
                 placeholder="Take a note..."
                 value={txt}
-                onChange={(ev) => setTxt(ev.target.value)}
+                onChange={function (ev) {
+                  setTxt(ev.target.value);
+                }}
               />
             )}
 
@@ -151,7 +194,7 @@ export function NoteAdd({ onAddNote }) {
                 rows={3}
                 placeholder="Take a note..."
                 value={txt}
-                onChange={(ev) => {
+                onChange={function (ev) {
                   setTxt(ev.target.value);
                   autoGrow(ev);
                 }}
@@ -159,12 +202,38 @@ export function NoteAdd({ onAddNote }) {
             )}
 
             {isExpanded && noteType === "NoteImg" && (
-              <input
-                type="text"
-                placeholder="Image URL..."
-                value={txt}
-                onChange={(ev) => setTxt(ev.target.value)}
-              />
+              <div className="note-img-picker">
+                <input
+                  type="file"
+                  accept="image/*"
+                  id="file-upload"
+                  style={{ display: "none" }}
+                  onChange={onPickImage}
+                />
+
+                <button
+                  type="button"
+                  onClick={function () {
+                    const el = document.getElementById("file-upload");
+                    if (el) el.click();
+                  }}
+                >
+                  Upload
+                </button>
+
+                {txt && (
+                  <img
+                    src={txt}
+                    style={{
+                      width: "140px",
+                      height: "auto",
+                      marginTop: "10px",
+                      borderRadius: "8px",
+                      objectFit: "cover",
+                    }}
+                  />
+                )}
+              </div>
             )}
 
             {isExpanded && noteType === "NoteVideo" && (
@@ -172,39 +241,69 @@ export function NoteAdd({ onAddNote }) {
                 type="text"
                 placeholder="YouTube URL..."
                 value={txt}
-                onChange={(ev) => setTxt(ev.target.value)}
+                onChange={function (ev) {
+                  setTxt(ev.target.value);
+                }}
               />
             )}
 
             {isExpanded && noteType === "NoteTodos" && (
               <div className="todo-editor">
-                {todos.map((todo, idx) => (
-                  <div className="todo-row" key={idx}>
-                    <input type="checkbox" disabled />
-                    <input
-                      className="todo-input"
-                      value={todo.txt}
-                      placeholder={idx === todos.length - 1 ? "List item" : ""}
-                      onChange={(ev) => updateTodo(idx, ev.target.value)}
-                      onKeyDown={(ev) => onTodoKey(ev, idx)}
-                    />
-                  </div>
-                ))}
+                {todos.map(function (todo, idx) {
+                  return (
+                    <div className="todo-row" key={idx}>
+                      <input type="checkbox" disabled />
+                      <input
+                        className="todo-input"
+                        value={todo.txt}
+                        placeholder={
+                          idx === todos.length - 1 ? "List item" : ""
+                        }
+                        onChange={function (ev) {
+                          updateTodo(idx, ev.target.value);
+                        }}
+                        onKeyDown={function (ev) {
+                          onTodoKey(ev, idx);
+                        }}
+                      />
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>
 
           <div className="note-type-actions">
-            <button type="button" onClick={() => setNoteType("NoteTxt")}>
+            <button
+              type="button"
+              onClick={function () {
+                setNoteType("NoteTxt");
+              }}
+            >
               <i className="fa-regular fa-pen-to-square"></i>
             </button>
-            <button type="button" onClick={() => setNoteType("NoteImg")}>
+            <button
+              type="button"
+              onClick={function () {
+                setNoteType("NoteImg");
+              }}
+            >
               <i className="fa-regular fa-image"></i>
             </button>
-            <button type="button" onClick={() => setNoteType("NoteVideo")}>
+            <button
+              type="button"
+              onClick={function () {
+                setNoteType("NoteVideo");
+              }}
+            >
               <i className="fa-solid fa-video"></i>
             </button>
-            <button type="button" onClick={() => setNoteType("NoteTodos")}>
+            <button
+              type="button"
+              onClick={function () {
+                setNoteType("NoteTodos");
+              }}
+            >
               <i className="fa-regular fa-square-check"></i>
             </button>
           </div>
@@ -214,7 +313,7 @@ export function NoteAdd({ onAddNote }) {
           <button
             type="button"
             className="close-btn"
-            onClick={() => {
+            onClick={function () {
               save();
               setIsExpanded(false);
             }}

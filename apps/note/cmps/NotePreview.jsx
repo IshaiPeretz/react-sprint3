@@ -10,57 +10,71 @@ export function NotePreview({ note, onRemoveNote, onSaveNote }) {
   const [showColors, setShowColors] = useState(false);
   const [draftNote, setDraftNote] = useState(note);
 
-  const noteRef = useRef();
-  const paletteRef = useRef();
+  const noteRef = useRef(null);
+  const paletteRef = useRef(null);
 
-  useEffect(() => {
-    setDraftNote(note);
-  }, [note.id, note.info, note.style]);
+  useEffect(
+    function () {
+      setDraftNote(note);
+    },
+    [note.id, note.info, note.style]
+  );
 
-  useEffect(() => {
-    function handleClick(ev) {
-      const outsideNote =
-        noteRef.current && !noteRef.current.contains(ev.target);
-      const outsidePalette =
-        paletteRef.current && !paletteRef.current.contains(ev.target);
+  useEffect(
+    function () {
+      function handleClick(ev) {
+        const outsideNote =
+          noteRef.current && !noteRef.current.contains(ev.target);
+        const outsidePalette =
+          paletteRef.current && !paletteRef.current.contains(ev.target);
 
-      if (outsideNote && isEditMode) {
-        onSaveNote(draftNote);
-        setIsEditMode(false);
-        setShowColors(false);
+        if (outsideNote && isEditMode) {
+          onSaveNote(draftNote);
+          setIsEditMode(false);
+          setShowColors(false);
+        }
+
+        if (showColors && outsidePalette) {
+          setShowColors(false);
+          onSaveNote(draftNote);
+        }
       }
 
-      if (showColors && outsidePalette) {
-        setShowColors(false);
-        onSaveNote(draftNote);
-      }
-    }
-
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, [isEditMode, showColors, draftNote]);
+      document.addEventListener("mousedown", handleClick);
+      return function () {
+        document.removeEventListener("mousedown", handleClick);
+      };
+    },
+    [isEditMode, showColors, draftNote]
+  );
 
   function onChangeInfo(newInfo) {
-    setDraftNote((prev) => ({ ...prev, info: newInfo }));
+    setDraftNote(function (prev) {
+      return Object.assign({}, prev, { info: newInfo });
+    });
   }
 
   function onToggleTodo(idx) {
-    setDraftNote((prev) => {
-      const todos = prev.info.todos.map((todo, i) =>
-        i === idx ? { ...todo, isDone: !todo.isDone } : todo
-      );
-      const updated = { ...prev, info: { ...prev.info, todos } };
+    setDraftNote(function (prev) {
+      const todos = prev.info.todos.map(function (todo, i) {
+        if (i === idx) return Object.assign({}, todo, { isDone: !todo.isDone });
+        return todo;
+      });
+      const updated = Object.assign({}, prev, {
+        info: Object.assign({}, prev.info, { todos: todos }),
+      });
       onSaveNote(updated);
       return updated;
     });
   }
 
   function onChangeColor(color) {
-    setDraftNote((prev) => {
-      const updated = {
-        ...prev,
-        style: { ...prev.style, backgroundColor: color },
-      };
+    setDraftNote(function (prev) {
+      const updated = Object.assign({}, prev, {
+        style: Object.assign({}, prev.style, {
+          backgroundColor: color,
+        }),
+      });
       onSaveNote(updated);
       return updated;
     });
@@ -68,7 +82,9 @@ export function NotePreview({ note, onRemoveNote, onSaveNote }) {
 
   function onToggleEdit() {
     if (isEditMode) onSaveNote(draftNote);
-    setIsEditMode((prev) => !prev);
+    setIsEditMode(function (prev) {
+      return !prev;
+    });
     setShowColors(false);
   }
 
@@ -82,8 +98,29 @@ export function NotePreview({ note, onRemoveNote, onSaveNote }) {
             onChangeInfo={onChangeInfo}
           />
         );
+
       case "NoteImg":
-        return <NoteImg info={draftNote.info} />;
+        return (
+          <NoteImg
+            info={draftNote.info}
+            isEditMode={isEditMode}
+            onChangeInfo={onChangeInfo}
+            onPickImage={function (ev) {
+              const file = ev.target.files[0];
+              if (!file) return;
+              const reader = new FileReader();
+              reader.onload = function (e) {
+                onChangeInfo(
+                  Object.assign({}, draftNote.info, {
+                    url: e.target.result,
+                  })
+                );
+              };
+              reader.readAsDataURL(file);
+            }}
+          />
+        );
+
       case "NoteTodos":
         return (
           <NoteTodos
@@ -93,15 +130,27 @@ export function NotePreview({ note, onRemoveNote, onSaveNote }) {
             onToggleTodo={onToggleTodo}
           />
         );
+
       case "NoteVideo":
-        return <NoteVideo info={draftNote.info} />;
+        return (
+          <NoteVideo
+            info={draftNote.info}
+            isEditMode={isEditMode}
+            onChangeInfo={onChangeInfo}
+          />
+        );
+
       default:
         return <div>Unknown note type</div>;
     }
   }
 
   return (
-    <article ref={noteRef} className="note-preview" style={draftNote.style}>
+    <article
+      ref={noteRef}
+      className={`note-preview ${isEditMode ? "editing" : ""}`}
+      style={draftNote.style}
+    >
       {renderNote()}
 
       <div className="note-actions">
@@ -111,14 +160,20 @@ export function NotePreview({ note, onRemoveNote, onSaveNote }) {
 
         <button
           className="note-action-btn"
-          onClick={() => setShowColors((prev) => !prev)}
+          onClick={function () {
+            setShowColors(function (prev) {
+              return !prev;
+            });
+          }}
         >
           <i className="fa-solid fa-palette"></i>
         </button>
 
         <button
           className="note-action-btn"
-          onClick={() => onRemoveNote(note.id)}
+          onClick={function () {
+            onRemoveNote(note.id);
+          }}
         >
           <i className="fa-solid fa-trash"></i>
         </button>
@@ -135,16 +190,21 @@ export function NotePreview({ note, onRemoveNote, onSaveNote }) {
             "#a7ffeb",
             "#aecbfa",
             "#d7aefb",
-          ].map((color) => (
-            <div
-              key={color}
-              className="color-swatch"
-              style={{ backgroundColor: color }}
-              onClick={() => onChangeColor(color)}
-            />
-          ))}
+          ].map(function (color) {
+            return (
+              <div
+                key={color}
+                className="color-swatch"
+                style={{ backgroundColor: color }}
+                onClick={function () {
+                  onChangeColor(color);
+                }}
+              />
+            );
+          })}
         </div>
       )}
     </article>
   );
 }
+

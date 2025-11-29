@@ -35,33 +35,25 @@ export function NoteIndex() {
     });
   }
 
-  function onAddNote({ title, txt, noteType }) {
-    const newNote = notesService.getEmptyNote(noteType);
+  function onAddNote(newNote) {
+    const note = notesService.getEmptyNote(newNote.type);
 
-    switch (noteType) {
-      case "NoteTxt":
-        newNote.info.title = title;
-        newNote.info.txt = txt;
-        break;
-
-      case "NoteImg":
-      case "NoteVideo":
-        newNote.info.title = title;
-        newNote.info.url = txt;
-        break;
-
-      case "NoteTodos":
-        newNote.info.title = title;
-        newNote.info.todos = txt;
-        break;
-
-      default:
-        newNote.info.title = title;
-        newNote.info.txt = txt;
-        break;
+    if (newNote.type === "NoteTxt") {
+      note.info.title = newNote.title;
+      note.info.txt = newNote.txt;
     }
 
-    notesService.save(newNote).then((savedNote) => {
+    if (newNote.type === "NoteImg" || newNote.type === "NoteVideo") {
+      note.info.title = newNote.info.title;
+      note.info.url = newNote.info.url;
+    }
+
+    if (newNote.type === "NoteTodos") {
+      note.info.title = newNote.title;
+      note.info.todos = newNote.todos;
+    }
+
+    notesService.save(note).then((savedNote) => {
       setNotes((prevNotes) => [savedNote, ...(prevNotes || [])]);
     });
   }

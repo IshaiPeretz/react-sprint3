@@ -1,36 +1,47 @@
 export function NoteTxt({ info, isEditMode, onChangeInfo }) {
-  function handleTxtChange(ev) {
-    onChangeInfo({ ...info, txt: ev.target.value });
+  function onTitleChange(ev) {
+    onChangeInfo(
+      Object.assign({}, info, {
+        title: ev.target.value,
+      })
+    );
   }
 
-  function handleTitleChange(ev) {
-    onChangeInfo({ ...info, title: ev.target.value });
+  function onTxtChange(ev) {
+    const el = ev.target;
+    el.style.height = "auto";
+    el.style.height = el.scrollHeight + "px";
+
+    onChangeInfo(
+      Object.assign({}, info, {
+        txt: ev.target.value,
+      })
+    );
   }
 
   if (isEditMode) {
     return (
-      <article>
+      <article className="note-txt">
         <input
           type="text"
           value={info.title || ""}
           placeholder="Title"
-          onChange={handleTitleChange}
-          autoFocus
+          onChange={onTitleChange}
         />
-        <input
-          type="text"
+        <textarea
+          rows={3}
           value={info.txt || ""}
-          placeholder="Note"
-          onChange={handleTxtChange}
-        />
+          placeholder="Take a note..."
+          onChange={onTxtChange}
+        ></textarea>
       </article>
     );
   }
 
   return (
-    <article>
+    <article className="note-txt">
       {info.title && <h4>{info.title}</h4>}
-      <p>{info.txt}</p>
+      {info.txt && <p>{info.txt}</p>}
     </article>
   );
 }
