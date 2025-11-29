@@ -15,24 +15,26 @@
   margin-bottom: 20px;
 }
 
-.creators {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 60px;
-  margin-top: 30px;
-}
-
-.creator-card {
-  width: 200px;
-  text-align: center;
-}
-
-.about .creator-card img {
-  width: 70px;
-  height: 70px;
+.creator-img {
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
   object-fit: cover;
-  display: block;
-  margin: 0 auto 10px;
+  flex-shrink: 0;
+}
+
+.creator-row {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.creator-text {
+  max-width: 900x;
+}
+
+.creator-text h4 {
+  margin-bottom: 8px;
+  font-size: 1.2rem;
 }
