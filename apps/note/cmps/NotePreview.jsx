@@ -94,7 +94,6 @@ export function NotePreview({ note, onRemoveNote, onSaveNote, onPinNote }) {
             onChangeInfo={onChangeInfo}
           />
         );
-
       case "NoteImg":
         return (
           <NoteImg
@@ -114,7 +113,6 @@ export function NotePreview({ note, onRemoveNote, onSaveNote, onPinNote }) {
             }}
           />
         );
-
       case "NoteTodos":
         return (
           <NoteTodos
@@ -124,7 +122,6 @@ export function NotePreview({ note, onRemoveNote, onSaveNote, onPinNote }) {
             onToggleTodo={onToggleTodo}
           />
         );
-
       case "NoteVideo":
         return (
           <NoteVideo
@@ -133,7 +130,6 @@ export function NotePreview({ note, onRemoveNote, onSaveNote, onPinNote }) {
             onChangeInfo={onChangeInfo}
           />
         );
-
       default:
         return <div>Unknown note type</div>;
     }
@@ -145,19 +141,19 @@ export function NotePreview({ note, onRemoveNote, onSaveNote, onPinNote }) {
       className={`note-preview ${isEditMode ? "editing" : ""}`}
       style={draftNote.style}
     >
+      <button className="pin-btn" onClick={() => onPinNote(note.id)}>
+        <i
+          className="fa-solid fa-thumbtack"
+          style={{
+            transform: note.isPinned ? "rotate(45deg)" : "rotate(0deg)",
+            opacity: note.isPinned ? 0.4 : 1,
+          }}
+        ></i>
+      </button>
+
       {renderNote()}
 
       <div className="note-actions">
-        <button className="note-action-btn" onClick={() => onPinNote(note.id)}>
-          <i
-            className="fa-solid fa-thumbtack"
-            style={{
-              transform: note.isPinned ? "rotate(0deg)" : "rotate(45deg)",
-              opacity: note.isPinned ? 1 : 0.4,
-            }}
-          ></i>
-        </button>
-
         <button className="note-action-btn" onClick={onToggleEdit}>
           <i className="fa-solid fa-pen"></i>
         </button>

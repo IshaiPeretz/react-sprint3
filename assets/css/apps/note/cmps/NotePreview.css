@@ -10,6 +10,29 @@
   overflow: hidden;
 }
 
+.pin-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  color: #5f6368;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 20;
+}
+
+.note-preview:hover .pin-btn {
+  opacity: 1;
+}
+
+.pin-btn:hover {
+  background-color: #f1f3f4;
+}
+
 .note-preview h4 {
   margin: 0 0 4px;
   font-size: 0.95rem;
