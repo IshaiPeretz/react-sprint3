@@ -1,6 +1,6 @@
 import { NotePreview } from "../cmps/NotePreview.jsx";
 
-export function NoteList({ notes, onRemoveNote, onSaveNote }) {
+export function NoteList({ notes, onRemoveNote, onSaveNote, onPinNote }) {
   if (!Array.isArray(notes)) return <div>Loading...</div>;
   if (!notes.length) return <div>No notes to show...</div>;
 
@@ -12,6 +12,7 @@ export function NoteList({ notes, onRemoveNote, onSaveNote }) {
             note={note}
             onRemoveNote={onRemoveNote}
             onSaveNote={onSaveNote}
+            onPinNote={onPinNote}
           />
         </li>
       ))}

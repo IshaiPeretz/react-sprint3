@@ -9,9 +9,12 @@ export const notesService = {
     get,
     remove,
     save,
+    togglePinned,
     getEmptyNote,
     getDefaultFilter,
 }
+
+
 
 _createNotes()
 
@@ -58,6 +61,14 @@ function save(note) {
     if (note.id) return storageService.put(NOTE_KEY, note)
     return storageService.post(NOTE_KEY, note)
 }
+
+function togglePinned(noteId) {
+    return get(noteId).then(note => {
+        note.isPinned = !note.isPinned
+        return save(note)
+    })
+}
+
 
 function getEmptyNote(type = 'NoteTxt') {
     return {

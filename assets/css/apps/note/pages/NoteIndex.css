@@ -29,3 +29,10 @@
     max-width: 100%;
   }
 }
+
+.notes-section-separator {
+  height: 1px;
+  background: #dadce0;
+  width: 100%;
+  margin: 30px 0 20px;
+}

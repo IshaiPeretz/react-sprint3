@@ -5,7 +5,7 @@ import { NoteVideo } from "./NoteVideo.jsx";
 
 const { useState, useEffect, useRef } = React;
 
-export function NotePreview({ note, onRemoveNote, onSaveNote }) {
+export function NotePreview({ note, onRemoveNote, onSaveNote, onPinNote }) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [showColors, setShowColors] = useState(false);
   const [draftNote, setDraftNote] = useState(note);
@@ -61,7 +61,7 @@ export function NotePreview({ note, onRemoveNote, onSaveNote }) {
         return todo;
       });
       const updated = Object.assign({}, prev, {
-        info: Object.assign({}, prev.info, { todos: todos }),
+        info: Object.assign({}, prev.info, { todos }),
       });
       onSaveNote(updated);
       return updated;
@@ -71,9 +71,7 @@ export function NotePreview({ note, onRemoveNote, onSaveNote }) {
   function onChangeColor(color) {
     setDraftNote(function (prev) {
       const updated = Object.assign({}, prev, {
-        style: Object.assign({}, prev.style, {
-          backgroundColor: color,
-        }),
+        style: Object.assign({}, prev.style, { backgroundColor: color }),
       });
       onSaveNote(updated);
       return updated;
@@ -82,9 +80,7 @@ export function NotePreview({ note, onRemoveNote, onSaveNote }) {
 
   function onToggleEdit() {
     if (isEditMode) onSaveNote(draftNote);
-    setIsEditMode(function (prev) {
-      return !prev;
-    });
+    setIsEditMode((prev) => !prev);
     setShowColors(false);
   }
 
@@ -111,9 +107,7 @@ export function NotePreview({ note, onRemoveNote, onSaveNote }) {
               const reader = new FileReader();
               reader.onload = function (e) {
                 onChangeInfo(
-                  Object.assign({}, draftNote.info, {
-                    url: e.target.result,
-                  })
+                  Object.assign({}, draftNote.info, { url: e.target.result })
                 );
               };
               reader.readAsDataURL(file);
@@ -154,6 +148,16 @@ export function NotePreview({ note, onRemoveNote, onSaveNote }) {
       {renderNote()}
 
       <div className="note-actions">
+        <button className="note-action-btn" onClick={() => onPinNote(note.id)}>
+          <i
+            className="fa-solid fa-thumbtack"
+            style={{
+              transform: note.isPinned ? "rotate(0deg)" : "rotate(45deg)",
+              opacity: note.isPinned ? 1 : 0.4,
+            }}
+          ></i>
+        </button>
+
         <button className="note-action-btn" onClick={onToggleEdit}>
           <i className="fa-solid fa-pen"></i>
         </button>
@@ -161,9 +165,7 @@ export function NotePreview({ note, onRemoveNote, onSaveNote }) {
         <button
           className="note-action-btn"
           onClick={function () {
-            setShowColors(function (prev) {
-              return !prev;
-            });
+            setShowColors((prev) => !prev);
           }}
         >
           <i className="fa-solid fa-palette"></i>
@@ -207,4 +209,3 @@ export function NotePreview({ note, onRemoveNote, onSaveNote }) {
     </article>
   );
 }
-

@@ -35,6 +35,12 @@ export function NoteIndex() {
     });
   }
 
+  function onPinNote(noteId) {
+    notesService.togglePinned(noteId).then(() => {
+      notesService.query(filterBy).then(setNotes);
+    });
+  }
+
   function onAddNote(newNote) {
     const note = notesService.getEmptyNote(newNote.type);
 
@@ -72,6 +78,9 @@ export function NoteIndex() {
 
   if (!notes) return <div>Loading...</div>;
 
+  const pinnedNotes = notes.filter((note) => note.isPinned);
+  const otherNotes = notes.filter((note) => !note.isPinned);
+
   return (
     <section className="note-index">
       <NoteHeader
@@ -90,10 +99,25 @@ export function NoteIndex() {
 
         <main className="note-main">
           <NoteAdd onAddNote={onAddNote} currentType={filterBy.type} />
+
+          {pinnedNotes.length > 0 && (
+            <React.Fragment>
+              <h2 className="notes-section-title">Pinned</h2>
+              <NoteList
+                notes={pinnedNotes}
+                onRemoveNote={onRemoveNote}
+                onSaveNote={onSaveNote}
+                onPinNote={onPinNote}
+              />
+              <div className="notes-section-separator"></div>
+            </React.Fragment>
+          )}
+
           <NoteList
-            notes={notes}
+            notes={otherNotes}
             onRemoveNote={onRemoveNote}
             onSaveNote={onSaveNote}
+            onPinNote={onPinNote}
           />
         </main>
       </section>
