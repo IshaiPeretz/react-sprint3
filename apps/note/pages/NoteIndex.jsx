@@ -89,7 +89,7 @@ export function NoteIndex() {
         />
 
         <main className="note-main">
-          <NoteAdd onAddNote={onAddNote} />
+          <NoteAdd onAddNote={onAddNote} currentType={filterBy.type} />
           <NoteList
             notes={notes}
             onRemoveNote={onRemoveNote}

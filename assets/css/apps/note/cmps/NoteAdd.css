@@ -44,6 +44,7 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+  align-items: flex-start;
 }
 
 .note-add input,
@@ -145,24 +146,6 @@
   gap: 8px;
 }
 
-@media (max-width: 600px) {
-  .note-add form {
-    max-width: 100%;
-    padding: 10px 14px;
-  }
-
-  .note-type-actions button {
-    font-size: 1.05rem;
-    padding: 5px;
-  }
-
-  .note-title,
-  .note-add-input-left input,
-  .todo-input {
-    font-size: 0.95rem;
-  }
-}
-
 .note-add textarea {
   padding-top: 0;
   padding-bottom: 0;
@@ -181,4 +164,40 @@
   padding-bottom: 0;
   line-height: 1.6rem;
   height: 1.6rem;
+}
+
+.img-collapsed-upload,
+.collapsed-upload-btn {
+  display: inline-block;
+  background: #f1f3f4;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  width: auto;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+.img-collapsed-upload:hover,
+.collapsed-upload-btn:hover {
+  background: #e2e5e7;
+}
+
+@media (max-width: 600px) {
+  .note-add form {
+    max-width: 100%;
+    padding: 10px 14px;
+  }
+
+  .note-type-actions button {
+    font-size: 1.05rem;
+    padding: 5px;
+  }
+
+  .note-title,
+  .note-add-input-left input,
+  .todo-input {
+    font-size: 0.95rem;
+  }
 }
