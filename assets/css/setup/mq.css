@@ -13,9 +13,11 @@
 
     .mail-prev {
         .date {
-            white-space: nowrap;
             width: 10vw;
             font-size: 0.8em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .body {
@@ -39,6 +41,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
+
 
     }
 
@@ -143,9 +146,9 @@
 
         .date {
             width: 5vw;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            white-space: normal; 
+            overflow: visible; 
+            text-overflow: clip;
             font-size: 0.7em;
         }
 
