@@ -23,7 +23,7 @@ export function MailIndex() {
     const [sidebarOpen, setSidebarOpen] = useState(false)
 
 
-    console.log('sidebarOpen:', sidebarOpen)
+  
 
     useEffect(() => {
         loadMails()
@@ -52,6 +52,7 @@ export function MailIndex() {
     function openNewMail(mail) {
         setEditingMail(mail)
         setIsNewMailOpen(true)
+        setSidebarOpen(false)
     }
     function closeNewMail() {
         setIsNewMailOpen(false)
@@ -60,22 +61,27 @@ export function MailIndex() {
     function onInbox() {
         setFilterBy({ status: 'inbox' })
         setActiveFolder('inbox')
+        setSidebarOpen(false)
     }
     function onSent() {
         setFilterBy({ status: 'sent' })
         setActiveFolder('sent')
+        setSidebarOpen(false)
     }
     function onTrash() {
         setFilterBy({ status: 'trash' })
         setActiveFolder('trash')
+        setSidebarOpen(false)
     }
     function onDraft() {
         setFilterBy({ status: 'draft' })
         setActiveFolder('draft')
+        setSidebarOpen(false)
     }
     function onStarred() {
         setFilterBy(filterBy => ({ ...filterBy, isStarred: true }))
         setActiveFolder('starred')
+        setSidebarOpen(false)
     }
 
     function markAsRead(ev, mail) {
@@ -106,9 +112,7 @@ export function MailIndex() {
     }
 
     function toggleSidebar() {
-        console.log('Before:', sidebarOpen)
         setSidebarOpen(!sidebarOpen)
-        console.log('After:', !sidebarOpen)
     }
 
     const visibleMails = mails
@@ -119,11 +123,11 @@ export function MailIndex() {
                 <MailHeader
                     sidebarOpen={sidebarOpen}
                     onToggleSidebar={toggleSidebar}
-                    filterByToEdit ={filterBy}
+                    filterByToEdit={filterBy}
                     onSetFilter={onSetFilter}
                     onSortChange={onSortChange}
                     sortBy={sortBy}
-               />
+                />
                 {isNewMailOpen && <NewMail
                     onClose={closeNewMail}
                     onSendMail={sendMail}

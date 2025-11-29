@@ -4,13 +4,13 @@
     position: fixed;
     bottom: 0;
     right: 0;
-    width: 40vw;
+    width: 80vw;
     height: 50vh;
     border: 1px solid var(--mail-color-1);
     box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.8);
     border-top-right-radius:8px;
     border-top-left-radius:8px;
-     z-index: 10;
+    z-index: 10;
     background-color: white;
 
 

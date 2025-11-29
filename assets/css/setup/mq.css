@@ -146,8 +146,8 @@
 
         .date {
             width: 5vw;
-            white-space: normal; 
-            overflow: visible; 
+            white-space: normal;
+            overflow: visible;
             text-overflow: clip;
             font-size: 0.7em;
         }
@@ -172,5 +172,18 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
+    }
+
+    .mail-display {
+        .subject {
+            grid-column: 1 !important;
+        }
+
+        .date {
+            grid-column: 2 !important;
+            grid-row: 1 !important;
+        }
+
+
     }
 }
