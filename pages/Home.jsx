@@ -1,5 +1,5 @@
-const { Link, NavLink } = ReactRouterDOM;
-const { Fragment } = React;
+const { Link, NavLink } = ReactRouterDOM
+const { Fragment } = React
 
 export function Home() {
   return (
@@ -28,7 +28,7 @@ export function Home() {
         <p>One app. Two superpowers. Zero distractions.</p>
       </section>
 
-      <section className= "apps-menu">
+      <section className="apps-menu">
         <NavLink to="/mail">
           <div className="mail-logo">
             <i className="fa-solid fa-envelope"></i>
@@ -43,5 +43,5 @@ export function Home() {
         </NavLink>
       </section>
     </Fragment>
-  );
+  )
 }
