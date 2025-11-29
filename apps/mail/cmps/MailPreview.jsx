@@ -24,11 +24,11 @@ export function MailPreview({ mail, onRemove, onMarkRead, openNewMail, onMarkSta
     const iconStarred = isStarred ? <i className="fa-solid fa-star"></i> : <i className="fa-regular fa-star"></i>
     return (
         <article className={`mail-prev ${classRead}`} onClick={openNewMail}>
-            <button className={`${classStarred}`}
+            <button className={`star-btn ${classStarred}`}
                 onClick={(ev) => {
                     ev.stopPropagation()
                     ev.preventDefault()
-                    { onMarkStar(ev, mail) }
+                    onMarkStar(ev, mail) 
                 }}>{iconStarred}</button>
             <h3 className="from">{from} </h3>
             <h3 className="subject">{subject} </h3>
@@ -43,7 +43,7 @@ export function MailPreview({ mail, onRemove, onMarkRead, openNewMail, onMarkSta
                 <button onClick={(ev) => {
                     ev.stopPropagation()
                     ev.preventDefault()
-                    { onMarkRead(ev, mail) }
+                    onMarkRead(ev, mail) 
                 }}>{iconRead}</button>
             </section>
         </article >

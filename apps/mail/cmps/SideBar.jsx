@@ -1,12 +1,12 @@
 import { CountUnread } from "./CountUnread.jsx"
 
 
-export function SideBar({ openNewMail, mails, onSent, onInbox, onTrash, onDraft, onStarred, activeFolder }) {
+export function SideBar({ openNewMail, mails, onSent, onInbox, onTrash, onDraft, onStarred, activeFolder, sidebarOpen }) {
 
 
     return (
 
-        <section className="side-bar">
+        <section className={`side-bar ${sidebarOpen ? 'open' : ''}`}>
             <button className="compose-btn"
                 onClick={openNewMail}>
                 <i className="fa-solid fa-pen"></i>
@@ -17,8 +17,8 @@ export function SideBar({ openNewMail, mails, onSent, onInbox, onTrash, onDraft,
                     onClick={onInbox} >
                     <i className={`${activeFolder === 'inbox' ? 'fa-solid fa-inbox' : 'fa-solid fa-inbox'}`}></i>
                     Inbox
-                    <CountUnread mails={mails}
-                    /></button>
+                    <CountUnread mails={mails} activeFolder={activeFolder}/>
+                </button>
                 <button className={`btn starred ${activeFolder === 'starred' ? 'active' : ''}`}
                     onClick={onStarred}>
                     <i className={`${activeFolder === 'starred' ? 'fa-solid fa-star' : 'fa-regular fa-star'}`}></i>

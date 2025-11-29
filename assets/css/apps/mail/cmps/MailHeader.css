@@ -1,10 +1,9 @@
 .mail-header {
     display: grid;
-    grid-template-columns: auto 1fr;
-    grid-column: 1 /span 2;
     background-color: var(--mail-color-1);
     align-items: center;
     border-radius: 5px;
+
 
 
     .mail-logo {
@@ -16,25 +15,25 @@
         align-items: center;
         gap: 0.5rem;
         padding: 15px;
+
+        .fa-envelope {
+            font-size: 2rem;
+        }
     }
 
+ 
+
     .sort-by-container {
-        grid-column: 3;
-        padding: 30px;
+        padding: 20px;
 
         select {
             border-radius: 37px;
             background-color: transparent;
             padding: 5px;
             border-color: #747775;
-            color: #747775;;
+            color: #747775;
 
         }
     }
 
-
-
-    .fa-envelope {
-        font-size: 2rem;
-    }
 }

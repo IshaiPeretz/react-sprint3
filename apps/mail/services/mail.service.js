@@ -288,8 +288,23 @@ export const mailService = {
 function query(filterBy = {}, sortBy = {}) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
-            if (filterBy.isStarred === true) {
-                mails = mails.filter(mail => mail.isStarred)
+            if (filterBy.status === 'inbox') {
+                mails = mails.filter(mail => mail.to === loggedInUser.email && !mail.removedAt)
+            }
+            else if (filterBy.status === 'sent') {
+                mails = mails.filter(mail => mail.from === loggedInUser.email && mail.sentAt && !mail.removedAt)
+            }
+            else if (filterBy.status === 'starred') {
+                mails = mails.filter(mail => mail.isStarred && !mail.removedAt)
+            }
+            else if (filterBy.status === 'trash') {
+                mails = mails.filter(mail => mail.removedAt)
+            }
+            else if (filterBy.status === 'draft') {
+                mails = mails.filter(mail => mail.createdAt && !mail.sentAt && !mail.removedAt)
+            }
+            else {
+                mails = mails.filter(mail => !mail.removedAt)
             }
             if (filterBy.text) {
                 const regExp = new RegExp(filterBy.text, 'i')
@@ -297,24 +312,10 @@ function query(filterBy = {}, sortBy = {}) {
             }
             if (filterBy.isRead === true) {
                 mails = mails.filter(mail => mail.isRead)
+
             } else if (filterBy.isRead === false) {
                 mails = mails.filter(mail => !mail.isRead)
             }
-            if (filterBy.status === 'trash') {
-                mails = mails.filter(mail => mail.removedAt)
-            } else mails = mails.filter(mail => !mail.removedAt)
-
-            if (filterBy.status === 'draft') {
-                mails = mails.filter(mail => mail.createdAt && !mail.sentAt)
-            }
-
-            if (filterBy.status === 'inbox') {
-                mails = mails.filter(mail => mail.to === loggedInUser.email)
-            }
-            else if (filterBy.status === 'sent') {
-                mails = mails.filter(mail => mail.from === loggedInUser.email && mail.sentAt)
-            }
-
             mails.sort((m1, m2) => {
                 let direction
                 if (sortBy.by === 'sentAt') {
@@ -332,10 +333,10 @@ function query(filterBy = {}, sortBy = {}) {
                     return m2.subject.localeCompare(m1.subject) * direction
                 }
             })
-
             return mails
         })
 }
+
 
 function get(mailId) {
     return storageService.get(MAIL_KEY, mailId)
@@ -356,13 +357,8 @@ function save(mail) {
 }
 
 
-
-// function getDefaultFilter(filterBy = { title: '', minPrice: 0 }) {
-//     return { title: filterBy.title, minPrice: filterBy.minPrice }
-// }
-
 function getDefaultFilter() {
-    return { text: '', isRead: null, status: 'inbox', removedAt: null }
+    return { text: '', isRead: null, status: 'inbox' }
 }
 
 function getDefaultSortBy() {
@@ -373,7 +369,6 @@ function getDefaultSortBy() {
 
 function _createMails() {
     let mails = utilService.loadFromStorage(MAIL_KEY) || []
-
 
     if (mails && mails.length) return
 

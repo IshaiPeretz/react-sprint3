@@ -1,16 +1,10 @@
 
-import { MailFilter } from "../cmps/MailFilter.jsx"
 import { MailHeader } from "../cmps/MailHeader.jsx"
 import { MailList } from "../cmps/MailList.jsx"
 import { NewMail } from "../cmps/NewMail.jsx"
 import { SideBar } from "../cmps/SideBar.jsx"
-import { SortMail } from "../cmps/SortMail.jsx"
-
 import { mailService } from "../services/mail.service.js"
-
-
 const { useState, useEffect, Fragment } = React
-
 
 export function MailIndex() {
 
@@ -20,14 +14,15 @@ export function MailIndex() {
     const [editingMail, setEditingMail] = useState(null)
     const [mails, setMails] = useState([])
     const [activeFolder, setActiveFolder] = useState('inbox')
+    const [sidebarOpen, setSidebarOpen] = useState(false)
 
 
     useEffect(() => {
         loadMails()
-    }, [filterBy,sortBy])
+    }, [filterBy, sortBy])
 
     function loadMails() {
-        mailService.query(filterBy,sortBy)
+        mailService.query(filterBy, sortBy)
             .then(mails => setMails(mails))
     }
 
@@ -49,6 +44,7 @@ export function MailIndex() {
     function openNewMail(mail) {
         setEditingMail(mail)
         setIsNewMailOpen(true)
+        setSidebarOpen(false)
     }
     function closeNewMail() {
         setIsNewMailOpen(false)
@@ -57,22 +53,27 @@ export function MailIndex() {
     function onInbox() {
         setFilterBy({ status: 'inbox' })
         setActiveFolder('inbox')
+        setSidebarOpen(false)
     }
     function onSent() {
         setFilterBy({ status: 'sent' })
         setActiveFolder('sent')
+        setSidebarOpen(false)
     }
     function onTrash() {
         setFilterBy({ status: 'trash' })
         setActiveFolder('trash')
+        setSidebarOpen(false)
     }
     function onDraft() {
         setFilterBy({ status: 'draft' })
         setActiveFolder('draft')
+        setSidebarOpen(false)
     }
     function onStarred() {
-        setFilterBy(filterBy => ({ ...filterBy, isStarred: true }))
+        setFilterBy({ status: 'starred' })
         setActiveFolder('starred')
+        setSidebarOpen(false)
     }
 
     function markAsRead(ev, mail) {
@@ -96,26 +97,32 @@ export function MailIndex() {
 
     }
     function onSetFilter(newFilterBy) {
-        setFilterBy(filterBy => ({ ...filterBy, ...newFilterBy }))
+        const { status, ...filterChanges } = newFilterBy
+        setFilterBy(prevFilter => ({
+            status: prevFilter.status, ...filterChanges
+        }))
     }
     function onSortChange(newSortBy) {
         setSortBy(newSortBy)
     }
 
+    function toggleSidebar() {
+        setSidebarOpen(!sidebarOpen)
+    }
 
     const visibleMails = mails
     return (
         <Fragment>
 
             <section className="main-container">
-                <MailHeader>
-                    <MailFilter defaultFilter={filterBy}
-                        onSetFilter={onSetFilter} />
-                    <SortMail
-                        onSortChange={onSortChange}
-                        sortBy ={sortBy}
-                    />
-                </MailHeader>
+                <MailHeader
+                    sidebarOpen={sidebarOpen}
+                    onToggleSidebar={toggleSidebar}
+                    filterByToEdit={filterBy}
+                    onSetFilter={onSetFilter}
+                    onSortChange={onSortChange}
+                    sortBy={sortBy}
+                />
                 {isNewMailOpen && <NewMail
                     onClose={closeNewMail}
                     onSendMail={sendMail}
@@ -130,6 +137,7 @@ export function MailIndex() {
                     onDraft={onDraft}
                     onStarred={onStarred}
                     activeFolder={activeFolder}
+                    sidebarOpen={sidebarOpen}
                 />
                 <MailList
                     mails={visibleMails}

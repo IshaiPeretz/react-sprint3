@@ -4,42 +4,10 @@
     justify-content: space-between;
     align-items: center;
     border: 1px #eceff1 solid;
-    padding: 0.5em;
+    padding: 0.5em 2em;
     height: 3em;
     gap: 10px;
 
-    .date {
-        white-space: nowrap;
-        width: 80px;
-        font-size: 0.8em;
-
-    }
-
-    .body {
-        width: 30vw;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-
-    }
-
-    h3.body {
-        font-weight: normal !important;
-    }
-
-    .from {
-        width: 20vw;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .subject {
-        width: 10vw;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
 
     &:hover {
         cursor: pointer;
@@ -48,7 +16,7 @@
 
         .preview-btns {
             display: flex;
-            width: 80px;
+            width: 5vw;
             justify-content: center;
 
             :hover {
@@ -59,6 +27,10 @@
         .date {
             display: none;
         }
+    }
+
+    h3.body {
+        font-weight: normal !important;
     }
 
     button {
