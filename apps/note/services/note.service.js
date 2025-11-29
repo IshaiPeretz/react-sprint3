@@ -212,7 +212,19 @@ function _createNotes() {
                     { txt: "Research", isDone: false },
                 ]
             },
+        },
+        {
+            id: utilService.makeId(),
+            createdAt: Date.now(),
+            type: 'NoteVideo',
+            isPinned: false,
+            style: { backgroundColor: '#AECbFA' },
+            info: {
+                title: '',
+                url: 'https://www.youtube.com/embed/jNQXAC9IVRw'
+            }
         }
+
     ]
 
     utilService.saveToStorage(NOTE_KEY, notes)

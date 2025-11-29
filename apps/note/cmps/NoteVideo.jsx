@@ -1,10 +1,20 @@
 export function NoteVideo({ info, isEditMode, onChangeInfo }) {
   function getEmbedUrl(url) {
     if (!url) return "";
-    const parts = url.split("v=");
-    if (parts.length < 2) return "";
-    const id = parts[1].split("&")[0];
-    return "https://www.youtube.com/embed/" + id;
+
+    let id = "";
+
+    if (url.includes("youtube.com/watch?v=")) {
+      id = url.split("v=")[1].split("&")[0];
+    } else if (url.includes("youtu.be/")) {
+      id = url.split("youtu.be/")[1].split("?")[0];
+    } else if (url.includes("/embed/")) {
+      id = url.split("/embed/")[1].split("?")[0];
+    } else if (url.includes("youtube.com/shorts/")) {
+      id = url.split("shorts/")[1].split("?")[0];
+    }
+
+    return id ? "https://www.youtube.com/embed/" + id : "";
   }
 
   const embedUrl = getEmbedUrl(info.url);
