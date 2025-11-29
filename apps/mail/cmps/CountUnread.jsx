@@ -12,11 +12,8 @@ export function CountUnread({ mails, activeFolder }) {
             }
             return acc
         }, 0)
-
     }
-
-
-
+    
     return (
         <section className="unread-counter">{unread}</section>
     )

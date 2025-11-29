@@ -12,12 +12,10 @@
     }
 
     .mail-prev {
+        
         .date {
             width: 10vw;
-            font-size: 0.8em;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            font-size: 0.75em;
         }
 
         .body {
@@ -26,7 +24,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-
+    
 
         .from {
             width: 40vw;
@@ -78,6 +76,7 @@
 
         .radio-container {
             grid-column: 2;
+
         }
 
         .sort-by-container {
@@ -149,25 +148,25 @@
             white-space: normal;
             overflow: visible;
             text-overflow: clip;
-            font-size: 0.7em;
+            font-size: 0.875em;
         }
 
         .body {
-            width: 30vw;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .from {
             width: 20vw;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        .subject {
+        .from {
             width: 10vw;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .subject {
+            width: 20vw;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;

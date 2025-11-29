@@ -5,17 +5,13 @@ export function MailFilter({ defaultFilter, onSetFilter }) {
 
     const [filterByToEdit, setFilterToEdit] = useState(defaultFilter)
 
-
-
     useEffect(() => {
         onSetFilter(filterByToEdit)
     }, [filterByToEdit])
 
-
     function handleChange({ target }) {
         const field = target.name
         let value = target.value
-
 
         switch (target.type) {
             case 'radio':

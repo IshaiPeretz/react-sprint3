@@ -286,22 +286,22 @@ export const mailService = {
 }
 
 function query(filterBy = {}, sortBy = {}) {
-     return storageService.query(MAIL_KEY)
+    return storageService.query(MAIL_KEY)
         .then(mails => {
             if (filterBy.status === 'inbox') {
-                mails = mails.filter(mail => mail.to === loggedInUser.email)
+                mails = mails.filter(mail => mail.to === loggedInUser.email && !mail.removedAt)
             }
             else if (filterBy.status === 'sent') {
-                mails = mails.filter(mail => mail.from === loggedInUser.email && mail.sentAt)
+                mails = mails.filter(mail => mail.from === loggedInUser.email && mail.sentAt && !mail.removedAt)
             }
             else if (filterBy.status === 'starred') {
-                mails = mails.filter(mail => mail.isStarred)
+                mails = mails.filter(mail => mail.isStarred && !mail.removedAt)
             }
             else if (filterBy.status === 'trash') {
                 mails = mails.filter(mail => mail.removedAt)
             }
             else if (filterBy.status === 'draft') {
-                mails = mails.filter(mail => mail.createdAt && !mail.sentAt)
+                mails = mails.filter(mail => mail.createdAt && !mail.sentAt && !mail.removedAt)
             }
             else {
                 mails = mails.filter(mail => !mail.removedAt)
@@ -336,6 +336,7 @@ function query(filterBy = {}, sortBy = {}) {
             return mails
         })
 }
+
 
 function get(mailId) {
     return storageService.get(MAIL_KEY, mailId)

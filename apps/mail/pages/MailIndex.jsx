@@ -56,7 +56,7 @@ export function MailIndex() {
         setSidebarOpen(false)
     }
     function onSent() {
-              setFilterBy({ status: 'sent' })
+        setFilterBy({ status: 'sent' })
         setActiveFolder('sent')
         setSidebarOpen(false)
     }
@@ -99,7 +99,8 @@ export function MailIndex() {
     function onSetFilter(newFilterBy) {
         const { status, ...filterChanges } = newFilterBy
         setFilterBy(prevFilter => ({
-            status: prevFilter.status, ...filterChanges}))
+            status: prevFilter.status, ...filterChanges
+        }))
     }
     function onSortChange(newSortBy) {
         setSortBy(newSortBy)
