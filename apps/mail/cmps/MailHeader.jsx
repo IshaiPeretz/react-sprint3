@@ -1,7 +1,7 @@
 import { MailFilter } from "./MailFilter.jsx"
 import { SortMail } from "./SortMail.jsx"
 
-export function MailHeader({ children,onToggleSidebar }) {
+export function MailHeader({ children, onToggleSidebar, onSetFilter, sortBy, onSortChange, filterByToEdit }) {
 
 
 
@@ -13,7 +13,8 @@ export function MailHeader({ children,onToggleSidebar }) {
             }}
             ><i className="fa-solid fa-bars"></i></button>
             {children}
-
+            <MailFilter defaultFilter={filterByToEdit} onSetFilter={onSetFilter} />
+            <SortMail onSortChange={onSortChange} sortBy={sortBy} />
         </header >
     )
 }

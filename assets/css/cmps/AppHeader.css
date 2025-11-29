@@ -57,7 +57,7 @@
         background-color: transparent;
 
         &:hover {
-            background-color: var(--mail-color-1);
+            background-color: #e9eef6;
         }
     }
 }

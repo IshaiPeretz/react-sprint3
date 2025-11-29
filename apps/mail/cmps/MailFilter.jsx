@@ -1,5 +1,5 @@
 
-const { useState, useEffect } = React
+const { useState, useEffect, Fragment } = React
 
 export function MailFilter({ defaultFilter, onSetFilter }) {
 
@@ -39,23 +39,25 @@ export function MailFilter({ defaultFilter, onSetFilter }) {
 
     const { text, isRead } = filterByToEdit
     return (
-        <section className="filter-container">
-            <form>
-                <label htmlFor="text"></label>
-                <input onChange={handleChange} value={text} name="text" id="text" type="text" placeholder="Search mail" />
-                <section className="radio-container">
-                    <label htmlFor="isRead">Read
-                        <input onChange={handleChange} checked={isRead === true} value={'true'} name="isRead" id="isRead" type="radio" />
-                    </label>
-                    <label htmlFor="unRead">Unread
-                        <input onChange={handleChange} checked={isRead === false} value={'false'} name="isRead" id="unRead" type="radio" />
-                    </label>
-                    <label htmlFor="all">All
-                        <input onChange={handleChange} checked={isRead === null} value={''} name="isRead" id="all" type="radio" />
-                    </label>
-                </section>
-            </form>
-        </section >
+        <Fragment>
+            <section className="filter-container">
+                <form>
+                    <label htmlFor="text"></label>
+                    <input onChange={handleChange} value={text} name="text" id="text" type="text" placeholder="Search mail" />
+                </form>
+            </section >
+            <section className="radio-container">
+                <label htmlFor="isRead">Read
+                    <input onChange={handleChange} checked={isRead === true} value={'true'} name="isRead" id="isRead" type="radio" />
+                </label>
+                <label htmlFor="unRead">Unread
+                    <input onChange={handleChange} checked={isRead === false} value={'false'} name="isRead" id="unRead" type="radio" />
+                </label>
+                <label htmlFor="all">All
+                    <input onChange={handleChange} checked={isRead === null} value={''} name="isRead" id="all" type="radio" />
+                </label>
+            </section>
+        </Fragment>
     )
 }
 

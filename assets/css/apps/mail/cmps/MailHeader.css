@@ -5,6 +5,7 @@
     border-radius: 5px;
 
 
+
     .mail-logo {
         justify-self: center;
         font-size: 2.5rem;
@@ -22,7 +23,7 @@
 
 
     .sort-by-container {
-        padding: 30px;
+        padding: 20px;
 
         select {
             border-radius: 37px;

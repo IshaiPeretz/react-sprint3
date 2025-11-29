@@ -119,14 +119,11 @@ export function MailIndex() {
                 <MailHeader
                     sidebarOpen={sidebarOpen}
                     onToggleSidebar={toggleSidebar}
-                >
-                    <MailFilter defaultFilter={filterBy}
-                        onSetFilter={onSetFilter} />
-                    <SortMail
-                        onSortChange={onSortChange}
-                        sortBy={sortBy}
-                    />
-                </MailHeader>
+                    filterByToEdit ={filterBy}
+                    onSetFilter={onSetFilter}
+                    onSortChange={onSortChange}
+                    sortBy={sortBy}
+               />
                 {isNewMailOpen && <NewMail
                     onClose={closeNewMail}
                     onSendMail={sendMail}
