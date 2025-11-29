@@ -4,7 +4,8 @@ import { MailHeader } from "../cmps/MailHeader.jsx"
 import { MailList } from "../cmps/MailList.jsx"
 import { NewMail } from "../cmps/NewMail.jsx"
 import { SideBar } from "../cmps/SideBar.jsx"
-import { SortMail } from "../cmps/sortMail.jsx"
+import { SortMail } from "../cmps/SortMail.jsx"
+
 import { mailService } from "../services/mail.service.js"
 
 
