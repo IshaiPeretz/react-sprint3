@@ -22,20 +22,20 @@ export function About() {
 
       <div className="creators">
         <div className="creator-card">
-          <img src="assets/img/roy.jpg" alt="Roy Sonnenberg" />
-          <h4>Roy Sonnenberg</h4>
-          <p>
-            Student at Coding Academy. Passionate about becoming the best
-            full-stack developer possible and continuing to strive forward.
-          </p>
-        </div>
-
-        <div className="creator-card">
-          <img src="assets/img/ishai.jpg" alt="Ishai Peretz" />
+          <img src="../../assets/img/ishai.jpg" alt="Ishai Peretz" />
           <h4>Ishai Peretz</h4>
           <p>
             Coding Academy student, always improving and aiming high. Ready to
             pursue a career in software development.
+          </p>
+        </div>
+
+        <div className="creator-card">
+          <img src="../../assets/img/roy.jpg" alt="Roy Sonnenberg" />
+          <h4>Roy Sonnenberg</h4>
+          <p>
+            Student at Coding Academy. Passionate about becoming the best
+            full-stack developer possible and continuing to grow.
           </p>
         </div>
       </div>
