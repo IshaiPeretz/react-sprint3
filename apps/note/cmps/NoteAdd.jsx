@@ -18,13 +18,14 @@ export function NoteAdd({ onAddNote }) {
     if (!isExpanded) return;
 
     if (noteType === "NoteTodos") {
-      const cleanTodos = todos
+      const clean = todos
         .filter((t) => t.txt.trim() !== "")
-        .map((t) => ({ txt: t.txt.trim(), isDone: false }));
-
-      if (!title && cleanTodos.length === 0) return;
-
-      onAddNote({ title, txt: cleanTodos, noteType });
+        .map((t) => ({
+          txt: t.txt.trim(),
+          isDone: false,
+        }));
+      if (!title && clean.length === 0) return;
+      onAddNote({ title, txt: clean, noteType });
     } else {
       if (!txt && !title) return;
       onAddNote({ title, txt, noteType });
@@ -68,19 +69,17 @@ export function NoteAdd({ onAddNote }) {
   function onTodoKey(ev, idx) {
     if (ev.key === "Enter") {
       ev.preventDefault();
-
       const list = [...todos];
       list.splice(idx + 1, 0, { txt: "", isDone: false });
       setTodos(list);
 
       setTimeout(() => {
-        const nextInput =
+        const next =
           formRef.current &&
           formRef.current.querySelector(
             `.todo-row:nth-child(${idx + 2}) .todo-input`
           );
-
-        if (nextInput) nextInput.focus();
+        if (next) next.focus();
       }, 0);
     }
 
@@ -89,20 +88,23 @@ export function NoteAdd({ onAddNote }) {
       setTodos(list);
 
       setTimeout(() => {
-        const prevInput =
+        const prev =
           formRef.current &&
           formRef.current.querySelector(
             `.todo-row:nth-child(${idx}) .todo-input`
           );
-
-        if (prevInput) prevInput.focus();
+        if (prev) prev.focus();
       }, 0);
     }
   }
 
   return (
     <section className="note-add">
-      <form ref={formRef} onSubmit={onSubmit}>
+      <form
+        ref={formRef}
+        onSubmit={onSubmit}
+        className={isExpanded ? "expanded" : ""}
+      >
         {isExpanded && (
           <input
             className="note-title"
@@ -123,9 +125,16 @@ export function NoteAdd({ onAddNote }) {
             />
           )}
 
+          {!isExpanded && noteType === "NoteTodos" && (
+            <div className="todo-row">
+              <input type="checkbox" disabled />
+              <input className="todo-input" placeholder="List item" readOnly />
+            </div>
+          )}
+
           {isExpanded && noteType === "NoteTxt" && (
             <textarea
-              rows={1}
+              rows={3}
               placeholder="Take a note..."
               value={txt}
               onChange={(ev) => {
@@ -172,16 +181,16 @@ export function NoteAdd({ onAddNote }) {
 
           <div className="note-type-actions">
             <button type="button" onClick={() => setNoteType("NoteTxt")}>
-              <i className="fa-solid fa-font"></i>
+              <i className="fa-regular fa-pen-to-square"></i>
             </button>
             <button type="button" onClick={() => setNoteType("NoteImg")}>
               <i className="fa-regular fa-image"></i>
             </button>
             <button type="button" onClick={() => setNoteType("NoteVideo")}>
-              <i className="fa-brands fa-youtube"></i>
+              <i className="fa-solid fa-video"></i>
             </button>
             <button type="button" onClick={() => setNoteType("NoteTodos")}>
-              <i className="fa-solid fa-list"></i>
+              <i className="fa-regular fa-square-check"></i>
             </button>
           </div>
         </div>
