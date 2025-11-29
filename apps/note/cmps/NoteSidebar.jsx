@@ -13,7 +13,10 @@ export function NoteSidebar({ isOpen, onClose, onSetTypeFilter, currentType }) {
 
         <button
           className={`sidebar-item ${currentType === "all" ? "active" : ""}`}
-          onClick={() => onSetTypeFilter("all")}
+          onClick={() => {
+            onSetTypeFilter("all");
+            onClose();
+          }}
         >
           <i className="fa-regular fa-lightbulb"></i>
           <span>Notes</span>
@@ -23,7 +26,10 @@ export function NoteSidebar({ isOpen, onClose, onSetTypeFilter, currentType }) {
           className={`sidebar-item ${
             currentType === "NoteTxt" ? "active" : ""
           }`}
-          onClick={() => onSetTypeFilter("NoteTxt")}
+          onClick={() => {
+            onSetTypeFilter("NoteTxt");
+            onClose();
+          }}
         >
           <i className="fa-regular fa-pen-to-square"></i>
           <span>TextNote</span>
@@ -33,7 +39,10 @@ export function NoteSidebar({ isOpen, onClose, onSetTypeFilter, currentType }) {
           className={`sidebar-item ${
             currentType === "NoteImg" ? "active" : ""
           }`}
-          onClick={() => onSetTypeFilter("NoteImg")}
+          onClick={() => {
+            onSetTypeFilter("NoteImg");
+            onClose();
+          }}
         >
           <i className="fa-regular fa-image"></i>
           <span>ImgNote</span>
@@ -43,7 +52,10 @@ export function NoteSidebar({ isOpen, onClose, onSetTypeFilter, currentType }) {
           className={`sidebar-item ${
             currentType === "NoteVideo" ? "active" : ""
           }`}
-          onClick={() => onSetTypeFilter("NoteVideo")}
+          onClick={() => {
+            onSetTypeFilter("NoteVideo");
+            onClose();
+          }}
         >
           <i className="fa-solid fa-video"></i>
           <span>VidNote</span>
@@ -53,7 +65,10 @@ export function NoteSidebar({ isOpen, onClose, onSetTypeFilter, currentType }) {
           className={`sidebar-item ${
             currentType === "NoteTodos" ? "active" : ""
           }`}
-          onClick={() => onSetTypeFilter("NoteTodos")}
+          onClick={() => {
+            onSetTypeFilter("NoteTodos");
+            onClose();
+          }}
         >
           <i className="fa-regular fa-square-check"></i>
           <span>Todos</span>
