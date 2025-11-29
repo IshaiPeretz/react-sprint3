@@ -1,4 +1,7 @@
-import "../../assets/css/pages/About.css";
+import "../../assets/css/pages/About.css"
+
+import ishaiImg from "../../assets/img/ishai.jpg"
+import royImg from "../../assets/img/roy.jpg"
 
 export function About() {
   return (
@@ -24,7 +27,7 @@ export function About() {
         <div className="creator-row">
           <img
             className="creator-img"
-            src="../assets/img/ishai.jpg"
+            src={ishaiImg}
             alt="Ishai Peretz"
           />
 
@@ -40,7 +43,7 @@ export function About() {
         <div className="creator-row">
           <img
             className="creator-img"
-            src="../assets/img/roy.jpg"
+            src={royImg}
             alt="Roy Sonnenberg"
           />
 
@@ -54,5 +57,5 @@ export function About() {
         </div>
       </div>
     </section>
-  );
+  )
 }
