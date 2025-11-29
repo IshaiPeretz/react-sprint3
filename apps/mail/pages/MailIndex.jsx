@@ -22,9 +22,6 @@ export function MailIndex() {
     const [activeFolder, setActiveFolder] = useState('inbox')
 
 
-    console.log(mails)
-
-
     useEffect(() => {
         loadMails()
     }, [filterBy,sortBy])
