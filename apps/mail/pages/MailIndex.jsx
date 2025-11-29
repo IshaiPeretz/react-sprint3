@@ -1,16 +1,10 @@
 
-import { MailFilter } from "../cmps/MailFilter.jsx"
 import { MailHeader } from "../cmps/MailHeader.jsx"
 import { MailList } from "../cmps/MailList.jsx"
 import { NewMail } from "../cmps/NewMail.jsx"
 import { SideBar } from "../cmps/SideBar.jsx"
-import { SortMail } from "../cmps/SortMail.jsx"
-
 import { mailService } from "../services/mail.service.js"
-
-
 const { useState, useEffect, Fragment } = React
-
 
 export function MailIndex() {
 
@@ -22,8 +16,6 @@ export function MailIndex() {
     const [activeFolder, setActiveFolder] = useState('inbox')
     const [sidebarOpen, setSidebarOpen] = useState(false)
 
-
-  
 
     useEffect(() => {
         loadMails()
@@ -64,7 +56,7 @@ export function MailIndex() {
         setSidebarOpen(false)
     }
     function onSent() {
-        setFilterBy({ status: 'sent' })
+              setFilterBy({ status: 'sent' })
         setActiveFolder('sent')
         setSidebarOpen(false)
     }
@@ -79,7 +71,7 @@ export function MailIndex() {
         setSidebarOpen(false)
     }
     function onStarred() {
-        setFilterBy(filterBy => ({ ...filterBy, isStarred: true }))
+        setFilterBy({ status: 'starred' })
         setActiveFolder('starred')
         setSidebarOpen(false)
     }
@@ -105,7 +97,9 @@ export function MailIndex() {
 
     }
     function onSetFilter(newFilterBy) {
-        setFilterBy(filterBy => ({ ...filterBy, ...newFilterBy }))
+        const { status, ...filterChanges } = newFilterBy
+        setFilterBy(prevFilter => ({
+            status: prevFilter.status, ...filterChanges}))
     }
     function onSortChange(newSortBy) {
         setSortBy(newSortBy)
