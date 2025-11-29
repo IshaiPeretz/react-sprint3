@@ -7,7 +7,7 @@
 
 .note-add form {
   width: 100%;
-  max-width: 600px;
+  max-width: 720px;
   background-color: #fff;
   border: 1px solid #dadce0;
   border-radius: 8px;
@@ -24,45 +24,73 @@
   width: 100%;
   border: none;
   outline: none;
+  padding: 0;
+  margin-bottom: 6px;
   font-size: 1rem;
   font-weight: 500;
-  margin-bottom: 6px;
-  padding: 0;
   line-height: 1.6rem;
+  background: transparent;
 }
 
 .note-add-input {
-  display: flex;
-  align-items: center;
   width: 100%;
+  display: flex;
+  justify-content: space-between;
   padding: 4px 0;
 }
 
-.note-add-input input,
-.todo-input {
+.note-add-input-left {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.note-add input,
+.note-add textarea,
+.note-add-input-left input,
+.note-add-input-left textarea,
+.todo-input {
+  width: 100%;
   border: none;
   outline: none;
   background: transparent;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.6rem;
-  height: 1.6rem;
   padding: 0;
   margin: 0;
+
+  font-family: "Roboto", sans-serif !important;
+  font-size: 1rem !important;
+  font-weight: 400 !important;
+  line-height: 1.6rem !important;
+  letter-spacing: 0 !important;
+  font-style: normal !important;
 }
 
-.note-add-input input::placeholder,
+.note-add-input-left textarea {
+  resize: none;
+  min-height: 1.6rem;
+  height: 1.6rem;
+  overflow-y: hidden;
+}
+
+.note-add input::placeholder,
+.note-add textarea::placeholder,
+.note-add-input-left input::placeholder,
+.note-add-input-left textarea::placeholder,
 .todo-input::placeholder {
-  color: #5f6368;
-  opacity: 1;
+  color: #5f6368 !important;
+  font-family: "Roboto", sans-serif !important;
+  font-size: 1rem !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  letter-spacing: 0 !important;
 }
 
 .note-type-actions {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-left: 10px;
+  padding-left: 12px;
 }
 
 .note-type-actions button {
@@ -81,7 +109,6 @@
 }
 
 .close-btn {
-  float: right;
   background: none;
   border: none;
   color: #5f6368;
@@ -89,6 +116,7 @@
   padding: 6px 8px;
   border-radius: 4px;
   cursor: pointer;
+  float: right;
 }
 
 .close-btn:hover {
@@ -104,22 +132,15 @@
 }
 
 .todo-row {
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-left: 2px;
 }
 
 .todo-row input[type="checkbox"] {
-  margin-right: 4px;
-}
-
-.todo-input {
-  flex: 1;
-  border: none;
-  outline: none;
-  font-size: 1rem;
-  padding: 0;
+  width: 16px;
+  height: 16px;
 }
 
 @media (max-width: 600px) {
@@ -129,15 +150,33 @@
   }
 
   .note-type-actions button {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     padding: 5px;
   }
 
-  .note-title {
-    font-size: 0.95rem;
+  .note-title,
+  .note-add-input-left input,
+  .todo-input {
+    font-size: 0.95rem !important;
   }
+}
 
-  .note-add-input input {
-    font-size: 0.95rem;
-  }
+.note-add textarea {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  line-height: 1.6rem !important;
+  display: flex;
+  align-items: center;
+}
+
+.note-add textarea::placeholder {
+  position: relative;
+  top: -1px;
+}
+
+.note-add input {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  line-height: 1.6rem !important;
+  height: 1.6rem !important;
 }

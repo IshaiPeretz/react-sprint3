@@ -116,68 +116,74 @@ export function NoteAdd({ onAddNote }) {
         )}
 
         <div className="note-add-input" onClick={() => setIsExpanded(true)}>
-          {!isExpanded && noteType !== "NoteTodos" && (
-            <input
-              type="text"
-              placeholder="Take a note..."
-              value={txt}
-              onChange={(ev) => setTxt(ev.target.value)}
-            />
-          )}
+          <div className="note-add-input-left">
+            {!isExpanded && noteType !== "NoteTodos" && (
+              <input
+                type="text"
+                placeholder="Take a note..."
+                value={txt}
+                onChange={(ev) => setTxt(ev.target.value)}
+              />
+            )}
 
-          {!isExpanded && noteType === "NoteTodos" && (
-            <div className="todo-row">
-              <input type="checkbox" disabled />
-              <input className="todo-input" placeholder="List item" readOnly />
-            </div>
-          )}
+            {!isExpanded && noteType === "NoteTodos" && (
+              <div className="todo-row">
+                <input type="checkbox" disabled />
+                <input
+                  className="todo-input"
+                  placeholder="List item"
+                  readOnly
+                />
+              </div>
+            )}
 
-          {isExpanded && noteType === "NoteTxt" && (
-            <textarea
-              rows={3}
-              placeholder="Take a note..."
-              value={txt}
-              onChange={(ev) => {
-                setTxt(ev.target.value);
-                autoGrow(ev);
-              }}
-            />
-          )}
+            {isExpanded && noteType === "NoteTxt" && (
+              <textarea
+                rows={3}
+                placeholder="Take a note..."
+                value={txt}
+                onChange={(ev) => {
+                  setTxt(ev.target.value);
+                  autoGrow(ev);
+                }}
+              />
+            )}
 
-          {isExpanded && noteType === "NoteImg" && (
-            <input
-              type="text"
-              placeholder="Image URL..."
-              value={txt}
-              onChange={(ev) => setTxt(ev.target.value)}
-            />
-          )}
+            {isExpanded && noteType === "NoteImg" && (
+              <input
+                type="text"
+                placeholder="Image URL..."
+                value={txt}
+                onChange={(ev) => setTxt(ev.target.value)}
+              />
+            )}
 
-          {isExpanded && noteType === "NoteVideo" && (
-            <input
-              type="text"
-              placeholder="YouTube URL..."
-              value={txt}
-              onChange={(ev) => setTxt(ev.target.value)}
-            />
-          )}
+            {isExpanded && noteType === "NoteVideo" && (
+              <input
+                type="text"
+                placeholder="YouTube URL..."
+                value={txt}
+                onChange={(ev) => setTxt(ev.target.value)}
+              />
+            )}
 
-          {isExpanded && noteType === "NoteTodos" && (
-            <div className="todo-editor">
-              {todos.map((todo, idx) => (
-                <div className="todo-row" key={idx}>
-                  <input type="checkbox" disabled />
-                  <input
-                    className="todo-input"
-                    value={todo.txt}
-                    placeholder={idx === todos.length - 1 ? "List item" : ""}
-                    onChange={(ev) => updateTodo(idx, ev.target.value)}
-                    onKeyDown={(ev) => onTodoKey(ev, idx)}
-                  />
-                </div>
-              ))}
-            </div>
-          )}
+            {isExpanded && noteType === "NoteTodos" && (
+              <div className="todo-editor">
+                {todos.map((todo, idx) => (
+                  <div className="todo-row" key={idx}>
+                    <input type="checkbox" disabled />
+                    <input
+                      className="todo-input"
+                      value={todo.txt}
+                      placeholder={idx === todos.length - 1 ? "List item" : ""}
+                      onChange={(ev) => updateTodo(idx, ev.target.value)}
+                      onKeyDown={(ev) => onTodoKey(ev, idx)}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
 
           <div className="note-type-actions">
             <button type="button" onClick={() => setNoteType("NoteTxt")}>
