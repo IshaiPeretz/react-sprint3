@@ -98,6 +98,13 @@
   margin-top: 8px;
   display: flex;
   gap: 4px;
+  justify-content: flex-end;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.note-preview:hover .note-actions {
+  opacity: 1;
 }
 
 .note-action-btn {
@@ -146,4 +153,9 @@
   white-space: pre-wrap;
   overflow-wrap: break-word;
   word-break: break-word;
+}
+
+.note-preview:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
 }
