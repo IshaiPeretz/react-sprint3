@@ -20,15 +20,24 @@ export function NoteAdd({ onAddNote }) {
     if (noteType === "NoteTodos") {
       const clean = todos
         .filter((t) => t.txt.trim() !== "")
-        .map((t) => ({
-          txt: t.txt.trim(),
-          isDone: false,
-        }));
-      if (!title && clean.length === 0) return;
-      onAddNote({ title, txt: clean, noteType });
-    } else {
-      if (!txt && !title) return;
-      onAddNote({ title, txt, noteType });
+        .map((t) => ({ txt: t.txt.trim(), isDone: false }));
+      if (!title.trim() && clean.length === 0) return;
+      onAddNote({ title, todos: clean, type: "NoteTodos" });
+    } else if (noteType === "NoteImg") {
+      if (!txt.trim()) return;
+      onAddNote({ title, url: txt.trim(), type: "NoteImg" });
+    } else if (noteType === "NoteVideo") {
+      if (!txt.trim()) return;
+      onAddNote({
+        type: "NoteVideo",
+        info: {
+          title: title,
+          url: txt.trim(),
+        },
+      });
+    } else if (noteType === "NoteTxt") {
+      if (!txt.trim() && !title.trim()) return;
+      onAddNote({ title, txt, type: "NoteTxt" });
     }
 
     setTitle("");

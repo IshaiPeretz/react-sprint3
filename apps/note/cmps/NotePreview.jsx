@@ -1,6 +1,7 @@
 import { NoteTxt } from "./NoteTxt.jsx";
 import { NoteImg } from "./NoteImg.jsx";
 import { NoteTodos } from "./NoteTodos.jsx";
+import { NoteVideo } from "./NoteVideo.jsx";
 
 const { useState, useEffect, useRef } = React;
 
@@ -92,6 +93,8 @@ export function NotePreview({ note, onRemoveNote, onSaveNote }) {
             onToggleTodo={onToggleTodo}
           />
         );
+      case "NoteVideo":
+        return <NoteVideo info={draftNote.info} />;
       default:
         return <div>Unknown note type</div>;
     }

@@ -28,14 +28,6 @@ export function NoteHeader({ searchTxt, onChangeSearch, onToggleSidebar }) {
         />
       </div>
 
-      {/* <div className="note-header-right">
-        <button className="icon-btn">
-          <i className="fa-regular fa-question-circle"></i>
-        </button>
-        <button className="icon-btn">
-          <i className="fa-solid fa-gear"></i>
-        </button>
-      </div> */}
     </header>
   );
 }

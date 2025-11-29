@@ -4,16 +4,15 @@
   list-style: none;
   padding: 0;
   margin: 0 auto;
-  max-width: 1800px;
-  columns: auto 250px;
+  column-width: 220px;
   column-gap: 22px;
+  max-width: 1800px;
 }
 
 .note-list li {
   break-inside: avoid;
   margin-bottom: 22px;
 }
-
 
 @media (max-width: 1400px) {
   .note-list {
