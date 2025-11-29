@@ -36,9 +36,7 @@ export function MailIndex() {
 
     function removeMail(ev, mail) {
         ev.preventDefault()
-
         const updatedMail = { ...mail, removedAt: Date.now() }
-
         mailService.save(updatedMail)
             .then(() => {
                 loadMails()
